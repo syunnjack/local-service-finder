@@ -15,6 +15,13 @@
       "when": 1784619549764,
       "tag": "0001_flippant_calypso",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1784640408071,
+      "tag": "0002_bumpy_vector",
+      "breakpoints": true
     }
   ]
 }
