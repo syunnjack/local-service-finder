@@ -1,0 +1,1 @@
+import type{Metadata}from"next";import"./globals.css";export const metadata:Metadata={title:"まちクリン｜市町村別ハウスクリーニング比較",description:"市町村、住居、清掃箇所から料金・追加条件・保証・空き状況を比較します。"};export default function Layout({children}:{children:React.ReactNode}){return <html lang="ja"><body>{children}</body></html>}
