@@ -22,6 +22,13 @@
       "when": 1784640408071,
       "tag": "0002_bumpy_vector",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1784643076760,
+      "tag": "0003_smooth_warbound",
+      "breakpoints": true
     }
   ]
 }
