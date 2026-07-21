@@ -1,0 +1,2 @@
+import{getDb}from"../../../db";import{events}from"../../../db/schema";const allowed=new Set(["view","compare","cta"]);
+export async function POST(request:Request){try{const b=await request.json()as Record<string,unknown>,event=String(b.event||"");if(!allowed.has(event))return Response.json({error:"invalid event"},{status:400});await getDb().insert(events).values({vertical:String(b.vertical||""),city:String(b.city||""),providerId:b.providerId?String(b.providerId):null,event});return Response.json({ok:true},{status:201})}catch{return Response.json({ok:false},{status:500})}}
