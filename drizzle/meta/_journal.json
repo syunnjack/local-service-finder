@@ -29,6 +29,13 @@
       "when": 1784643076760,
       "tag": "0003_smooth_warbound",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1784871234813,
+      "tag": "0004_zippy_tattoo",
+      "breakpoints": true
     }
   ]
 }
