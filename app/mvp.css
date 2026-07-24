@@ -2,3 +2,4 @@
 .official-link{display:block;margin-top:16px;padding:13px;border:1px solid var(--green);color:var(--green);font-weight:800;text-align:center}
 .source-note{display:block;margin-top:12px;line-height:1.5}
 .empty-list{padding:32px;background:#fff;border:1px solid var(--line)}
+.guide-callout{margin:0 8vw 54px;padding:28px;max-width:760px;background:#e7f3eb;border-left:5px solid var(--green)}.guide-callout h2{margin:8px 0;font-size:clamp(23px,3vw,32px)}.guide-callout p{line-height:1.7}.guide-callout a{font-weight:800;color:var(--green)}
