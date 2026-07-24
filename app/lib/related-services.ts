@@ -7,4 +7,5 @@ export const relatedServices: Record<string, { slug: string; label: string; reas
   locksmith: [{ slug: "electrical", label: "電気工事", reason: "防犯設備・電気設備の相談が必要な場合" }, { slug: "plumbing", label: "水回り修理", reason: "住まいの緊急トラブルをまとめて確認する場合" }, { slug: "house-cleaning", label: "ハウスクリーニング", reason: "入退去時に室内清掃も必要な場合" }],
   plumbing: [{ slug: "house-cleaning", label: "ハウスクリーニング", reason: "修理後の水回り清掃を検討する場合" }, { slug: "pest-control", label: "害虫・害獣駆除", reason: "水回りの害虫対策が必要な場合" }, { slug: "electrical", label: "電気工事", reason: "住宅設備をあわせて確認する場合" }],
   electrical: [{ slug: "house-cleaning", label: "ハウスクリーニング", reason: "エアコン清掃も検討する場合" }, { slug: "locksmith", label: "鍵・防犯", reason: "住まいの防犯を整えたい場合" }, { slug: "plumbing", label: "水回り修理", reason: "住宅設備をあわせて確認する場合" }],
+  handyman: [{ slug: "garden-care", label: "庭木剪定・草刈り", reason: "屋外の軽作業を依頼したい場合" }, { slug: "house-cleaning", label: "ハウスクリーニング", reason: "専門清掃が必要な場合" }, { slug: "moving", label: "引っ越し", reason: "運搬量が多い場合" }],
 };

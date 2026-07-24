@@ -24,6 +24,7 @@ export const providers: Provider[] = [
   listing("esmile", "plumbing", "イースマイル", "対応地域は公式サイトで確認", ["水漏れ", "つまり", "トイレ", "蛇口交換"], ["水回りのサービス案内", "見積もり条件を確認", "対応地域を確認"], "料金・部品代・出張条件は公式サイトで確認", "https://www.esmile-24.com/", "イースマイル公式サイト"),
   listing("edion-construction", "electrical", "エディオン 電気工事サービス", "対応地域・施工条件は公式サイトで確認", ["エアコン工事", "アンテナ工事", "電気工事", "コンセント工事"], ["施工内容を公式で確認", "追加工事の条件を確認", "対応地域を確認"], "工事内容・追加工事は公式サイトで確認", "https://service-info.edion.jp/service/construction/", "エディオン公式サイト"),
   listing("yamada-construction", "electrical", "ヤマダデンキ 工事サービス", "対応地域・施工条件は公式サイトで確認", ["エアコン設置", "アンテナ工事", "電気工事", "リフォーム工事"], ["工事メニューを確認", "設置条件を確認", "追加工事を確認"], "工事内容・追加工事は公式サイトで確認", "https://www.yamada-denkiweb.com/info/wcontents/kouji_aircon.html", "ヤマダデンキ公式サイト"),
+  listing("benry-handyman", "handyman", "ベンリー", "全国の店舗ネットワーク。対応地域・作業可否は最寄り店舗で確認", ["家具移動・引っ越しの手伝い", "庭の手入れ", "不用品処理の手伝い", "住まいの軽修繕"], ["サービスカテゴリを公式で確認", "最寄り店舗を検索可能", "作業前に見積もりを依頼"], "作業内容・地域・追加条件は店舗ごとに公式確認", "https://www.benry.com/service-index/", "ベンリー公式サイト"),
 ];
 
 export function getProviders(vertical: string) { return providers.filter((provider) => provider.vertical === vertical); }

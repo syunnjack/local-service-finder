@@ -369,6 +369,68 @@ regionFacts.push(
   },
 );
 
+regionFacts.push(
+  {
+    vertical: "garden-care", city: "tokyo", verifiedAt,
+    sources: [
+      { name: "東京都シルバー人材センター連合", detail: "区市町村ごとに設置されたシルバー人材センターの公式案内。庭木作業は所在地のセンターへ内容・受付状況を確認。", url: "https://www.tokyosilver.jp/" },
+      { name: "港区シルバー人材センター", detail: "植木剪定・除草作業について受注制限の案内を掲載。受付状況は変動するため確認が必要。", url: "https://www.minato-sc.or.jp/" },
+    ],
+    checks: ["民間の庭木業者と、区市町村のシルバー人材センターの両方へ、同じ作業範囲で見積もり・受付状況を確認する。", "高木・危険作業・処分・道路使用などは受託可否が異なるため、樹木の写真・高さ・作業場所を先に伝える。"],
+    faqs: [{ question: "東京都でシルバー人材センターへ頼めますか？", answer: "居住地・作業地の区市町村のセンターへ直接確認してください。作業内容、受付状況、安全上の条件により受託可否が変わります。" }],
+  },
+  {
+    vertical: "garden-care", city: "osaka", verifiedAt,
+    sources: [
+      { name: "大阪市シルバー人材センター", detail: "除草・剪定、家庭の家事支援などを受ける仕事として公式に案内。", url: "https://www.osakasc.or.jp/work.php" },
+      { name: "大阪市", detail: "大阪市シルバー人材センターによる除草・植栽剪定を含む空家管理サービスを案内。", url: "https://www.city.osaka.lg.jp/toshikeikaku/page/0000406807.html" },
+    ],
+    checks: ["民間業者とシルバー人材センターで、剪定・除草・草刈り・処分・高所作業の可否を同じ条件で確認する。", "空家・集合住宅・隣地に関係する作業は、管理者・所有者の承諾と作業範囲を先に確認する。"],
+    faqs: [{ question: "大阪市のシルバー人材センターに草刈りを頼めますか？", answer: "公式ページで除草・剪定が案内されています。安全条件や受付状況は作業内容・場所で変わるため、事前に相談してください。" }],
+  },
+  {
+    vertical: "garden-care", city: "yokohama", verifiedAt,
+    sources: [
+      { name: "横浜市シルバー人材センター", detail: "横浜市が設立した公益法人として、植木・家事援助を含む地域の仕事に対応することを案内。", url: "https://webc.sjc.ne.jp/yokohama/index" },
+    ],
+    checks: ["民間の庭木業者と横浜市シルバー人材センターへ、樹木の高さ・本数・処分・駐車条件を同じ前提で相談する。", "高所・電線付近・道路沿い・危険を伴う作業は、受託可否と安全対応を必ず確認する。"],
+    faqs: [{ question: "横浜市のシルバー人材センターは庭木作業に対応しますか？", answer: "公式サイトで植木を扱う案内があります。対象地域・具体的作業・受付状況は直接確認してください。" }],
+  },
+  {
+    vertical: "garden-care", city: "saitama", verifiedAt,
+    sources: [
+      { name: "さいたま市シルバー人材センター", detail: "個人宅向けに植木剪定・生垣刈り込み・草取り・草刈りを公式に案内。", url: "https://saitama-sjc.or.jp/simin/kojintaku.html" },
+      { name: "さいたま市", detail: "市内作業の依頼条件、庭木の手入れ・除草などの仕事を公式に案内。", url: "https://www.city.saitama.lg.jp/007/007/001/004/p015127.html" },
+    ],
+    checks: ["民間の庭木業者とシルバー人材センターへ、剪定・草刈り・処分・高所作業を分けて相談し、同条件で比較する。", "市内での作業、危険を伴わない範囲など、公式に示された受託条件と受付状況を確認する。"],
+    faqs: [{ question: "さいたま市で相見積もりする方法は？", answer: "樹木の写真・高さ・本数・作業希望・処分の要否をそろえ、民間業者と市シルバー人材センターへ同じ条件で相談してください。" }],
+  },
+  {
+    vertical: "handyman", city: "tokyo", verifiedAt,
+    sources: [{ name: "ベンリー", detail: "公式の店舗検索で東京都内の店舗を確認でき、家具移動・庭手入れ・片付け等のサービスカテゴリを案内。", url: "https://www.benry.com/benrytown-top-result/all/" }],
+    checks: ["依頼内容を具体化し、専門資格や許可が必要な工事・処分は対応可否を確認する。", "作業範囲、資材・処分、出張、追加作業、キャンセル条件を見積もりに含めて確認する。"],
+    faqs: [{ question: "便利屋へ何でも頼めますか？", answer: "サービス範囲は店舗と作業内容により異なります。資格・許可が必要な工事や処分は、対応可否と根拠を確認してください。" }],
+  },
+  {
+    vertical: "handyman", city: "osaka", verifiedAt,
+    sources: [{ name: "ベンリー", detail: "公式店舗紹介で大阪府内店舗を案内。サービス内容と地域対応は最寄り店舗へ確認する方式。", url: "https://www.benry.com/fc-introduction/" }],
+    checks: ["家具移動、片付け、庭作業、軽修繕を分け、作業範囲と専門業者が必要な範囲を確認する。", "廃棄物処理や電気・ガス・水道工事は、必要な許可・資格の有無を必ず確認する。"],
+    faqs: [{ question: "大阪で便利屋を比較する時のポイントは？", answer: "依頼内容、作業時間、資材・処分、出張、追加作業の条件をそろえ、資格・許可が必要な作業は専門事業者も比較してください。" }],
+  },
+  {
+    vertical: "handyman", city: "yokohama", verifiedAt,
+    sources: [{ name: "ベンリー妙蓮寺店", detail: "横浜市神奈川区の公式店舗ページで、ヒアリング後に見積もりを作成する流れを案内。", url: "https://myourenji.benry.com/" }],
+    checks: ["横浜市では区・住所・作業内容を伝え、店舗の対応範囲と見積もり条件を確認する。", "高所作業、運搬、廃棄、電気・水道に関わる作業は安全条件と資格・許可を確認する。"],
+    faqs: [{ question: "横浜市で見積もり前に伝えることは？", answer: "住所、依頼内容、作業箇所の写真、希望日時、駐車・搬入条件を伝え、作業範囲と追加条件を確認してください。" }],
+  },
+  {
+    vertical: "handyman", city: "saitama", verifiedAt,
+    sources: [{ name: "ベンリー", detail: "公式店舗一覧で埼玉県内の店舗を案内。対応地域・作業可否は店舗へ直接確認する方式。", url: "https://www.benry.com/benrytown-top-result/all/" }, { name: "株式会社ベンリー", detail: "さいたま市を拠点とする公式ページで、住まいの軽修繕・リフォーム等のサービスを案内。", url: "https://inc-benry.jp/service/" }],
+    checks: ["軽修繕と資格が必要な工事を分け、事業者の許可・資格、作業範囲、保証を確認する。", "片付け・運搬では、処分方法、搬出条件、追加料金が発生する条件を作業前に確認する。"],
+    faqs: [{ question: "さいたま市で便利屋へ依頼する時の注意点は？", answer: "依頼内容を写真とともに伝え、資格・許可が必要な作業か、見積もりに何が含まれるか、処分や追加作業の条件を確認してください。" }],
+  },
+);
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
