@@ -9,13 +9,19 @@ import "./provider.css";
 import "./corrections-admin.css";
 import AppFeatures from "./AppFeatures";
 
+const siteName = "まちセレクト";
+const description = "地域の生活サービスを、公式情報・確認日・比較基準・利用者口コミから比較できる意思決定支援メディアです。";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://machiselect.jp"),
-  title: { default: "まちセレクト | 地域サービスを公式情報から比較", template: "%s | まちセレクト" },
-  description: "地域サービスの公式情報・比較の観点・口コミを整理。料金や条件は各社の公式情報と見積もりで確認できます。",
+  title: { default: `${siteName} | 地域サービスの比較・選び方`, template: `%s | ${siteName}` },
+  description,
   alternates: { canonical: "/" },
-  openGraph: { type: "website", locale: "ja_JP", siteName: "まちセレクト", title: "まちセレクト", description: "暮らしの選択を、確かな情報から。", images: [{ url: "/og.png", width: 1792, height: 1024, alt: "まちセレクト" }] },
-  twitter: { card: "summary_large_image", title: "まちセレクト", description: "暮らしの選択を、確かな情報から。", images: ["/og.png"] },
+  openGraph: { type: "website", locale: "ja_JP", siteName, title: siteName, description, images: [{ url: "/og.png", width: 1792, height: 1024, alt: "まちセレクト" }] },
+  twitter: { card: "summary_large_image", title: siteName, description, images: ["/og.png"] },
 };
 
-export default function Layout({ children }: { children: React.ReactNode }) { return <html lang="ja"><body>{children}<AppFeatures /></body></html>; }
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const structuredData = { "@context": "https://schema.org", "@graph": [{ "@type": "Organization", name: siteName, url: "https://machiselect.jp", contactPoint: { "@type": "ContactPoint", contactType: "customer support", url: "https://machiselect.jp/listing-corrections" } }, { "@type": "WebSite", name: siteName, url: "https://machiselect.jp", description }] };
+  return <html lang="ja"><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />{children}<AppFeatures /></body></html>;
+}

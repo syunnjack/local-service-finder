@@ -7,7 +7,7 @@ import { providers } from "./lib/providers";
 const base = "https://machiselect.jp";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const updatedAt = new Date("2026-07-24");
+  const updatedAt = new Date("2026-07-25");
   return [
     { url: base, lastModified: updatedAt, priority: 1 },
     { url: `${base}/editorial-policy`, lastModified: updatedAt, priority: 0.5 },
