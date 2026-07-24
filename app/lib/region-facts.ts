@@ -251,6 +251,65 @@ regionFacts.push(
   },
 );
 
+regionFacts.push(
+  {
+    vertical: "garden-care",
+    city: "tokyo",
+    verifiedAt,
+    sources: [
+      { name: "oh!庭ya!", detail: "東京都の公式対応ページで、都内の担当店舗別対応エリアと剪定・伐採などの作業を案内。", url: "https://www.oh28ya.com/tokyo/" },
+      { name: "oh!庭ya!", detail: "東京支店の公式ページで、対応する区市町村と作業内容を案内。", url: "https://www.oh28ya.com/branch/tokyoshiten/" },
+    ],
+    checks: ["樹種、本数、高さ、作業箇所、写真を共有し、剪定・伐採・抜根のどれが必要か相談する。", "道路使用、隣地への枝張り、電線への接近、集合住宅の共用植栽は作業前に管理側へ確認する。", "概算見積もりと現地確認後の見積もりは異なり得るため、処分費・高所作業・追加条件を確認する。"],
+    faqs: [
+      { question: "東京都で庭木作業の見積もりに必要な情報は？", answer: "住所、樹種・本数・高さ、作業希望、現場写真、駐車や搬入の条件を伝えてください。" },
+      { question: "剪定と伐採のどちらを選べばよいですか？", answer: "樹木の状態、安全性、今後の管理方針で異なります。写真や現地確認をもとに、作業内容と費用条件を説明してもらってください。" },
+    ],
+  },
+  {
+    vertical: "garden-care",
+    city: "osaka",
+    verifiedAt,
+    sources: [
+      { name: "oh!庭ya!", detail: "大阪府の公式対応ページで、大阪市を含む担当店舗別の対応エリアと、作業前に見積もりを示すことを案内。", url: "https://www.oh28ya.com/osaka/" },
+      { name: "oh!庭ya!", detail: "大阪支店の公式ページで、大阪市の各区を含む対応エリアを案内。", url: "https://www.oh28ya.com/branch/osaka/" },
+    ],
+    checks: ["大阪市内でも住所や現場条件で対応が変わるため、区・住所・希望作業を伝える。", "枝葉や伐採木の処分、作業車の駐車、高所作業の有無を見積もりに含めて確認する。", "隣地・道路・電線に関わる作業は、事前に必要な承諾や安全対応を確認する。"],
+    faqs: [
+      { question: "大阪市内ならすべて対応できますか？", answer: "公式ページの対象区域は目安です。住所、樹木の状態、希望日時を添えて最終確認してください。" },
+      { question: "ネット概算見積もりだけで確定しますか？", answer: "公式ページでも作業内容や庭の環境により金額が変動すると案内されています。現地条件を確認した見積もりで判断してください。" },
+    ],
+  },
+  {
+    vertical: "garden-care",
+    city: "yokohama",
+    verifiedAt,
+    sources: [
+      { name: "oh!庭ya!", detail: "横浜店の公式ページで、西区・中区・南区・港南区・磯子区・戸塚区・栄区・泉区を含む対応エリアを案内。", url: "https://www.oh28ya.com/branch/yokohama/" },
+      { name: "oh!庭ya!", detail: "神奈川支店の公式ページで、県内の別担当エリアと担当店舗への相談を案内。", url: "https://www.oh28ya.com/branch/kanagawa/" },
+    ],
+    checks: ["横浜市では区により担当範囲が異なるため、住所を伝えて対応可否を確認する。", "坂道・狭い道路・駐車条件、高所作業車の要否は見積もり前に共有する。", "隣地境界、電線、共用植栽などは、作業許可と安全対応を確認する。"],
+    faqs: [
+      { question: "横浜市はどの区でも同じ担当ですか？", answer: "公式ページでは担当店ごとの対象区が示されています。区・住所・作業内容を伝えて最終確認してください。" },
+      { question: "庭木の写真で相談できますか？", answer: "写真は樹種・高さ・作業範囲の確認に役立ちます。ただし、最終的な作業条件や料金は現地状況を踏まえて確認してください。" },
+    ],
+  },
+  {
+    vertical: "garden-care",
+    city: "saitama",
+    verifiedAt,
+    sources: [
+      { name: "oh!庭ya!", detail: "埼玉県の公式対応ページで、さいたま市を含む担当店舗別の対応エリアと、作業前の見積もり案内を掲載。", url: "https://www.oh28ya.com/saitama/" },
+      { name: "oh!庭ya!", detail: "埼玉支店の公式ページで、さいたま市内の対応区を含む営業エリアと庭木作業を案内。", url: "https://www.oh28ya.com/branch/saitama/" },
+    ],
+    checks: ["さいたま市は区・住所を伝え、担当店と訪問可否を確認する。", "剪定・伐採・草刈り・防草など、希望作業と処分の要否を分けて見積もりに含める。", "道路・隣地・電線・集合住宅の共用部に関わる場合は、管理者や関係者への確認を先に行う。"],
+    faqs: [
+      { question: "さいたま市で庭木作業を頼む前に確認することは？", answer: "区・住所、木の高さと本数、希望作業、駐車・搬入条件、処分の要否を整理して相談してください。" },
+      { question: "見積もり後に追加費用が出ることはありますか？", answer: "高所作業、処分、現地の安全条件などで変わり得ます。何が基本料金に含まれるか、追加条件は何かを作業前に確認してください。" },
+    ],
+  },
+);
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
