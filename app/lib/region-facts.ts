@@ -431,6 +431,33 @@ regionFacts.push(
   },
 );
 
+regionFacts.push(
+  {
+    vertical: "pest-control", city: "tokyo", verifiedAt,
+    sources: [{ name: "ダスキン", detail: "東京都の公式店舗検索で、害虫駆除・総合衛生管理を取り扱う都内店舗を案内。", url: "https://www.duskin.jp/store/tokyo/" }, { name: "ダスキン ターミニックス", detail: "害虫獣の駆除・予防サービスと都道府県別の店舗検索を案内。", url: "https://www.duskin.jp/terminix/" }],
+    checks: ["害虫・害獣の種類、発生場所、目撃頻度、写真、子ども・ペットの有無を伝える。", "薬剤・施工範囲・再発時対応・追加作業の条件を、調査と見積もりの段階で確認する。"],
+    faqs: [{ question: "東京都で害虫駆除を頼む前に用意する情報は？", answer: "種類が不明でも、発生場所・時間帯・写真や動画・被害の状況を記録して相談してください。無理な薬剤使用は避けます。" }],
+  },
+  {
+    vertical: "pest-control", city: "osaka", verifiedAt,
+    sources: [{ name: "ダスキン", detail: "大阪府の公式店舗検索で、害虫駆除・総合衛生管理を取り扱う大阪市内を含む店舗を案内。", url: "https://www.duskin.jp/store/osaka/" }, { name: "ダスキン ターミニックス", detail: "害虫・害獣の種類別サービスと地域別店舗検索を案内。", url: "https://www.duskin.jp/terminix/" }],
+    checks: ["大阪市内でも住所・害虫の種類・建物状況により対応条件が異なるため、区・住所まで伝える。", "施工範囲、薬剤の扱い、再発予防、保証・再施工の条件を作業前に確認する。"],
+    faqs: [{ question: "大阪市で集合住宅の害虫駆除を頼む場合は？", answer: "専有部と共用部の切り分け、管理会社への連絡、周辺住戸への影響を確認してから依頼してください。" }],
+  },
+  {
+    vertical: "pest-control", city: "yokohama", verifiedAt,
+    sources: [{ name: "ダスキン", detail: "神奈川県の公式店舗検索で、横浜市鶴見区の害虫駆除・総合衛生管理取扱店舗などを案内。", url: "https://www.duskin.jp/store/kanagawa/" }, { name: "ダスキン ターミニックス", detail: "害虫獣の駆除・予防サービスと都道府県別店舗検索を案内。", url: "https://www.duskin.jp/terminix/" }],
+    checks: ["横浜市では区・住所・発生箇所を伝え、最寄り店舗の対応可否と現地調査条件を確認する。", "ペット・小さな子ども・アレルギーがある場合は、薬剤・施工後の注意事項を事前に確認する。"],
+    faqs: [{ question: "横浜市で再発予防も相談できますか？", answer: "予防を含む対応の可否は害虫の種類と建物状況で異なります。侵入経路の確認、施工範囲、再発時の条件を見積もりで確認してください。" }],
+  },
+  {
+    vertical: "pest-control", city: "saitama", verifiedAt,
+    sources: [{ name: "ダスキン", detail: "埼玉県の公式店舗検索で、さいたま市内の害虫駆除・総合衛生管理取扱店舗を案内。", url: "https://www.duskin.jp/store/saitama/" }, { name: "ダスキン ターミニックス", detail: "害虫獣の駆除・予防サービスと都道府県別店舗検索を案内。", url: "https://www.duskin.jp/terminix/" }],
+    checks: ["区・住所・害虫の種類・発生場所・写真を伝え、現地調査の要否と対応可否を確認する。", "施工料金だけでなく、薬剤、侵入経路対策、追加作業、再施工の条件を比較する。"],
+    faqs: [{ question: "さいたま市で害虫の種類が分からない場合は？", answer: "写真や発生場所・時間帯を記録して相談してください。種類の特定と施工方法は、現地状況を踏まえて確認するのが安全です。" }],
+  },
+);
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
