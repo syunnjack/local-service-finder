@@ -3,6 +3,7 @@ import "./globals.css";
 import "./mvp.css";
 import "./trust.css";
 import "./sponsored.css";
+import "./guides.css";
 import AppFeatures from "./AppFeatures";
 
 export const metadata: Metadata = {
