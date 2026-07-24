@@ -29,6 +29,34 @@
       "when": 1784643076760,
       "tag": "0003_smooth_warbound",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1784871234813,
+      "tag": "0004_zippy_tattoo",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1784880204095,
+      "tag": "0005_grey_the_executioner",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1784880813141,
+      "tag": "0006_flimsy_mandroid",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1784909747427,
+      "tag": "0007_oval_night_nurse",
+      "breakpoints": true
     }
   ]
 }

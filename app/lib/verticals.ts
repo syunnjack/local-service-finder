@@ -1,29 +1,16 @@
-export type Vertical={slug:string;name:string;category:string;accent:string;unit:string;services:string[];points:string[];cta:string;domain:string};
-export const verticals:Vertical[]=[
-["house-cleaning","ハウスクリーニング","生活","#207565","社",["エアコン","浴室","キッチン","水回りセット"],["追加料金","損害保険","再施工保証"],"見積もり・空き通知","machiclean.jp"],
-["moving","引越し","住居","#e35d35","社",["単身","家族","長距離","オフィス"],["総額","訪問見積もり","補償"],"一括見積もり","machihikkoshi.jp"],
-["housekeeping","家事代行","生活","#b65b72","社",["掃除","料理","買物","定期利用"],["対応範囲","担当者","鍵預かり"],"初回体験を確認","machikaji.jp"],
-["personal-gym","パーソナルジム","美容","#6454c5","店",["ダイエット","筋力","姿勢改善","女性向け"],["総額","返金保証","食事指導"],"無料体験を予約","machigym.jp"],
-["renovation","リフォーム","住居","#9b5c36","社",["水回り","外壁","内装","断熱"],["施工事例","保証年数","補助金"],"現地調査を依頼","machireform.jp"],
-["pet-hotel","ペットホテル","生活","#ad7131","施設",["犬","猫","小動物","長期"],["夜間体制","散歩","動物取扱登録"],"空室通知を受ける","machipetstay.jp"],
-["delivery-purchase","宅配買取","生活","#3d728e","社",["ブランド","家電","本・ゲーム","ホビー"],["査定根拠","返送料","入金速度"],"査定額を比べる","takuhai-satei.jp"],
-["cram-school","学習塾","教育","#4169a8","校",["小学生","中学生","高校生","受験"],["合格実績","月額総額","自習室"],"体験授業を予約","machijuku.jp"],
-["hair-salon","美容室","美容","#a85a79","店",["カット","カラー","髪質改善","メンズ"],["得意施術","追加料金","当日枠"],"空席通知を受ける","machisalon.jp"],
-["coworking","コワーキングスペース","仕事","#346a76","施設",["ドロップイン","月額","個室","会議室"],["回線速度","混雑","設備"],"空席を確認","machicowork.jp"],
-["programming-school","プログラミング教室","教育","#365cb8","校",["子ども","Web開発","AI","転職"],["教材","講師","成果物"],"無料相談を予約","machicode.jp"],
-["english-school","英会話","教育","#317d6c","校",["子ども","日常会話","ビジネス","試験"],["講師","振替","総額"],"体験レッスン予約","machieikaiwa.jp"],
-["nail","ネイル","美容","#bd657e","店",["ジェル","オフ","ケア","定額"],["持ち込み","オフ料金","保証"],"当日枠を確認","machinail.jp"],
-["mens-beauty","メンズ美容","美容","#263f59","店",["眉毛","フェイシャル","ヘア","スキンケア"],["男性専門","料金総額","個室"],"初回プラン確認","machimens.jp"],
-["korean-cosmetics","韓国コスメ取扱店","美容","#e06c83","店",["スキンケア","メイク","限定品","メンズ"],["正規品","在庫","テスター"],"入荷通知を受ける","kcosme-map.jp"],
-["meal-delivery","宅配食","生活","#df7638","社",["制限食","高齢者","冷凍弁当","家族"],["1食総額","配送頻度","解約条件"],"初回価格を比較","machigohan.jp"],
-["qualification-school","資格スクール","教育","#6859a4","校",["簿記","宅建","IT","医療"],["合格実績","給付金","質問対応"],"資料を比較","machishikaku.jp"],
-["jobs","求人","仕事","#2674a6","件",["正社員","パート","在宅","未経験"],["給与","休日","選考"],"新着求人通知","machikyujin.jp"],
-["career-support","転職支援","仕事","#2e668e","社",["IT","医療","営業","第二新卒"],["得意領域","非公開求人","支援内容"],"無料相談を予約","machi-career.jp"],
-["rental","賃貸","住居","#3c75a9","件",["一人暮らし","家族","ペット可","店舗"],["初期費用","更新料","周辺環境"],"新着物件通知","machichintai.jp"],
-["water-server","ウォーターサーバー","生活","#2785a1","社",["天然水","浄水","卓上","子育て"],["月額総額","解約金","配送"],"実質費用を比較","water-choice.jp"],
-["fiber","光回線","住居","#4167b1","社",["戸建て","マンション","10ギガ","工事不要"],["実質月額","速度実測","解約条件"],"提供エリア確認","machi-hikari.jp"],
-["esthetic","エステ","美容","#a65b8d","店",["フェイシャル","痩身","リラク","ブライダル"],["都度払い","勧誘方針","中途解約"],"体験条件を確認","machi-esthe.jp"],
-["hair-removal","脱毛","美容","#c14f77","店",["女性","男性","キッズ","部分"],["総額","予約","解約条件"],"無料相談を予約","machi-datsumo.jp"],
-["junk-removal","不用品回収","生活","#6a655e","社",["家具","家電","遺品整理","大量"],["許可確認","追加料金","処分方法"],"許可業者を確認","machi-kaishu.jp"],
-].map(([slug,name,category,accent,unit,services,points,cta,domain])=>({slug,name,category,accent,unit,services,points,cta,domain})) as Vertical[];
-export const getVertical=(slug:string)=>verticals.find(v=>v.slug===slug);
+export type Vertical = { slug: string; name: string; category: string; accent: string; unit: string; services: string[]; points: string[]; cta: string; domain: string };
+
+// Only categories with current, official-source provider listings are published.
+export const verticals: Vertical[] = [
+  { slug: "house-cleaning", name: "ハウスクリーニング", category: "生活", accent: "#207565", unit: "社", services: ["エアコン", "浴室", "キッチン", "水回りセット"], points: ["見積もり範囲", "対応エリア", "作業条件"], cta: "見積もりを比較する", domain: "machiclean.jp" },
+  { slug: "moving", name: "引越し", category: "住居", accent: "#e35d35", unit: "社", services: ["単身引越し", "家族引越し", "長距離引越し", "オフィス移転"], points: ["見積もり条件", "対応エリア", "補償・オプション"], cta: "見積もりを比較する", domain: "machihikkoshi.jp" },
+  { slug: "housekeeping", name: "家事代行", category: "生活", accent: "#b65b72", unit: "社", services: ["掃除", "料理", "整理収納", "定期利用"], points: ["対応内容", "利用頻度", "訪問条件"], cta: "サービスを比較する", domain: "machikaji.jp" },
+  { slug: "garden-care", name: "庭木剪定・草刈り", category: "住まい", accent: "#477a4c", unit: "社", services: ["庭木剪定", "伐採", "草刈り", "防草対策"], points: ["作業内容", "現地見積もり", "処分費"], cta: "庭の手入れを比較する", domain: "machisentei.jp" },
+  { slug: "pest-control", name: "害虫・害獣駆除", category: "住まい", accent: "#8a6437", unit: "社", services: ["ゴキブリ駆除", "シロアリ対策", "ハチ駆除", "ネズミ対策"], points: ["対象害虫・害獣", "駆除方法", "再発防止"], cta: "駆除サービスを比較する", domain: "machigaichu.jp" },
+  { slug: "locksmith", name: "鍵交換・鍵開け", category: "住まい", accent: "#405770", unit: "社", services: ["鍵開け", "鍵交換", "鍵修理", "防犯対策"], points: ["鍵の種類", "出張条件", "見積金額"], cta: "鍵サービスを比較する", domain: "machi-key.jp" },
+  { slug: "plumbing", name: "水道修理・水漏れ", category: "住まい", accent: "#287b9b", unit: "社", services: ["水漏れ", "つまり", "蛇口交換", "給湯器"], points: ["症状", "作業料金", "水道局指定"], cta: "水道修理を比較する", domain: "machisuidou.jp" },
+  { slug: "electrical", name: "電気工事・エアコン設置", category: "住まい", accent: "#b06b27", unit: "社", services: ["エアコン設置", "アンテナ工事", "照明工事", "コンセント工事"], points: ["工事内容", "追加工事", "施工資格"], cta: "電気工事を比較する", domain: "machi-denki.jp" },
+  { slug: "handyman", name: "便利屋・生活サポート", category: "暮らし", accent: "#6a5eae", unit: "社", services: ["家具移動・模様替え", "片付けの手伝い", "庭・屋外の軽作業", "住まいの軽修繕"], points: ["依頼範囲", "必要な資格・許可", "見積もり条件"], cta: "便利屋を比較する", domain: "machiselect.jp" },
+];
+
+export const getVertical = (slug: string) => verticals.find((vertical) => vertical.slug === slug);
