@@ -43,6 +43,13 @@
       "when": 1784880204095,
       "tag": "0005_grey_the_executioner",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1784880813141,
+      "tag": "0006_flimsy_mandroid",
+      "breakpoints": true
     }
   ]
 }
