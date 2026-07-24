@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { verticals } from "./lib/verticals";
 import { guides } from "./lib/guides";
+import { cities } from "./lib/cities";
 
 const base = "https://machiselect.jp";
 
@@ -14,5 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/guides`, lastModified: updatedAt, priority: 0.7 },
     ...guides.map((guide) => ({ url: `${base}/guides/${guide.slug}`, lastModified: new Date(guide.updatedAt), priority: 0.7 })),
     ...verticals.map((vertical) => ({ url: `${base}/compare/${vertical.slug}`, lastModified: updatedAt, priority: 0.8 })),
+    ...verticals.flatMap((vertical) => cities.map((city) => ({ url: `${base}/compare/${vertical.slug}/${city.slug}`, lastModified: updatedAt, priority: 0.7 }))),
   ];
 }
