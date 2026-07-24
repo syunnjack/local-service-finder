@@ -1,7 +1,60 @@
-/* eslint-disable @next/next/no-html-link-for-pages, react-hooks/exhaustive-deps */"use client";import{FormEvent,useEffect,useMemo,useState}from"react";import type{Vertical}from"../../lib/verticals";
-type Review={id:number;nickname:string;rating:number;body:string;helpful:number};const cities=["新宿区","渋谷区","中野区","杉並区"];const base=[{id:"a",suffix:"セレクト",rating:4.8,reviews:186,price:9800},{id:"b",suffix:"パートナー",rating:4.6,reviews:92,price:12800},{id:"c",suffix:"ローカル",rating:4.5,reviews:64,price:15400}];
-export default function VerticalPage({vertical:v}:{vertical:Vertical}){const[city,setCity]=useState("新宿区"),[service,setService]=useState(v.services[0]),[email,setEmail]=useState(""),[consent,setConsent]=useState(false),[status,setStatus]=useState(""),[selected,setSelected]=useState(base[0]),[reviews,setReviews]=useState<Review[]>([]),[nickname,setNickname]=useState(""),[rating,setRating]=useState(5),[body,setBody]=useState(""),[reviewStatus,setReviewStatus]=useState("");const providers=useMemo(()=>base.map(x=>({...x,name:`${city}${v.name}${x.suffix}`})),[city,v.name]);const track=(event:string,providerId?:string)=>fetch("/api/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({vertical:v.slug,city,providerId,event})}).catch(()=>{});
-useEffect(()=>{track("view");fetch(`/api/reviews?vertical=${v.slug}&city=${encodeURIComponent(city)}`).then(r=>r.json()).then(x=>setReviews(x.reviews||[])).catch(()=>setReviews([]))},[city,v.slug]);
-async function lead(e:FormEvent){e.preventDefault();track("cta",selected.id);const r=await fetch("/api/leads",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({vertical:v.slug,providerId:selected.id,city,service,home:"未指定",email,consent})});const b=await r.json()as{error?:string};setStatus(r.ok?`${v.cta}を受け付けました`:b.error||"登録できませんでした");if(r.ok)setEmail("")}
-async function review(e:FormEvent){e.preventDefault();const r=await fetch("/api/reviews",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({vertical:v.slug,providerId:selected.id,city,nickname,rating,body})});const b=await r.json()as{error?:string;message?:string};setReviewStatus(r.ok?b.message||"投稿しました":b.error||"投稿できませんでした");if(r.ok){setNickname("");setBody("")}}
-return <main style={{"--green":v.accent}as React.CSSProperties}><header><a href="/" className="logo">まち<span>セレクト</span></a><nav><a href="#results">比較</a><a href="#reviews">口コミ</a><a href="#request">{v.cta}</a></nav></header><section className="hero"><p>{v.category.toUpperCase()} · LOCAL COMPARISON</p><h1>{city}の<br/><em>{v.name}を比較。</em></h1><span>料金だけでなく、{v.points.join("・")}まで透明に比べます。地域と目的を選ぶだけで候補を整理できます。</span><a href="#results" onClick={()=>track("compare")}>無料で比較する →</a><small>掲載内容は初期検証用の架空データです。</small></section><section className="search"><label>市町村<select value={city} onChange={e=>setCity(e.target.value)}>{cities.map(x=><option key={x}>{x}</option>)}</select></label><label>目的<select value={service} onChange={e=>setService(e.target.value)}>{v.services.map(x=><option key={x}>{x}</option>)}</select></label><label>優先条件<select>{v.points.map(x=><option key={x}>{x}</option>)}</select></label><a href="#results" onClick={()=>track("compare")}>絞り込む →</a></section><section className="results" id="results"><div className="head"><div><p>LOCAL RESULTS</p><h2>{city} × {v.name}</h2></div><span>{providers.length}{v.unit}・{service}の参考比較</span></div><div className="cards">{providers.map((p,i)=><article key={p.id}>{i===0&&<i>条件一致度 No.1</i>}<div><b>{p.name}</b><strong>★ {p.rating}</strong></div><small>口コミ {p.reviews}件</small><h3>¥{p.price.toLocaleString()}〜</h3><p>{service}の参考価格</p><ul>{v.points.map(x=><li key={x}>✓ {x}</li>)}</ul><dl>{v.points.map((x,j)=><div key={x}><dt>{x}</dt><dd>{j?"掲載あり":"確認済み"}</dd></div>)}</dl><button onClick={()=>{setSelected(p);track("cta",p.id);document.getElementById("request")?.scrollIntoView({behavior:"smooth"})}}>{v.cta} →</button></article>)}</div></section><section className="compare">{v.points.map((x,i)=><div key={x}><b>0{i+1}</b><h3>{x}を比較</h3><p>同じ地域・目的の候補をそろえて違いを表示します。</p></div>)}</section><section className="review-section" id="reviews"><div><p className="eyebrow">LOCAL REVIEWS</p><h2>{city}の口コミ</h2>{reviews.length?reviews.map(x=><article className="review" key={x.id}><b>{"★".repeat(x.rating)} <span>{x.nickname}</span></b><p>{x.body}</p><small>役に立った {x.helpful}</small></article>):<p className="empty">承認済みの口コミはまだありません。最初の体験談を投稿できます。</p>}</div><form onSubmit={review}><h3>口コミを投稿</h3><label>ニックネーム<input required value={nickname} onChange={e=>setNickname(e.target.value)}/></label><label>評価<select value={rating} onChange={e=>setRating(Number(e.target.value))}>{[5,4,3,2,1].map(x=><option key={x} value={x}>{x}つ星</option>)}</select></label><label>具体的な体験（10〜500文字）<textarea required minLength={10} maxLength={500} value={body} onChange={e=>setBody(e.target.value)}/></label><button>審査へ投稿 →</button><output>{reviewStatus}</output></form></section><section className="request" id="request"><div><p>FREE MATCHING</p><h2>{v.cta}。</h2><span>選択中：<b>{selected.name}</b><br/>提携先への送客には広告報酬が発生する場合があります。</span></div><form onSubmit={lead}><label>通知先メール<input required type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com"/></label><p>{city}・{service}</p><label className="consent"><input required type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)}/> 連絡とプライバシーポリシーに同意</label><button disabled={!consent}>{v.cta} →</button><output>{status}</output></form></section><footer><a className="logo" href="/">まち<span>セレクト</span></a><p>{city}の{v.name}を、条件まで透明に。</p><small>ドメイン候補：{v.domain}</small></footer></main>}
+"use client";
+
+import Link from "next/link";
+import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { getProviders, type Provider } from "../../lib/providers";
+import type { Vertical } from "../../lib/verticals";
+
+type Review = { id: number; nickname: string; rating: number; body: string; helpful: number };
+const cities = ["東京都", "大阪府", "愛知県", "福岡県"];
+
+export default function VerticalPage({ vertical }: { vertical: Vertical }) {
+  const [city, setCity] = useState(cities[0]);
+  const [service, setService] = useState(vertical.services[0]);
+  const [email, setEmail] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [leadStatus, setLeadStatus] = useState("");
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [nickname, setNickname] = useState("");
+  const [rating, setRating] = useState(5);
+  const [body, setBody] = useState("");
+  const [reviewStatus, setReviewStatus] = useState("");
+  const providers = useMemo(() => getProviders(vertical.slug), [vertical.slug]);
+  const [selected, setSelected] = useState<Provider | undefined>(() => getProviders(vertical.slug)[0]);
+
+  const track = useCallback((event: string, providerId?: string) => fetch("/api/events", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ vertical: vertical.slug, city, providerId, event }) }).catch(() => undefined), [city, vertical.slug]);
+
+  useEffect(() => {
+    track("view");
+    fetch(`/api/reviews?vertical=${vertical.slug}&city=${encodeURIComponent(city)}`).then((response) => response.json()).then((data) => setReviews(data.reviews || [])).catch(() => setReviews([]));
+  }, [city, vertical.slug, track]);
+
+  async function submitLead(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!selected) return;
+    track("cta", selected.id);
+    const response = await fetch("/api/leads", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ vertical: vertical.slug, providerId: selected.id, city, service, home: "web-comparison", email, consent }) });
+    const data = (await response.json()) as { error?: string };
+    setLeadStatus(response.ok ? "相談内容を受け付けました。担当者からの連絡をお待ちください。" : data.error || "送信に失敗しました。");
+    if (response.ok) setEmail("");
+  }
+
+  async function submitReview(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const response = await fetch("/api/reviews", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ vertical: vertical.slug, providerId: selected?.id || "", city, nickname, rating, body }) });
+    const data = (await response.json()) as { error?: string; message?: string };
+    setReviewStatus(response.ok ? data.message || "口コミを受け付けました。確認後に掲載します。" : data.error || "送信に失敗しました。");
+    if (response.ok) { setNickname(""); setBody(""); }
+  }
+
+  return <main style={{ "--green": vertical.accent } as React.CSSProperties}>
+    <header><Link href="/" className="logo">まち<span>セレクト</span></Link><nav><a href="#results">掲載事業者</a><a href="#reviews">口コミ</a><a href="#request">相談する</a></nav></header>
+    <section className="hero"><p>{vertical.category.toUpperCase()} · LOCAL COMPARISON</p><h1>{city}の<br /><em>{vertical.name}を比較</em></h1><span>公式サイトで確認できるサービス内容をもとに掲載しています。料金・空き状況・対応範囲は変動するため、申込前に必ず各社の公式情報をご確認ください。</span><a href="#results" onClick={() => track("compare")}>掲載事業者を見る</a></section>
+    <section className="search" aria-label="比較条件"><label>都道府県<select value={city} onChange={(event) => setCity(event.target.value)}>{cities.map((item) => <option key={item}>{item}</option>)}</select></label><label>希望サービス<select value={service} onChange={(event) => setService(event.target.value)}>{vertical.services.map((item) => <option key={item}>{item}</option>)}</select></label><label>比較ポイント<select>{vertical.points.map((item) => <option key={item}>{item}</option>)}</select></label><a href="#results" onClick={() => track("compare")}>条件を反映</a></section>
+    <section className="results" id="results"><div className="head"><div><p>OFFICIAL LISTINGS</p><h2>{city}の{vertical.name}</h2></div><span>{providers.length}件の公式掲載</span></div>{providers.length ? <div className="cards">{providers.map((provider) => <article key={provider.id} className={selected?.id === provider.id ? "selected-provider" : ""}><div><b>{provider.name}</b><strong>公式情報</strong></div><small>{provider.coverage}</small><h3>料金は公式確認</h3><p>{service}を含む対応メニューは公式サイトでご確認ください。</p><ul>{provider.services.map((item) => <li key={item}>{item}</li>)}</ul><dl>{provider.highlights.map((item, index) => <div key={item}><dt>{vertical.points[index] || "確認事項"}</dt><dd>{item}</dd></div>)}</dl><a className="official-link" href={provider.sourceUrl} target="_blank" rel="noreferrer" onClick={() => track("cta", provider.id)}>公式サイトで確認</a><button onClick={() => { setSelected(provider); document.getElementById("request")?.scrollIntoView({ behavior: "smooth" }); }}>この事業者を相談する</button><small className="source-note">出典: {provider.sourceLabel}（確認日 {provider.verifiedAt}）</small></article>)}</div> : <div className="empty-list"><h3>公式掲載データを準備中です</h3><p>現在はこのジャンルの掲載事業者を確認中です。比較相談からご希望条件を送っていただけます。</p></div>}</section>
+    <section className="compare">{vertical.points.map((point, index) => <div key={point}><b>0{index + 1}</b><h3>{point}を確認</h3><p>条件・対応地域・料金の詳細は、必ず事業者の公式ページと見積もりで確認してください。</p></div>)}</section>
+    <section className="review-section" id="reviews"><div><p className="eyebrow">LOCAL REVIEWS</p><h2>{city}の口コミ</h2>{reviews.length ? reviews.map((review) => <article className="review" key={review.id}><b>{"★".repeat(review.rating)} <span>{review.nickname}</span></b><p>{review.body}</p><small>参考になった {review.helpful}</small></article>) : <p className="empty">まだ掲載済みの口コミはありません。利用後の体験をお寄せください。</p>}</div><form onSubmit={submitReview}><h3>口コミを投稿</h3><label>ニックネーム<input required value={nickname} onChange={(event) => setNickname(event.target.value)} /></label><label>評価<select value={rating} onChange={(event) => setRating(Number(event.target.value))}>{[5, 4, 3, 2, 1].map((item) => <option key={item} value={item}>{item}点</option>)}</select></label><label>口コミ（10〜500文字）<textarea required minLength={10} maxLength={500} value={body} onChange={(event) => setBody(event.target.value)} /></label><button>確認待ちで投稿</button><output>{reviewStatus}</output></form></section>
+    <section className="request" id="request"><div><p>FREE CONSULTATION</p><h2>比較相談を申し込む</h2><span>{selected ? <><b>{selected.name}</b>について、{city}・{service}の希望条件を受け付けます。</> : "ご希望の条件を受け付けます。"}</span></div><form onSubmit={submitLead}><label>連絡先メールアドレス<input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" /></label><p>{city} · {service}</p><label className="consent"><input required type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} /> プライバシーポリシーに同意する</label><button disabled={!consent || !selected}>相談を申し込む</button><output>{leadStatus}</output></form></section>
+    <footer><Link className="logo" href="/">まち<span>セレクト</span></Link><p>{city}の{vertical.name}を、公式情報から比較。</p><small>ドメイン: {vertical.domain}</small></footer>
+  </main>;
+}
