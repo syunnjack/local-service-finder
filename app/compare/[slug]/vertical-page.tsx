@@ -6,6 +6,7 @@ import { getProviders, type Provider } from "../../lib/providers";
 import type { Vertical } from "../../lib/verticals";
 
 type Review = { id: number; nickname: string; rating: number; body: string; helpful: number; serviceType: string; usageMonth: string; wouldUseAgain: boolean };
+type Campaign = { id: number; name: string; asp: string };
 const cities = ["東京都", "大阪府", "愛知県", "福岡県"];
 
 export default function VerticalPage({ vertical }: { vertical: Vertical }) {
@@ -22,6 +23,7 @@ export default function VerticalPage({ vertical }: { vertical: Vertical }) {
   const [usageMonth, setUsageMonth] = useState("");
   const [wouldUseAgain, setWouldUseAgain] = useState(false);
   const [reviewStatus, setReviewStatus] = useState("");
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const providers = useMemo(() => getProviders(vertical.slug), [vertical.slug]);
   const [selected, setSelected] = useState<Provider | undefined>(() => getProviders(vertical.slug)[0]);
 
@@ -31,6 +33,9 @@ export default function VerticalPage({ vertical }: { vertical: Vertical }) {
     track("view");
     fetch(`/api/reviews?vertical=${vertical.slug}&city=${encodeURIComponent(city)}`).then((response) => response.json()).then((data) => setReviews(data.reviews || [])).catch(() => setReviews([]));
   }, [city, vertical.slug, track]);
+  useEffect(() => {
+    fetch(`/api/campaigns?vertical=${encodeURIComponent(vertical.slug)}`).then((response) => response.json()).then((data) => setCampaigns(data.campaigns || [])).catch(() => setCampaigns([]));
+  }, [vertical.slug]);
 
   async function submitLead(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -68,6 +73,7 @@ export default function VerticalPage({ vertical }: { vertical: Vertical }) {
     <section className="search" aria-label="比較条件"><label>都道府県<select value={city} onChange={(event) => setCity(event.target.value)}>{cities.map((item) => <option key={item}>{item}</option>)}</select></label><label>希望サービス<select value={service} onChange={(event) => setService(event.target.value)}>{vertical.services.map((item) => <option key={item}>{item}</option>)}</select></label><label>比較ポイント<select>{vertical.points.map((item) => <option key={item}>{item}</option>)}</select></label><a href="#results" onClick={() => track("compare")}>条件を反映</a></section>
     <section className="results" id="results"><div className="head"><div><p>OFFICIAL LISTINGS</p><h2>{city}の{vertical.name}</h2></div><span>{providers.length}件の公式掲載</span></div>{providers.length ? <div className="cards">{providers.map((provider) => <article key={provider.id} className={selected?.id === provider.id ? "selected-provider" : ""}><div><b>{provider.name}</b><strong>公式情報</strong></div><small>{provider.coverage}</small><h3>料金は公式確認</h3><p>{service}を含む対応メニューは公式サイトでご確認ください。</p><ul>{provider.services.map((item) => <li key={item}>{item}</li>)}</ul><dl>{provider.highlights.map((item, index) => <div key={item}><dt>{vertical.points[index] || "確認事項"}</dt><dd>{item}</dd></div>)}</dl><a className="official-link" href={provider.sourceUrl} target="_blank" rel="noreferrer" onClick={() => track("cta", provider.id)}>公式サイトで確認</a><button onClick={() => { setSelected(provider); document.getElementById("request")?.scrollIntoView({ behavior: "smooth" }); }}>この事業者を相談する</button><small className="source-note">出典: {provider.sourceLabel}（確認日 {provider.verifiedAt}）</small></article>)}</div> : <div className="empty-list"><h3>公式掲載データを準備中です</h3><p>現在はこのジャンルの掲載事業者を確認中です。比較相談からご希望条件を送っていただけます。</p></div>}</section>
     <section className="compare">{vertical.points.map((point, index) => <div key={point}><b>0{index + 1}</b><h3>{point}を確認</h3><p>条件・対応地域・料金の詳細は、必ず事業者の公式ページと見積もりで確認してください。</p></div>)}</section>
+    {campaigns.length > 0 && <section className="sponsored-section" aria-label="広告・提携先"><p className="eyebrow">SPONSORED</p><h2>広告・提携先の申込先</h2><p>以下は広告または提携による案内です。編集上の比較表示とは別に掲載しています。</p><div>{campaigns.map((campaign) => <a key={campaign.id} href={`/go/${campaign.id}?city=${encodeURIComponent(city)}`} onClick={() => track("cta", `campaign:${campaign.id}`)}><small>広告 · {campaign.asp}</small><b>{campaign.name}</b><span>公式申込先へ</span></a>)}</div></section>}
     <section className="faq-section"><p className="eyebrow">HELPFUL ANSWERS</p><h2>よくある質問</h2>{faqs.map((faq) => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</section>
     <section className="review-section" id="reviews"><div><p className="eyebrow">LOCAL REVIEWS</p><h2>{city}の口コミ</h2>{reviews.length ? reviews.map((review) => <article className="review" key={review.id}><b>{"★".repeat(review.rating)} <span>{review.nickname}</span></b><small>{review.serviceType} · {review.usageMonth} · {review.wouldUseAgain ? "また利用したい" : "また利用したいかは未回答"}</small><p>{review.body}</p><small>参考になった {review.helpful}</small></article>) : <p className="empty">まだ掲載済みの口コミはありません。利用後の体験をお寄せください。</p>}</div><form onSubmit={submitReview}><h3>口コミを投稿</h3><label>ニックネーム<input required value={nickname} onChange={(event) => setNickname(event.target.value)} /></label><label>利用したサービス<select value={reviewService} onChange={(event) => setReviewService(event.target.value)}>{vertical.services.map((item) => <option key={item}>{item}</option>)}</select></label><label>利用月<input required type="month" value={usageMonth} onChange={(event) => setUsageMonth(event.target.value)} /></label><label>評価<select value={rating} onChange={(event) => setRating(Number(event.target.value))}>{[5, 4, 3, 2, 1].map((item) => <option key={item} value={item}>{item}点</option>)}</select></label><label>口コミ（10〜500文字）<textarea required minLength={10} maxLength={500} value={body} onChange={(event) => setBody(event.target.value)} /></label><label className="review-again"><input type="checkbox" checked={wouldUseAgain} onChange={(event) => setWouldUseAgain(event.target.checked)} /> また利用したい</label><button>確認待ちで投稿</button><output>{reviewStatus}</output></form></section>
     <section className="request" id="request"><div><p>FREE CONSULTATION</p><h2>比較相談を申し込む</h2><span>{selected ? <><b>{selected.name}</b>について、{city}・{service}の希望条件を受け付けます。</> : "ご希望の条件を受け付けます。"}</span></div><form onSubmit={submitLead}><label>連絡先メールアドレス<input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" /></label><p>{city} · {service}</p><label className="consent"><input required type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} /> プライバシーポリシーに同意する</label><button disabled={!consent || !selected}>相談を申し込む</button><output>{leadStatus}</output></form></section>

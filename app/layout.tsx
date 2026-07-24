@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./mvp.css";
 import "./trust.css";
+import "./sponsored.css";
 import AppFeatures from "./AppFeatures";
 
 export const metadata: Metadata = {
