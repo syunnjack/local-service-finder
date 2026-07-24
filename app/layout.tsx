@@ -5,6 +5,8 @@ import "./trust.css";
 import "./sponsored.css";
 import "./guides.css";
 import "./content-admin.css";
+import "./provider.css";
+import "./corrections-admin.css";
 import AppFeatures from "./AppFeatures";
 
 export const metadata: Metadata = {

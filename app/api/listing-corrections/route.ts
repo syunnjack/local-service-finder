@@ -1,0 +1,5 @@
+import { getDb } from "../../../db";
+import { listingCorrections } from "../../../db/schema";
+
+const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export async function POST(request: Request) { try { const body = await request.json() as Record<string, unknown>; const name = String(body.name || "").trim().slice(0, 100); const organization = String(body.organization || "").trim().slice(0, 160); const address = String(body.email || "").trim().toLowerCase(); const url = String(body.url || "").trim().slice(0, 500); const message = String(body.message || "").trim(); const providerId = String(body.providerId || "").trim(); if (!providerId || !name || !email.test(address) || message.length < 10 || message.length > 2000 || (url && !/^https?:\/\//.test(url))) return Response.json({ error: "必須項目とURLを確認してください。" }, { status: 400 }); await getDb().insert(listingCorrections).values({ providerId, name, organization, email: address, url, message }); return Response.json({ ok: true }, { status: 201 }); } catch { return Response.json({ error: "送信に失敗しました。" }, { status: 500 }); } }

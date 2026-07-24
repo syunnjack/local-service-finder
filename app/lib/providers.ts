@@ -20,3 +20,4 @@ export const providers: Provider[] = [
 ];
 
 export function getProviders(vertical: string) { return providers.filter((provider) => provider.vertical === vertical); }
+export function getProvider(id: string) { return providers.find((provider) => provider.id === id); }
