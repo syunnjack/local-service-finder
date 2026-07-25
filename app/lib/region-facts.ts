@@ -557,6 +557,34 @@ for (const [city, source] of Object.entries(plumbingAuthoritySources)) {
   if (fact) fact.sources.push(source);
 }
 
+const movingDisposalSources: Record<string, RegionFact["sources"][number]> = {
+  tokyo: {
+    name: "東京都環境局",
+    detail: "家庭ごみ・粗大ごみの収集は、住所地の区市町村が担当すること、家電4品目は通常の粗大ごみとは異なるリサイクル手続が必要なことを案内。",
+    url: "https://www.kankyo.metro.tokyo.lg.jp/inquiry/contact/garbage/garbage/",
+  },
+  osaka: {
+    name: "大阪市",
+    detail: "引越し等で一時的に出る多量のごみを含む粗大ごみの申込み方法、収集日・場所の確認方法を公式に案内。",
+    url: "https://www.city.osaka.lg.jp/kankyo/page/0000515879.html",
+  },
+  yokohama: {
+    name: "横浜市",
+    detail: "粗大ごみの収集・持込みには事前申込みが必要で、収集までおおむね2週間、申込み上限は9個であることを案内。",
+    url: "https://www.city.yokohama.lg.jp/kurashi/sumai-kurashi/gomi-recycle/gomi/shushu/sodaigomi/dashikata/shuushuu.html",
+  },
+  saitama: {
+    name: "さいたま市",
+    detail: "粗大ごみの申込みと処理手数料納付券の案内、申込み先の誤発信に注意する案内を掲載。",
+    url: "https://www.city.saitama.lg.jp/001/006/010/003/p072165.html",
+  },
+};
+
+for (const [city, source] of Object.entries(movingDisposalSources)) {
+  const fact = regionFacts.find((item) => item.vertical === "moving" && item.city === city);
+  if (fact) fact.sources.push(source);
+}
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
