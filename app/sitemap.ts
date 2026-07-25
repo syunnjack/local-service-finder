@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { verticals } from "./lib/verticals";
 import { guides } from "./lib/guides";
 import { providers } from "./lib/providers";
+import { getRegionFact, getVerifiedCombinations } from "./lib/region-facts";
 
 const base = "https://machiselect.jp";
 
@@ -16,5 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...guides.map((guide) => ({ url: `${base}/guides/${guide.slug}`, lastModified: new Date(guide.updatedAt), priority: 0.7 })),
     ...providers.map((provider) => ({ url: `${base}/providers/${provider.id}`, lastModified: new Date(provider.verifiedAt), priority: 0.6 })),
     ...verticals.map((vertical) => ({ url: `${base}/compare/${vertical.slug}`, lastModified: updatedAt, priority: 0.8 })),
+    ...getVerifiedCombinations().map(({ vertical, city }) => ({ url: `${base}/compare/${vertical}/${city}`, lastModified: new Date(getRegionFact(vertical, city)?.verifiedAt || updatedAt), priority: 0.7 })),
   ];
 }
