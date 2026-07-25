@@ -127,32 +127,37 @@ function isApprovedSource(url) {
 async function inspectSource(source, timeoutMs) {
   if (!isApprovedSource(source.url)) return { ...source, status: "blocked", note: "許可されていないドメイン" };
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const response = await fetch(source.url, {
+  let lastError;
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const response = await fetch(source.url, {
       headers: {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0 Safari/537.36",
         accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "accept-language": "ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7",
       },
-      signal: controller.signal,
-    });
-    const html = await response.text();
-    const metadata = extractMetadata(html);
-    const city = cityLabels[source.city];
-    const hasCityReference = html.includes(city) || source.city === "tokyo";
-    return {
-      ...source,
-      status: response.ok ? "review" : `HTTP ${response.status}`,
-      note: response.ok ? (hasCityReference ? "地域表記を確認。公開前に内容を編集確認してください。" : "地域表記を自動検出できません。公開前に内容を編集確認してください。") : "ページ内容を確認できません。",
-      ...metadata,
-    };
-  } catch (error) {
-    return { ...source, status: "unavailable", note: error.name === "AbortError" ? "取得がタイムアウトしました。" : "取得に失敗しました。" };
-  } finally {
-    clearTimeout(timeout);
+        signal: controller.signal,
+      });
+      const html = await response.text();
+      const metadata = extractMetadata(html);
+      const city = cityLabels[source.city];
+      const hasCityReference = html.includes(city) || source.city === "tokyo";
+      if (response.ok || attempt === 3) return {
+        ...source,
+        status: response.ok ? "review" : `HTTP ${response.status}`,
+        note: response.ok ? (hasCityReference ? "地域表記を確認。公開前に内容を編集確認してください。" : "地域表記を自動検出できません。公開前に内容を編集確認してください。") : "ページ内容を確認できません。",
+        ...metadata,
+      };
+    } catch (error) {
+      lastError = error;
+    } finally {
+      clearTimeout(timeout);
+    }
+    await new Promise((resolve) => setTimeout(resolve, attempt * 400));
   }
+  return { ...source, status: "unavailable", note: lastError?.name === "AbortError" ? "取得がタイムアウトしました。" : "取得に失敗しました。" };
 }
 
 function escapeCell(value = "") {
