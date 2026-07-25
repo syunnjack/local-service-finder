@@ -369,6 +369,34 @@ regionFacts.push(
   },
 );
 
+const locksmithPublicSafetySources: Record<string, RegionFact["sources"][number]> = {
+  tokyo: {
+    name: "警視庁",
+    detail: "侵入窃盗対策として、補助錠、CP部品、窓の対策、日常の施錠確認を公式に案内。",
+    url: "https://www.keishicho.metro.tokyo.lg.jp/kurashi/higai/akisu/akisu.html",
+  },
+  osaka: {
+    name: "大阪府警察",
+    detail: "住宅侵入犯罪対策として、外回り、窓・ドア、鍵の防犯診断を公式に案内。",
+    url: "https://www.police.pref.osaka.lg.jp/seikatsu/8/16664.html",
+  },
+  yokohama: {
+    name: "神奈川県警察",
+    detail: "住宅侵入犯罪対策として、施錠、CP部品、防犯カメラなどを公式に案内。",
+    url: "https://www.police.pref.kanagawa.jp/kurashi/anzen_machi/mesd0095.html",
+  },
+  saitama: {
+    name: "埼玉県警察",
+    detail: "侵入窃盗・強盗対策として、施錠、訪問者確認、補助錠・防犯フィルムを公式に案内。",
+    url: "https://www.police.pref.saitama.lg.jp/p0120/20250827taisaku.html",
+  },
+};
+
+for (const [city, source] of Object.entries(locksmithPublicSafetySources)) {
+  const fact = regionFacts.find((item) => item.vertical === "locksmith" && item.city === city);
+  if (fact) fact.sources.push(source);
+}
+
 regionFacts.push(
   {
     vertical: "garden-care", city: "tokyo", verifiedAt,
