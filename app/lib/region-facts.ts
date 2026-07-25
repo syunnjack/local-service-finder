@@ -529,6 +529,34 @@ regionFacts.push(
   },
 );
 
+const plumbingAuthoritySources: Record<string, RegionFact["sources"][number]> = {
+  tokyo: {
+    name: "東京都水道局",
+    detail: "水道メーター下流側の漏水修繕を行う、東京都指定給水装置工事事業者の登録情報を案内。",
+    url: "https://www.waterworks.metro.tokyo.lg.jp/jigyosha/koji/kojigyosya/shuzen",
+  },
+  osaka: {
+    name: "大阪市水道局",
+    detail: "メーターから蛇口までの水漏れは指定給水装置工事事業者へ依頼し、複数見積もりと作業前の内容確認を案内。",
+    url: "https://www.city.osaka.lg.jp/suido/page/0000038216.html",
+  },
+  yokohama: {
+    name: "横浜市水道局",
+    detail: "指定給水装置工事事業者の一覧と、依頼前に工事内容・所要時間・概算額・見積もり費用を確認する注意点を案内。",
+    url: "https://www.city.yokohama.lg.jp/business/bunyabetsu/suido/kyuusui-souchi/tetsuzuki/shiteikojijigyosha.html",
+  },
+  saitama: {
+    name: "さいたま市水道局",
+    detail: "メーターから蛇口までの漏水は指定工事事業者へ依頼し、緊急時のメーター止水栓による一時対応を案内。",
+    url: "https://www.city.saitama.lg.jp/001/006/002/043/002/p008923.html",
+  },
+};
+
+for (const [city, source] of Object.entries(plumbingAuthoritySources)) {
+  const fact = regionFacts.find((item) => item.vertical === "plumbing" && item.city === city);
+  if (fact) fact.sources.push(source);
+}
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
