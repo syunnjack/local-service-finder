@@ -431,6 +431,76 @@ regionFacts.push(
   },
 );
 
+regionFacts.push(
+  {
+    vertical: "pest-control", city: "tokyo", verifiedAt,
+    sources: [{ name: "ダスキン", detail: "東京都の公式店舗検索で、害虫駆除・総合衛生管理を取り扱う都内店舗を案内。", url: "https://www.duskin.jp/store/tokyo/" }, { name: "ダスキン ターミニックス", detail: "害虫獣の駆除・予防サービスと都道府県別の店舗検索を案内。", url: "https://www.duskin.jp/terminix/" }],
+    checks: ["害虫・害獣の種類、発生場所、目撃頻度、写真、子ども・ペットの有無を伝える。", "薬剤・施工範囲・再発時対応・追加作業の条件を、調査と見積もりの段階で確認する。"],
+    faqs: [{ question: "東京都で害虫駆除を頼む前に用意する情報は？", answer: "種類が不明でも、発生場所・時間帯・写真や動画・被害の状況を記録して相談してください。無理な薬剤使用は避けます。" }],
+  },
+  {
+    vertical: "pest-control", city: "osaka", verifiedAt,
+    sources: [{ name: "ダスキン", detail: "大阪府の公式店舗検索で、害虫駆除・総合衛生管理を取り扱う大阪市内を含む店舗を案内。", url: "https://www.duskin.jp/store/osaka/" }, { name: "ダスキン ターミニックス", detail: "害虫・害獣の種類別サービスと地域別店舗検索を案内。", url: "https://www.duskin.jp/terminix/" }],
+    checks: ["大阪市内でも住所・害虫の種類・建物状況により対応条件が異なるため、区・住所まで伝える。", "施工範囲、薬剤の扱い、再発予防、保証・再施工の条件を作業前に確認する。"],
+    faqs: [{ question: "大阪市で集合住宅の害虫駆除を頼む場合は？", answer: "専有部と共用部の切り分け、管理会社への連絡、周辺住戸への影響を確認してから依頼してください。" }],
+  },
+  {
+    vertical: "pest-control", city: "yokohama", verifiedAt,
+    sources: [{ name: "ダスキン", detail: "神奈川県の公式店舗検索で、横浜市鶴見区の害虫駆除・総合衛生管理取扱店舗などを案内。", url: "https://www.duskin.jp/store/kanagawa/" }, { name: "ダスキン ターミニックス", detail: "害虫獣の駆除・予防サービスと都道府県別店舗検索を案内。", url: "https://www.duskin.jp/terminix/" }],
+    checks: ["横浜市では区・住所・発生箇所を伝え、最寄り店舗の対応可否と現地調査条件を確認する。", "ペット・小さな子ども・アレルギーがある場合は、薬剤・施工後の注意事項を事前に確認する。"],
+    faqs: [{ question: "横浜市で再発予防も相談できますか？", answer: "予防を含む対応の可否は害虫の種類と建物状況で異なります。侵入経路の確認、施工範囲、再発時の条件を見積もりで確認してください。" }],
+  },
+  {
+    vertical: "pest-control", city: "saitama", verifiedAt,
+    sources: [{ name: "ダスキン", detail: "埼玉県の公式店舗検索で、さいたま市内の害虫駆除・総合衛生管理取扱店舗を案内。", url: "https://www.duskin.jp/store/saitama/" }, { name: "ダスキン ターミニックス", detail: "害虫獣の駆除・予防サービスと都道府県別店舗検索を案内。", url: "https://www.duskin.jp/terminix/" }],
+    checks: ["区・住所・害虫の種類・発生場所・写真を伝え、現地調査の要否と対応可否を確認する。", "施工料金だけでなく、薬剤、侵入経路対策、追加作業、再施工の条件を比較する。"],
+    faqs: [{ question: "さいたま市で害虫の種類が分からない場合は？", answer: "写真や発生場所・時間帯を記録して相談してください。種類の特定と施工方法は、現地状況を踏まえて確認するのが安全です。" }],
+  },
+);
+
+regionFacts.push(
+  {
+    vertical: "electrical", city: "tokyo", verifiedAt,
+    sources: [
+      { name: "エディオン AKIBA", detail: "千代田区外神田の公式店舗ページ。家電製品の取扱いと訪問修理受付を案内。", url: "https://search.edion.com/e_store/spot/detail?code=0000004762" },
+      { name: "エディオン エアコン工事", detail: "標準工事の範囲と、設置場所・配管延長・専用コンセントなどで別途作業となる条件を公式に案内。", url: "https://service-info.edion.jp/service/construction/air_conditioner/" },
+      { name: "経済産業省", detail: "家庭用エアコンの設置・修理に係る電気工事業の登録等について案内。", url: "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/electric/detail/koji_2.html" },
+    ],
+    checks: ["東京都内でも住所・建物種別・室内機と室外機の位置を伝え、訪問可否と工事日を確認する。", "型番、既設機の有無、配管の長さ・穴・室外機置場、専用コンセントと分電盤の状況を写真で共有する。", "賃貸では管理会社・貸主への確認が必要な穴あけや配線変更がないか、見積もり前に確認する。"],
+    faqs: [{ question: "東京都でエアコン設置の追加費用を減らすには？", answer: "標準工事の範囲は事業者で異なります。設置場所、配管、室外機の置場、専用コンセント、既設機の撤去を同じ条件で伝え、追加作業の条件を比較してください。" }],
+  },
+  {
+    vertical: "electrical", city: "osaka", verifiedAt,
+    sources: [
+      { name: "エディオン大阪府店舗検索", detail: "大阪市内の複数区を含む大阪府の公式店舗検索。地域・駅から店舗を確認できる。", url: "https://search.edion.com/e_store/address/list?address=27&search=address" },
+      { name: "エディオン エアコン工事", detail: "標準工事と、屋根・壁面設置、高所作業、配管延長、専用コンセントなどの追加条件を公式に案内。", url: "https://service-info.edion.jp/service/construction/air_conditioner/" },
+      { name: "経済産業省", detail: "エアコン用の専用回路に関する安全上の考え方を公式Q&Aで案内。", url: "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/electric/detail/koji_koshuQA.html" },
+    ],
+    checks: ["大阪市では区・住所・集合住宅か戸建てかを伝え、搬入経路と作業可能な時間帯を確認する。", "室外機の置場がベランダ以外の場合は、架台・高所作業・安全対策が必要かを見積もりで確認する。", "専用回路の要否は機種と既存回路の状況で変わるため、分電盤とコンセントの写真を共有して確認する。"],
+    faqs: [{ question: "大阪市で室外機を壁面・屋根に置く場合は？", answer: "標準工事の対象外になることがあります。設置方法、作業高さ、安全対策、架台の扱いを事前見積もりで確認してください。" }],
+  },
+  {
+    vertical: "electrical", city: "yokohama", verifiedAt,
+    sources: [
+      { name: "エディオン横浜周辺店舗", detail: "横浜西口本店・横浜曙町店など、横浜市内の公式店舗と所在地を案内。", url: "https://search.edion.com/e_store/station/spot/list?node=00000838&radius=5" },
+      { name: "エディオン エアコン工事", detail: "取付の基本作業範囲と、配管・設置方法・専用コンセントで変わる作業条件を公式に案内。", url: "https://service-info.edion.jp/service/construction/air_conditioner/" },
+      { name: "経済産業省", detail: "家庭用エアコン設置・修理に必要となる電気工事業の手続を案内。", url: "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/electric/detail/koji_2.html" },
+    ],
+    checks: ["横浜市では区・住所・室外機の置場を伝え、最寄りの相談窓口と訪問対応の可否を確認する。", "集合住宅では管理規約、配管穴、ベランダの避難経路・共用部への影響を確認してから依頼する。", "型番、既設配管の再利用希望、コンセント形状、分電盤の状況を写真で伝え、当日の追加を減らす。"],
+    faqs: [{ question: "横浜市の集合住宅で先に確認することは？", answer: "管理規約と管理会社への確認が先です。穴あけ、共用部への作業、室外機の置場、作業車両の条件を確かめてから見積もりを依頼してください。" }],
+  },
+  {
+    vertical: "electrical", city: "saitama", verifiedAt,
+    sources: [
+      { name: "YAMADA浦和埼大通り店", detail: "さいたま市桜区の公式店舗ページ。所在地を確認できる家電量販店の地域窓口。", url: "https://www.yamada-denki.jp/store/contents/?d=816" },
+      { name: "エディオン エアコン工事", detail: "標準工事の範囲と、室外機の設置方法・配管延長・専用コンセントで追加となる条件を公式に案内。", url: "https://service-info.edion.jp/service/construction/air_conditioner/" },
+      { name: "経済産業省", detail: "家庭用エアコンの設置・修理に関する電気工事業の登録等を案内。", url: "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/electric/detail/koji_2.html" },
+    ],
+    checks: ["さいたま市では区・住所・戸建てか集合住宅かを伝え、訪問対応と搬入・駐車条件を確認する。", "室内機と室外機の位置、既設配管、穴、コンセント、分電盤を撮影し、標準工事外になり得る条件を確認する。", "取り外し・リサイクル・移設の扱い、工事保証の範囲、追加工事が必要になる場合を作業前に確認する。"],
+    faqs: [{ question: "さいたま市でエアコンの移設も一緒に相談できますか？", answer: "移設可否は機器の状態と設置先の条件で決まります。取り外し、運搬、再設置、既設配管の扱いを分けて確認し、工事前の見積もりで合意してください。" }],
+  },
+);
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
