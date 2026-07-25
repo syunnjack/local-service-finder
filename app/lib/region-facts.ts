@@ -666,6 +666,13 @@ regionFacts.push(
   },
 );
 
+regionFacts.push(
+  { vertical: "moving", city: "kawasaki", verifiedAt, sources: [{ name: "川崎市 粗大ごみ", detail: "粗大ごみの申込み方法と、市で収集しない家電・PC等の処分方法を案内しています。", url: "https://www.city.kawasaki.jp/kurashi/category/261-1-10-11-0-0-0-0-0-0.html" }], checks: ["品目・サイズ・手数料・収集日を公式案内で確認する。", "家電・PC等の市で収集しない品目は別の処分方法を確認する。", "運び出しと処分の範囲、追加料金を分けて比べる。"], faqs: [{ question: "川崎市で粗大ごみを処分する前の確認事項は？", answer: "品目、手数料、収集日を公式案内で確認します。市で収集しない品目や運び出しが必要な場合は、処分方法と民間サービスの範囲を分けて比べます。" }] },
+  { vertical: "plumbing", city: "kawasaki", verifiedAt, sources: [{ name: "川崎市上下水道局", detail: "漏水時は、状況に応じて市指定の給水装置工事事業者等への連絡を案内しています。", url: "https://www.city.kawasaki.jp/templates/faq/800/0000125460.html" }], checks: ["漏水箇所と市の施行範囲を確認する。", "指定給水装置工事事業者であることと、出張費・作業費・部品代を確認する。", "緊急対応と通常の見積もりを分け、追加条件を作業前に確認する。"], faqs: [{ question: "川崎市で水漏れ修理を依頼する際の注意点は？", answer: "漏水箇所と市の対応範囲を確認し、指定給水装置工事事業者へ依頼します。作業前に見積もりと追加料金の条件を確認します。" }] },
+  { vertical: "locksmith", city: "kawasaki", verifiedAt, sources: [{ name: "川崎警察署 防犯対策", detail: "在宅時を含む施錠、防犯フィルム・防犯ガラス等で窓や玄関を強化する対策を案内しています。", url: "https://www.police.pref.kanagawa.jp/ps/kawasaki/entry_8.html" }], checks: ["解錠・鍵交換は作業前に総額と追加条件を確認する。", "補助錠、窓、防犯フィルムなど対策の範囲を分けて比較する。", "マンションは管理規約と既存錠の型番を確認する。"], faqs: [{ question: "川崎市で鍵・防犯対策を比較するには？", answer: "鍵交換だけでなく、窓・補助錠・防犯部品まで必要な対策を分け、作業前に総額と追加条件を確認します。" }] },
+  { vertical: "garden-care", city: "kawasaki", verifiedAt, sources: [{ name: "川崎市シルバー人材センター", detail: "植木剪定、刈り込み、除草・草刈りの依頼案内を公開しています。", url: "https://www.kawasaki-sc.or.jp/order/06.html" }], checks: ["木の本数・高さ、草刈り面積、枝葉処分、希望時期をそろえて伝える。", "高所・伐採など依頼できる範囲を確認する。", "シルバー人材センターと民間事業者で同条件の作業範囲・日程・処分費を比較する。"], faqs: [{ question: "川崎市で剪定・草刈りを比較するには？", answer: "庭の条件と枝葉処分の要否をそろえ、シルバー人材センターと民間事業者へ同じ条件で確認します。" }] },
+);
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
