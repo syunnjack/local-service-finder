@@ -639,6 +639,33 @@ regionFacts.push(
   },
 );
 
+regionFacts.push(
+  {
+    vertical: "moving", city: "chiba", verifiedAt,
+    sources: [{ name: "千葉市 ごみ", detail: "粗大ごみを含むごみの出し方と、許可業者への依頼に関する案内を公開しています。", url: "https://www.city.chiba.jp/kurashi/gomi/gomi/index.html" }],
+    checks: ["粗大ごみの品目・手数料・受付方法を公式案内で確認する。", "不法投棄や無許可の回収には依頼せず、必要に応じて許可業者を確認する。", "遺品整理や運び出しは、処分方法と作業範囲を分けて比較する。"],
+    faqs: [{ question: "千葉市で粗大ごみ・片付けを依頼する前の確認事項は？", answer: "品目ごとの処分方法と手数料を公式案内で確認し、民間へ依頼する場合は許可の有無、運び出しと処分の範囲、追加料金を確認します。" }],
+  },
+  {
+    vertical: "plumbing", city: "chiba", verifiedAt,
+    sources: [{ name: "千葉市水道局 水道の故障及び漏水", detail: "千葉市内は給水区域により水道事業体が異なり、夜間・休日の故障では指定給水装置工事事業者への依頼を案内しています。", url: "https://www.city.chiba.jp/suido/jigyo/koshorosui.html" }],
+    checks: ["住所の給水区域と問い合わせ先を確認する。", "指定給水装置工事事業者であること、出張費・作業費・材料費を依頼前に確認する。", "敷地内設備と公共側の不具合で負担や連絡先が異なるため、故障箇所を確認する。"],
+    faqs: [{ question: "千葉市で漏水修理を頼む際の注意点は？", answer: "給水区域を確認したうえで、指定給水装置工事事業者へ依頼します。敷地内の給水装置は原則自己負担なので、作業前に費用条件を比べます。" }],
+  },
+  {
+    vertical: "locksmith", city: "chiba", verifiedAt,
+    sources: [{ name: "千葉県警察 空き巣の防犯対策", detail: "補助錠、ドアまわりの防犯部品、防犯カメラ・センサーライトなどの対策を案内しています。", url: "https://www.police.pref.chiba.jp/seisoka/safe-life_publicspace-home_theft_03.html" }],
+    checks: ["緊急の解錠でも作業前に出張費・作業費・部品代・追加料金を総額で確認する。", "鍵交換は補助錠やドア・窓まわりの対策も含めて検討する。", "マンションでは管理規約と既存鍵の型番を確認する。"],
+    faqs: [{ question: "千葉市で鍵・防犯対策を比較するには？", answer: "鍵単体の交換費用だけでなく、補助錠、窓、照明・カメラなどの対策範囲を分け、作業前に総額と追加条件を確認します。" }],
+  },
+  {
+    vertical: "garden-care", city: "chiba", verifiedAt,
+    sources: [{ name: "千葉市シルバー人材センター", detail: "一般家庭向けの植木剪定・除草作業の依頼案内を公開しています。", url: "https://chiba-sjc.com/request-service/" }],
+    checks: ["木の本数・高さ、除草面積、枝葉の処分、希望時期をそろえて伝える。", "高所作業・伐採など依頼できない範囲を事前に確認する。", "シルバー人材センターと民間事業者で作業範囲・日程・処分費を同条件で比較する。"],
+    faqs: [{ question: "千葉市で剪定・除草を比較するには？", answer: "庭の条件と枝葉処分の要否をそろえ、シルバー人材センターと民間事業者へ同じ条件で見積もりを依頼します。" }],
+  },
+);
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }

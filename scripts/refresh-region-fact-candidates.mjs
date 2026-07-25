@@ -75,6 +75,10 @@ const sourceCandidates = [
   ["plumbing", "sendai", "仙台市水道局", "https://www.suidou.city.sendai.jp/soshiki/kyusui-kyusuisochi/kyusuisochi/3/304.html", "指定給水装置工事事業者と修繕登録店、複数見積もりの案内を確認する"],
   ["locksmith", "sendai", "仙台市", "https://www.city.sendai.jp/shiminsekatsu/kurashi/anzen/anzen/bohan/point.html", "住まいの防犯を含む地域防犯の注意点を確認する"],
   ["garden-care", "sendai", "仙台市シルバー人材センター", "https://webc.sjc.ne.jp/sendaisc/activity_5", "植木剪定・除草に関する技能講習と依頼先情報を確認する"],
+  ["moving", "chiba", "千葉市", "https://www.city.chiba.jp/kurashi/gomi/gomi/index.html", "粗大ごみ等の処分方法と許可業者に関する案内を確認する"],
+  ["plumbing", "chiba", "千葉市水道局", "https://www.city.chiba.jp/suido/jigyo/koshorosui.html", "給水区域別の漏水対応と指定給水装置工事事業者を確認する"],
+  ["locksmith", "chiba", "千葉県警察", "https://www.police.pref.chiba.jp/seisoka/safe-life_publicspace-home_theft_03.html", "侵入盗を防ぐ施錠・補助錠等の防犯対策を確認する"],
+  ["garden-care", "chiba", "千葉市シルバー人材センター", "https://chiba-sjc.com/request-service/", "植木剪定・除草の依頼条件を確認する"],
 ].map(([vertical, city, organization, url, purpose]) => ({ vertical, city, organization, url, purpose }));
 
 const approvedHosts = [
@@ -85,6 +89,7 @@ const approvedHosts = [
   "benry.com", "myourenji.benry.com", "inc-benry.jp", "happy-bears.com",
   "city.sapporo.jp", "s-silver.jp",
   "city.sendai.jp", "suidou.city.sendai.jp",
+  "city.chiba.jp", "police.pref.chiba.jp", "chiba-sjc.com",
 ];
 
 function cleanText(value) {

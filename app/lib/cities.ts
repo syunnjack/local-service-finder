@@ -5,6 +5,7 @@ export const cities = [
   { slug: "saitama", name: "さいたま市" },
   { slug: "sapporo", name: "札幌市" },
   { slug: "sendai", name: "仙台市" },
+  { slug: "chiba", name: "千葉市" },
 ] as const;
 
 export const getCity = (slug: string) => cities.find((city) => city.slug === slug);
