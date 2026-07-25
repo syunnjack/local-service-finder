@@ -673,6 +673,13 @@ regionFacts.push(
   { vertical: "garden-care", city: "kawasaki", verifiedAt, sources: [{ name: "川崎市シルバー人材センター", detail: "植木剪定、刈り込み、除草・草刈りの依頼案内を公開しています。", url: "https://www.kawasaki-sc.or.jp/order/06.html" }], checks: ["木の本数・高さ、草刈り面積、枝葉処分、希望時期をそろえて伝える。", "高所・伐採など依頼できる範囲を確認する。", "シルバー人材センターと民間事業者で同条件の作業範囲・日程・処分費を比較する。"], faqs: [{ question: "川崎市で剪定・草刈りを比較するには？", answer: "庭の条件と枝葉処分の要否をそろえ、シルバー人材センターと民間事業者へ同じ条件で確認します。" }] },
 );
 
+regionFacts.push(
+  { vertical: "moving", city: "nagoya", verifiedAt, sources: [{ name: "名古屋市 粗大ごみ", detail: "粗大ごみのインターネット・電話での申込み方法を案内しています。", url: "https://www.city.nagoya.jp/kurashi/gomi/1012183/1035058/1012184/1046468/index.html" }], checks: ["品目・大きさ・手数料・収集日を公式案内で確認する。", "市で収集しない品目は別の処分方法を確認する。", "運び出しと処分の範囲、追加料金を分けて比較する。"], faqs: [{ question: "名古屋市で粗大ごみを出す前に何を確認する？", answer: "品目、サイズ、手数料、申込み方法と収集日を公式案内で確認します。対象外品目や運び出しが必要な場合は、処分方法と民間サービスの範囲を分けて比べます。" }] },
+  { vertical: "plumbing", city: "nagoya", verifiedAt, sources: [{ name: "名古屋市上下水道局", detail: "水漏れ・故障は市指定水道工事業者や修繕センターへの依頼を案内しています。", url: "https://www.water.city.nagoya.jp/category/11001kyuusuisetsubi/12049.html" }], checks: ["市指定水道工事業者であることと、作業前の費用条件を確認する。", "緊急対応、出張費、作業費、部品代、追加条件を分けて確認する。", "漏水箇所により上下水道局で修理できない場合があるため、対応範囲を確認する。"], faqs: [{ question: "名古屋市で水漏れ修理を頼む際の注意点は？", answer: "市指定水道工事業者または公式窓口へ連絡し、修理対象かを確認します。作業前に見積もりと追加料金の条件を確認します。" }] },
+  { vertical: "locksmith", city: "nagoya", verifiedAt, sources: [{ name: "名古屋市 住宅対象侵入盗対策", detail: "住宅対象侵入盗の被害防止に向けた防犯対策を案内しています。", url: "https://www.city.nagoya.jp/bousai/anzen/1014448/1014449/1014464.html" }], checks: ["解錠・鍵交換は作業前に総額と追加条件を確認する。", "補助錠、窓、防犯部品など対策の範囲を分けて比較する。", "マンションは管理規約と既存錠の型番を確認する。"], faqs: [{ question: "名古屋市で鍵・防犯対策を比較するには？", answer: "鍵交換だけでなく、補助錠や窓まわりの対策まで必要な範囲を分け、作業前に総額と追加条件を確認します。" }] },
+  { vertical: "garden-care", city: "nagoya", verifiedAt, sources: [{ name: "名古屋市シルバー人材センター", detail: "植木手入れ・除草を含む仕事の依頼案内を公開しています。", url: "https://www.sjc.ne.jp/nagoyasj/" }], checks: ["木の本数・高さ、除草面積、枝葉処分、希望時期をそろえて伝える。", "高所・伐採など依頼できる範囲を確認する。", "シルバー人材センターと民間事業者で同条件の作業範囲・日程・処分費を比較する。"], faqs: [{ question: "名古屋市で剪定・除草を比較するには？", answer: "庭の条件と枝葉処分の要否をそろえ、シルバー人材センターと民間事業者へ同じ条件で確認します。" }] },
+);
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
