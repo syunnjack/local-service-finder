@@ -585,6 +585,33 @@ for (const [city, source] of Object.entries(movingDisposalSources)) {
   if (fact) fact.sources.push(source);
 }
 
+regionFacts.push(
+  {
+    vertical: "moving", city: "sapporo", verifiedAt,
+    sources: [{ name: "札幌市 大型ごみ", detail: "大型ごみは戸別有料収集です。インターネットまたは電話で申し込み、収集曜日と申込期限は区ごとに異なります。", url: "https://www.city.sapporo.jp/seiso/gomi/oogatagomi.html" }],
+    checks: ["大型ごみの対象外となる家電4品目・パソコン・事業所から出た物は、別の適正処理方法を確認する。", "収集希望日の2週間前から申し込めます。住所の区ごとの収集曜日と申込期限を確認する。", "遺品整理や一時多量ごみは、自治体案内と民間サービスの両方で処分方法・費用を比べる。"],
+    faqs: [{ question: "札幌市で大型ごみを出す際に先に確認することは？", answer: "品目が対象か、区ごとの収集曜日・申込期限、手数料を札幌市公式サイトで確認してから申し込みます。家電4品目やパソコンは対象外です。" }],
+  },
+  {
+    vertical: "plumbing", city: "sapporo", verifiedAt,
+    sources: [{ name: "札幌市水道局", detail: "漏水などの修繕工事や凍結修理を行う、掲載希望のある指定給水装置工事事業者の名簿を区別に公開しています。", url: "https://www.city.sapporo.jp/suido/riyosya/trouble/koji/syuzen/index.html" }],
+    checks: ["凍結・漏水・一般修繕のどれに対応するかを名簿で確認する。", "見積もり、出張費、作業時間、材料費、緊急時の追加料金を依頼前に確認する。", "札幌市水道局は複数の指定事業者から見積もりを取り、納得してから依頼するよう案内している。"],
+    faqs: [{ question: "札幌市で水道が凍結・漏水した場合は？", answer: "札幌市水道局の修繕・凍結修理対応の指定事業者名簿で、住所の区と対応工事を確認します。費用は自己負担のため、作業内容と見積もりを比較してから依頼します。" }],
+  },
+  {
+    vertical: "locksmith", city: "sapporo", verifiedAt,
+    sources: [{ name: "札幌市 身近な犯罪から身を守る", detail: "札幌市は侵入窃盗を含む身近な犯罪への防犯対策と、北海道警察の防犯情報を案内しています。", url: "https://www.city.sapporo.jp/shimin/chiiki-bohan/mijikanahanzai/index.html" }],
+    checks: ["緊急の解錠依頼でも、作業前に出張費・作業費・部品代・追加料金の内訳を確認する。", "鍵交換は錠前の型番、合鍵の必要本数、マンション管理規約を確認する。", "防犯対策は施錠だけでなく、窓・補助錠・在宅時の対応を含めて比較する。"],
+    faqs: [{ question: "札幌市で鍵業者を比較する際の注意点は？", answer: "緊急性と料金を分けて考え、作業前に総額と追加条件を確認します。交換では既存の鍵の型番や管理規約も確認し、防犯対策は公式の注意情報も参照します。" }],
+  },
+  {
+    vertical: "garden-care", city: "sapporo", verifiedAt,
+    sources: [{ name: "札幌市シルバー人材センター", detail: "札幌市シルバー人材センターは、地域からの短期・短時間の仕事を受け、植木の手入れを含む仕事を案内しています。", url: "https://www.s-silver.jp/silver.php" }],
+    checks: ["剪定・草刈りの対象範囲、枝葉の処分、作業時期、立会い要否を見積もり時にそろえて伝える。", "高所作業・伐採・病害虫対応など、依頼できない作業がないか確認する。", "シルバー人材センターと民間事業者で、作業内容・日程・処分費を同じ条件で比較する。"],
+    faqs: [{ question: "札幌市で庭木の手入れを比較するには？", answer: "剪定する木の本数・高さ、草刈り面積、枝葉の処分、希望時期をそろえ、シルバー人材センターと民間事業者に同じ条件で確認します。" }],
+  },
+);
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
