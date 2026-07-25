@@ -30,12 +30,30 @@ const sourceCandidates = [
   ["electrical", "osaka", "エディオン", "https://service-info.edion.jp/service/construction/air_conditioner/", "エアコン工事の標準・追加条件を確認する"],
   ["electrical", "yokohama", "エディオン", "https://search.edion.com/e_store/station/spot/list?node=00000838&radius=5", "地域の相談窓口と対応条件を確認する"],
   ["electrical", "saitama", "経済産業省", "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/electric/detail/koji_2.html", "工事業者の登録等と施工条件を確認する"],
+  ["garden-care", "tokyo", "東京都シルバー人材センター連合", "https://www.tokyosilver.jp/", "庭木剪定・草刈りの地域窓口と依頼条件を確認する"],
+  ["garden-care", "osaka", "大阪府シルバー人材センター協議会", "https://www.osakasc.or.jp/work.php", "剪定・除草等の作業案内と地域窓口を確認する"],
+  ["garden-care", "yokohama", "横浜市シルバー人材センター", "https://webc.sjc.ne.jp/yokohama/index", "庭木・屋外作業の相談窓口と対応条件を確認する"],
+  ["garden-care", "saitama", "さいたま市シルバー人材センター", "https://saitama-sjc.or.jp/simin/kojintaku.html", "個人宅向け作業と剪定・除草の依頼条件を確認する"],
+  ["pest-control", "tokyo", "ダスキン", "https://www.duskin.jp/store/tokyo/", "害虫・害獣駆除の都内店舗と対応条件を確認する"],
+  ["pest-control", "osaka", "ダスキン", "https://www.duskin.jp/store/osaka/", "害虫・害獣駆除の大阪府内店舗と対応条件を確認する"],
+  ["pest-control", "yokohama", "ダスキン", "https://www.duskin.jp/store/kanagawa/", "害虫・害獣駆除の神奈川県内店舗と対応条件を確認する"],
+  ["pest-control", "saitama", "ダスキン", "https://www.duskin.jp/store/saitama/", "害虫・害獣駆除の埼玉県内店舗と対応条件を確認する"],
+  ["handyman", "tokyo", "ベンリー", "https://www.benry.com/benrytown-top-result/all/", "地域の便利屋サービスと最終的な対応可否を確認する"],
+  ["handyman", "osaka", "ベンリー", "https://www.benry.com/fc-introduction/", "近隣店舗の便利屋サービスと対応条件を確認する"],
+  ["handyman", "yokohama", "ベンリー妙蓮寺店", "https://myourenji.benry.com/", "横浜市周辺の生活支援・軽作業サービスを確認する"],
+  ["handyman", "saitama", "株式会社ベンリー", "https://inc-benry.jp/service/", "さいたま市を含む生活支援・軽修繕サービスを確認する"],
+  ["housekeeping", "tokyo", "ベアーズ", "https://www.happy-bears.com/kaji/tokyo/", "東京都の家事代行対応地域とサービス条件を確認する"],
+  ["housekeeping", "osaka", "ベアーズ", "https://www.happy-bears.com/kaji/oosaka/oosaka/", "大阪市の家事代行対応地域とサービス条件を確認する"],
+  ["housekeeping", "yokohama", "ベアーズ", "https://www.happy-bears.com/kaji/kanagawa/yokohama/", "横浜市の家事代行対応地域とサービス条件を確認する"],
+  ["housekeeping", "saitama", "ベアーズ", "https://www.happy-bears.com/kaji/saitama/saitama/", "さいたま市の家事代行対応地域とサービス条件を確認する"],
 ].map(([vertical, city, organization, url, purpose]) => ({ vertical, city, organization, url, purpose }));
 
 const approvedHosts = [
   "kankyo.metro.tokyo.lg.jp", "waterworks.metro.tokyo.lg.jp", "keishicho.metro.tokyo.lg.jp",
   "city.osaka.lg.jp", "police.pref.osaka.lg.jp", "city.yokohama.lg.jp", "police.pref.kanagawa.jp",
   "city.saitama.lg.jp", "police.pref.saitama.lg.jp", "service-info.edion.jp", "search.edion.com", "meti.go.jp",
+  "tokyosilver.jp", "osakasc.or.jp", "webc.sjc.ne.jp", "saitama-sjc.or.jp", "duskin.jp",
+  "benry.com", "myourenji.benry.com", "inc-benry.jp", "happy-bears.com",
 ];
 
 function cleanText(value) {
