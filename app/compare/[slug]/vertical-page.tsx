@@ -5,7 +5,7 @@ import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { cities } from "../../lib/cities";
 import { guides } from "../../lib/guides";
 import { relatedServices } from "../../lib/related-services";
-import type { RegionFact } from "../../lib/region-facts";
+import { getVerifiedCities, type RegionFact } from "../../lib/region-facts";
 import { getProviders, type Provider } from "../../lib/providers";
 import type { Vertical } from "../../lib/verticals";
 
@@ -15,7 +15,8 @@ const prefectures = ["東京都", "大阪府", "神奈川県", "埼玉県"];
 const estimateLabels: Record<string, string> = { "as-expected": "見積もりどおり", higher: "見積もりより高かった", lower: "見積もりより安かった", unknown: "比較できない" };
 
 export default function VerticalPage({ vertical, initialCity, regionFact }: { vertical: Vertical; initialCity?: string; regionFact?: RegionFact }) {
-  const [city, setCity] = useState(initialCity || cities[0].name);
+  const availableCities = useMemo(() => cities.filter((item) => getVerifiedCities(vertical.slug).includes(item.slug)), [vertical.slug]);
+  const [city] = useState(initialCity || availableCities[0]?.name || cities[0].name);
   const [service, setService] = useState(vertical.services[0]);
   const providers = useMemo(() => getProviders(vertical.slug), [vertical.slug]);
   const [selected, setSelected] = useState<Provider | undefined>(() => providers[0]);
@@ -35,7 +36,7 @@ export default function VerticalPage({ vertical, initialCity, regionFact }: { ve
   return <main style={{ "--green": vertical.accent } as React.CSSProperties}>
     <header><Link href="/" className="logo">まち<span>セレクト</span></Link><nav><a href="#results">比較</a><a href="#reviews">口コミ</a><a href="#request">相談</a></nav></header>
     <section className="hero"><p>{vertical.category.toUpperCase()} · LOCAL COMPARISON</p><h1>{city}の<br /><em>{vertical.name}を比較</em></h1><span>公式サイトで確認できるサービス情報と、利用条件が近い人の口コミを分けて掲載しています。</span><a href="#results" onClick={() => track("compare")}>比較表を見る →</a></section>
-    <section className="search" aria-label="比較条件"><label>地域<select value={city} onChange={(e) => setCity(e.target.value)}>{cities.map((item) => <option key={item.slug}>{item.name}</option>)}</select></label><label>サービス<select value={service} onChange={(e) => setService(e.target.value)}>{vertical.services.map((item) => <option key={item}>{item}</option>)}</select></label><a href="#results" onClick={() => track("compare")}>条件を確認</a></section>
+    <section className="search" aria-label="比較条件"><label>地域<select value={city} onChange={(e) => { const next = availableCities.find((item) => item.name === e.target.value); if (next) window.location.assign(`/compare/${vertical.slug}/${next.slug}`); }}><option value={city}>{city}</option>{availableCities.filter((item) => item.name !== city).map((item) => <option key={item.slug}>{item.name}</option>)}</select></label><label>サービス<select value={service} onChange={(e) => setService(e.target.value)}>{vertical.services.map((item) => <option key={item}>{item}</option>)}</select></label><a href="#results" onClick={() => track("compare")}>条件を確認</a></section>
     {guide && <section className="guide-callout"><p className="eyebrow">BEFORE YOU COMPARE</p><h2>{guide.title}</h2><p>{guide.description}</p><Link href={`/guides/${guide.slug}`}>選び方・注意点を読む →</Link></section>}
     {regionFact && <section className="guide-callout"><p className="eyebrow">REGIONAL OFFICIAL DATA · 確認日 {regionFact.verifiedAt}</p><h2>{city}で公式確認できた情報</h2><ul>{regionFact.sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.name}（公式）</a>：{source.detail}</li>)}</ul><h3>申込み前の確認ポイント</h3><ul>{regionFact.checks.map((check) => <li key={check}>{check}</li>)}</ul></section>}
     <section className="results" id="results"><div className="head"><div><p>OFFICIAL LISTINGS</p><h2>{city}の{vertical.name}</h2></div><span>{providers.length}社の公式情報</span></div><div className="cards">{providers.map((provider) => <article key={provider.id} className={selected?.id === provider.id ? "selected-provider" : ""}><div><b>{provider.name}</b><strong>公式情報</strong></div><small>{provider.coverage}</small><p className="pricing-note">{provider.pricing}</p><h3>対応サービス</h3><ul>{provider.services.map((item) => <li key={item}>{item}</li>)}</ul><dl>{provider.highlights.map((item, index) => <div key={item}><dt>{vertical.points[index]}</dt><dd>{item}</dd></div>)}</dl><Link className="official-link" href={`/providers/${provider.id}`}>掲載詳細・出典を見る →</Link>{ctaVariant === "official-first" ? <><a className="official-link" href={provider.sourceUrl} target="_blank" rel="noreferrer" onClick={() => track("cta", `${provider.id}:official:${ctaVariant}`)}>公式サイトで確認 →</a><button onClick={() => { setSelected(provider); document.getElementById("request")?.scrollIntoView({ behavior: "smooth" }); }}>比較相談をする</button></> : <><button onClick={() => { setSelected(provider); document.getElementById("request")?.scrollIntoView({ behavior: "smooth" }); }}>比較相談をする</button><a className="official-link" href={provider.sourceUrl} target="_blank" rel="noreferrer" onClick={() => track("cta", `${provider.id}:official:${ctaVariant}`)}>公式サイトで確認 →</a></>}<small className="source-note">出典: {provider.sourceLabel} · 確認日 {provider.verifiedAt}</small></article>)}</div></section>

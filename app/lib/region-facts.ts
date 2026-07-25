@@ -683,3 +683,11 @@ regionFacts.push(
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
+
+export function getVerifiedCities(vertical: string) {
+  return [...new Set(regionFacts.filter((fact) => fact.vertical === vertical).map((fact) => fact.city))];
+}
+
+export function getVerifiedCombinations() {
+  return regionFacts.map(({ vertical, city }) => ({ vertical, city }));
+}
