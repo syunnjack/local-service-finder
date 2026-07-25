@@ -11,6 +11,27 @@ const cityLabels = {
   osaka: "大阪市",
   yokohama: "横浜市",
   saitama: "さいたま市",
+  sapporo: "札幌市",
+  sendai: "仙台市",
+  chiba: "千葉市",
+  kawasaki: "川崎市",
+  nagoya: "名古屋市",
+  kyoto: "京都市",
+  kobe: "神戸市",
+  hiroshima: "広島市",
+  fukuoka: "福岡市",
+};
+
+const verticalLabels = {
+  "house-cleaning": "ハウスクリーニング",
+  moving: "引越し",
+  housekeeping: "家事代行",
+  "garden-care": "庭木剪定・草刈り",
+  "pest-control": "害虫・害獣駆除",
+  locksmith: "鍵交換・鍵開け",
+  plumbing: "水道修理・水漏れ",
+  electrical: "電気工事・エアコン設置",
+  handyman: "便利屋・生活サポート",
 };
 
 const sourceCandidates = [
@@ -119,7 +140,13 @@ function renderReport(results) {
     escapeCell(result.note),
   ].join(" | ")} |`);
 
-  return `# 地域実データ・確認候補\n\n更新日: ${today}\n\nこのファイルは、許可済みの公式ドメインだけを取得して作る編集確認用の候補です。自動公開はしません。掲載する前に、地域への適用・料金・対応可否・更新日を編集者が確認してください。\n\n| ジャンル | 地域 | 公式情報 | 取得状態 | ページ見出し | 追加候補 | 編集確認 |\n| --- | --- | --- | --- | --- | --- | --- |\n${rows.join("\n")}\n\n## 公開前の確認\n\n- URL、組織名、地域との関係が正しいこと\n- 料金・対応範囲・受付時間などの変動値を推測していないこと\n- 既存の掲載情報を上書き・削除していないこと\n- 確認日と出典URLを地域ページへ記録すること\n`;
+  const registered = new Set(sourceCandidates.map((source) => `${source.vertical}:${source.city}`));
+  const coverageRows = Object.entries(cityLabels).flatMap(([city, cityLabel]) => Object.entries(verticalLabels).map(([vertical, verticalLabel]) => {
+    const status = registered.has(`${vertical}:${city}`) ? "公式ソース確認対象に登録済み" : "公式ソース探索待ち（未公開）";
+    return `| ${verticalLabel} | ${cityLabel} | ${status} |`;
+  }));
+
+  return `# 地域実データ・確認候補\n\n更新日: ${today}\n\nこのファイルは、許可済みの公式ドメインだけを取得して作る編集確認用の候補です。自動公開はしません。掲載する前に、地域への適用・料金・対応可否・更新日を編集者が確認してください。\n\n| ジャンル | 地域 | 公式情報 | 取得状態 | ページ見出し | 追加候補 | 編集確認 |\n| --- | --- | --- | --- | --- | --- | --- |\n${rows.join("\n")}\n\n## 全国主要都市・全ジャンルの確認台帳\n\n主要13都市×全9ジャンルを確認対象にしています。「公式ソース探索待ち」は公開ページへ自動反映されません。\n\n| ジャンル | 地域 | 状態 |\n| --- | --- | --- |\n${coverageRows.join("\n")}\n\n## 公開前の確認\n\n- URL、組織名、地域との関係が正しいこと\n- 料金・対応範囲・受付時間などの変動値を推測していないこと\n- 既存の掲載情報を上書き・削除していないこと\n- 確認日と出典URLを地域ページへ記録すること\n`;
 }
 
 const options = new Set(process.argv.slice(2));
