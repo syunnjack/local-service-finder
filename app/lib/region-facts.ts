@@ -680,6 +680,13 @@ regionFacts.push(
   { vertical: "garden-care", city: "nagoya", verifiedAt, sources: [{ name: "名古屋市シルバー人材センター", detail: "植木手入れ・除草を含む仕事の依頼案内を公開しています。", url: "https://www.sjc.ne.jp/nagoyasj/" }], checks: ["木の本数・高さ、除草面積、枝葉処分、希望時期をそろえて伝える。", "高所・伐採など依頼できる範囲を確認する。", "シルバー人材センターと民間事業者で同条件の作業範囲・日程・処分費を比較する。"], faqs: [{ question: "名古屋市で剪定・除草を比較するには？", answer: "庭の条件と枝葉処分の要否をそろえ、シルバー人材センターと民間事業者へ同じ条件で確認します。" }] },
 );
 
+regionFacts.push(
+  { vertical: "moving", city: "kyoto", verifiedAt, sources: [{ name: "京都市 大型ごみ", detail: "大型ごみ・持込ごみのインターネット受付を案内しています。", url: "https://www.city.kyoto.lg.jp/kankyo/page/0000001317.html" }], checks: ["品目・手数料・申込期限を公式案内で確認する。", "市で収集しない品目は別の処分方法を確認する。"], faqs: [{ question: "京都市で大型ごみを出す前に何を確認する？", answer: "品目、手数料、申込方法と収集日を公式案内で確認します。" }] },
+  { vertical: "plumbing", city: "kyoto", verifiedAt, sources: [{ name: "京都市上下水道局", detail: "水道・下水道トラブルと指定給水装置工事事業者に関する情報を案内しています。", url: "https://www.city.kyoto.lg.jp/suido/page/0000136992.html" }], checks: ["指定事業者であることと、作業前の費用条件を確認する。", "漏水箇所・対応範囲を確認し、追加料金を含む見積もりを比較する。"], faqs: [{ question: "京都市で水道修理を頼む際の注意点は？", answer: "指定事業者と対応範囲を確認し、作業前に費用条件を比較します。" }] },
+  { vertical: "locksmith", city: "kyoto", verifiedAt, sources: [{ name: "京都府警察 防犯対策", detail: "侵入強盗・侵入窃盗の被害防止と鍵・窓まわりの対策を案内しています。", url: "https://www.pref.kyoto.jp/fukei/anzen/seiki_t/bohan/sinnyu-bousi.html" }], checks: ["解錠・鍵交換は作業前に総額と追加条件を確認する。", "補助錠・窓・防犯部品を含めて比較する。"], faqs: [{ question: "京都市で鍵・防犯対策を比べるには？", answer: "鍵交換だけでなく、窓や補助錠を含む必要な対策と総額を比較します。" }] },
+  { vertical: "garden-care", city: "kyoto", verifiedAt, sources: [{ name: "京都市シルバー人材センター", detail: "庭木の剪定・除草を含む仕事の依頼先として案内されています。", url: "https://www.city.kyoto.lg.jp/hokenfukushi/page/0000336086.html" }], checks: ["木の本数・高さ、除草面積、枝葉処分、希望時期をそろえて伝える。", "高所・伐採など依頼できる範囲を確認する。"], faqs: [{ question: "京都市で剪定・除草を比較するには？", answer: "庭の条件と枝葉処分の要否をそろえ、同じ条件で確認します。" }] },
+);
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }

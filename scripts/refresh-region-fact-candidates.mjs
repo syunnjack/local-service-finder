@@ -87,6 +87,10 @@ const sourceCandidates = [
   ["plumbing", "nagoya", "名古屋市上下水道局", "https://www.water.city.nagoya.jp/category/11001kyuusuisetsubi/12049.html", "水漏れ修理と市指定水道工事業者を確認する"],
   ["locksmith", "nagoya", "名古屋市", "https://www.city.nagoya.jp/bousai/anzen/1014448/1014449/1014464.html", "住宅対象侵入盗の防犯対策を確認する"],
   ["garden-care", "nagoya", "名古屋市シルバー人材センター", "https://www.sjc.ne.jp/nagoyasj/", "植木手入れ・除草の依頼案内を確認する"],
+  ["moving", "kyoto", "京都市", "https://www.city.kyoto.lg.jp/kankyo/page/0000001317.html", "大型ごみの申込み方法を確認する"],
+  ["plumbing", "kyoto", "京都市上下水道局", "https://www.city.kyoto.lg.jp/suido/page/0000136992.html", "水道・下水道トラブルと指定事業者を確認する"],
+  ["locksmith", "kyoto", "京都府警察", "https://www.pref.kyoto.jp/fukei/anzen/seiki_t/bohan/sinnyu-bousi.html", "侵入強盗・侵入窃盗の防犯対策を確認する"],
+  ["garden-care", "kyoto", "京都市", "https://www.city.kyoto.lg.jp/hokenfukushi/page/0000336086.html", "シルバー人材センターの庭木剪定・除草を確認する"],
 ].map(([vertical, city, organization, url, purpose]) => ({ vertical, city, organization, url, purpose }));
 
 const approvedHosts = [
@@ -100,6 +104,7 @@ const approvedHosts = [
   "city.chiba.jp", "police.pref.chiba.jp", "chiba-sjc.com",
   "city.kawasaki.jp", "kawasaki-sc.or.jp",
   "city.nagoya.jp", "water.city.nagoya.jp", "sjc.ne.jp",
+  "city.kyoto.lg.jp", "pref.kyoto.jp",
 ];
 
 function cleanText(value) {
