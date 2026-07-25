@@ -51,7 +51,8 @@ function extractMetadata(html) {
 
 function isApprovedSource(url) {
   const parsed = new URL(url);
-  return parsed.protocol === "https:" && approvedHosts.includes(parsed.hostname);
+  const hostname = parsed.hostname.replace(/^www\./, "");
+  return parsed.protocol === "https:" && approvedHosts.includes(hostname);
 }
 
 async function inspectSource(source, timeoutMs) {
@@ -61,7 +62,11 @@ async function inspectSource(source, timeoutMs) {
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(source.url, {
-      headers: { "user-agent": "MachiSelectDataReviewBot/1.0 (+https://machiselect.jp)" },
+      headers: {
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0 Safari/537.36",
+        accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "accept-language": "ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7",
+      },
       signal: controller.signal,
     });
     const html = await response.text();
@@ -86,7 +91,7 @@ function escapeCell(value = "") {
 }
 
 function renderReport(results) {
-  const rows = results.map((result) => [
+  const rows = results.map((result) => `| ${[
     result.vertical,
     cityLabels[result.city],
     `[${result.organization}](${result.url})`,
@@ -94,7 +99,7 @@ function renderReport(results) {
     escapeCell(result.heading || result.title || "タイトル未取得"),
     escapeCell(result.purpose),
     escapeCell(result.note),
-  ].join(" | "));
+  ].join(" | ")} |`);
 
   return `# 地域実データ・確認候補\n\n更新日: ${today}\n\nこのファイルは、許可済みの公式ドメインだけを取得して作る編集確認用の候補です。自動公開はしません。掲載する前に、地域への適用・料金・対応可否・更新日を編集者が確認してください。\n\n| ジャンル | 地域 | 公式情報 | 取得状態 | ページ見出し | 追加候補 | 編集確認 |\n| --- | --- | --- | --- | --- | --- | --- |\n${rows.join("\n")}\n\n## 公開前の確認\n\n- URL、組織名、地域との関係が正しいこと\n- 料金・対応範囲・受付時間などの変動値を推測していないこと\n- 既存の掲載情報を上書き・削除していないこと\n- 確認日と出典URLを地域ページへ記録すること\n`;
 }
