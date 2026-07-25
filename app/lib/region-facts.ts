@@ -612,6 +612,33 @@ regionFacts.push(
   },
 );
 
+regionFacts.push(
+  {
+    vertical: "moving", city: "sendai", verifiedAt,
+    sources: [{ name: "仙台市 粗大ごみの出し方・受付", detail: "粗大ごみは事前申込みが必要で、収集日・手数料・排出場所を確認します。無許可の回収業者には依頼しないよう案内されています。", url: "https://www.city.sendai.jp/haiki-kanri/kurashi/machi/genryo/gomi/wakekata/sodaigomi.html" }],
+    checks: ["品目・大きさ・手数料と収集指定日を公式窓口で確認する。", "市は原則として家からの運び出しを行わないため、必要な支援制度と民間サービスの範囲を分けて確認する。", "家庭から出るごみか、事業ごみかで処理方法が異なるため、無許可回収業者には依頼しない。"],
+    faqs: [{ question: "仙台市で粗大ごみを処分する前に何を確認する？", answer: "品目・サイズ・手数料、収集日、排出場所を仙台市の公式案内で確認します。家庭ごみに限られ、運び出しが必要な場合は制度対象か民間サービスかを分けて検討します。" }],
+  },
+  {
+    vertical: "plumbing", city: "sendai", verifiedAt,
+    sources: [{ name: "仙台市水道局 指定給水装置工事事業者名簿", detail: "水道の新設・改造・修理は指定事業者へ依頼するよう案内され、区別の名簿と地元密着型水道修繕登録店制度が公開されています。", url: "https://www.suidou.city.sendai.jp/soshiki/kyusui-kyusuisochi/kyusuisochi/3/304.html" }],
+    checks: ["水道局の指定事業者であることと、住所の区への対応を確認する。", "見積もりが有料の場合もあるため、依頼前に費用の説明と見積もり条件を確認する。", "仙台市水道局の案内に従い、複数の指定事業者から見積もりを取り、内容と費用を比較する。"],
+    faqs: [{ question: "仙台市で水道修理を依頼する際の比較基準は？", answer: "仙台市水道局の指定事業者名簿で対応区を確認し、作業内容・出張費・見積もり費用・追加料金を同じ条件で比べます。" }],
+  },
+  {
+    vertical: "locksmith", city: "sendai", verifiedAt,
+    sources: [{ name: "仙台市 防犯のポイント", detail: "仙台市は住まいの防犯を含む防犯情報と、宮城県警の防犯情報を案内しています。", url: "https://www.city.sendai.jp/shiminsekatsu/kurashi/anzen/anzen/bohan/point.html" }],
+    checks: ["解錠や鍵交換は、作業前に出張費・作業費・部品代・追加条件を総額で確認する。", "住まいの防犯では施錠、窓まわり、補助錠・防犯フィルムなどの対策を分けて検討する。", "マンションは管理規約と既存錠の型番を確認し、合鍵・原状回復の扱いも確認する。"],
+    faqs: [{ question: "仙台市で鍵・防犯業者を選ぶときの注意点は？", answer: "緊急対応の可否と料金を分け、作業前に総額と追加条件を確認します。交換では管理規約と鍵の型番を確認し、地域の防犯情報も参照します。" }],
+  },
+  {
+    vertical: "garden-care", city: "sendai", verifiedAt,
+    sources: [{ name: "仙台市シルバー人材センター", detail: "植木剪定・除草の技能講習を案内しており、地域の作業依頼先として確認できます。", url: "https://webc.sjc.ne.jp/sendaisc/activity_5" }],
+    checks: ["剪定する木の本数・高さ、草刈り面積、枝葉処分、希望時期をそろえて伝える。", "高所・伐採・病害虫対応など、依頼できる範囲と安全上の制約を確認する。", "シルバー人材センターと民間事業者で作業範囲・日程・処分費を同じ条件で比較する。"],
+    faqs: [{ question: "仙台市で剪定・草刈りを比較するには？", answer: "木の高さと本数、草刈り面積、枝葉の処分、希望日をそろえ、シルバー人材センターと民間事業者へ同条件で確認します。" }],
+  },
+);
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }

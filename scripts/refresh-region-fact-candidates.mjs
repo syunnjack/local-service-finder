@@ -71,6 +71,10 @@ const sourceCandidates = [
   ["plumbing", "sapporo", "札幌市水道局", "https://www.city.sapporo.jp/suido/riyosya/trouble/koji/syuzen/index.html", "漏水・凍結修理に対応する指定給水装置工事事業者名簿を確認する"],
   ["locksmith", "sapporo", "札幌市", "https://www.city.sapporo.jp/shimin/chiiki-bohan/mijikanahanzai/index.html", "侵入窃盗対策と施錠・防犯の注意点を確認する"],
   ["garden-care", "sapporo", "札幌市シルバー人材センター", "https://www.s-silver.jp/silver.php", "植木の手入れを含む依頼可能な仕事の案内を確認する"],
+  ["moving", "sendai", "仙台市", "https://www.city.sendai.jp/haiki-kanri/kurashi/machi/genryo/gomi/wakekata/sodaigomi.html", "粗大ごみの申込み方法、収集日、無許可回収業者への注意を確認する"],
+  ["plumbing", "sendai", "仙台市水道局", "https://www.suidou.city.sendai.jp/soshiki/kyusui-kyusuisochi/kyusuisochi/3/304.html", "指定給水装置工事事業者と修繕登録店、複数見積もりの案内を確認する"],
+  ["locksmith", "sendai", "仙台市", "https://www.city.sendai.jp/shiminsekatsu/kurashi/anzen/anzen/bohan/point.html", "住まいの防犯を含む地域防犯の注意点を確認する"],
+  ["garden-care", "sendai", "仙台市シルバー人材センター", "https://webc.sjc.ne.jp/sendaisc/activity_5", "植木剪定・除草に関する技能講習と依頼先情報を確認する"],
 ].map(([vertical, city, organization, url, purpose]) => ({ vertical, city, organization, url, purpose }));
 
 const approvedHosts = [
@@ -80,6 +84,7 @@ const approvedHosts = [
   "tokyosilver.jp", "osakasc.or.jp", "webc.sjc.ne.jp", "saitama-sjc.or.jp", "duskin.jp",
   "benry.com", "myourenji.benry.com", "inc-benry.jp", "happy-bears.com",
   "city.sapporo.jp", "s-silver.jp",
+  "city.sendai.jp", "suidou.city.sendai.jp",
 ];
 
 function cleanText(value) {
