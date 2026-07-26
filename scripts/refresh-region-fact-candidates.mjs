@@ -93,6 +93,21 @@ const sourceCandidates = [
   ["garden-care", "kyoto", "京都市", "https://www.city.kyoto.lg.jp/hokenfukushi/page/0000336086.html", "シルバー人材センターの庭木剪定・除草を確認する"],
 ].map(([vertical, city, organization, url, purpose]) => ({ vertical, city, organization, url, purpose }));
 
+sourceCandidates.push(
+  { vertical: "moving", city: "kobe", organization: "神戸市", url: "https://faq.city.kobe.lg.jp/faq/show/677?site_domain=default", purpose: "引越し時の一時多量ごみの処分方法を確認" },
+  { vertical: "plumbing", city: "kobe", organization: "神戸市水道局", url: "https://www.city.kobe.lg.jp/a93427/ws/08.html", purpose: "指定給水装置工事事業者と複数見積りの案内を確認" },
+  { vertical: "locksmith", city: "kobe", organization: "兵庫県警", url: "https://www.police.pref.hyogo.lg.jp/seikatu/akisu/index.htm", purpose: "住宅侵入を防ぐ防犯対策を確認" },
+  { vertical: "garden-care", city: "kobe", organization: "神戸市シルバー人材センター", url: "https://www.kobe-sjc.or.jp/job_offer/", purpose: "植木剪定・除草の依頼案内を確認" },
+  { vertical: "moving", city: "hiroshima", organization: "広島市", url: "https://www.city.hiroshima.lg.jp/living/gomi-kankyo/1021277/1021279/1003526.html", purpose: "大型ごみの自己搬入方法を確認" },
+  { vertical: "plumbing", city: "hiroshima", organization: "広島市水道局", url: "https://www.water.city.hiroshima.lg.jp/soshiki/12/392.html", purpose: "指定給水装置工事事業者と複数見積りの案内を確認" },
+  { vertical: "locksmith", city: "hiroshima", organization: "広島市", url: "https://www.city.hiroshima.lg.jp/living/1035962/1021171/1025681/1048028.html", purpose: "侵入窃盗を含む犯罪発生状況を確認" },
+  { vertical: "garden-care", city: "hiroshima", organization: "広島市シルバー人材センター", url: "https://silver.hiroshima.jp/job", purpose: "植木剪定・除草の案内を確認" },
+  { vertical: "moving", city: "fukuoka", organization: "福岡市", url: "https://www.city.fukuoka.lg.jp/jonanku/seikatsukankyo/life/hikkosigominodasikata.html", purpose: "引越し時の多量ごみ・許可業者案内を確認" },
+  { vertical: "plumbing", city: "fukuoka", organization: "福岡市水道局", url: "https://www.city.fukuoka.lg.jp/mizu/sessui/machi/suidousiteigyousya/", purpose: "指定給水装置工事事業者を確認" },
+  { vertical: "locksmith", city: "fukuoka", organization: "福岡市", url: "https://www.city.fukuoka.lg.jp/shicho/kocho/opinion/demaekouza/d_lec_12.html", purpose: "住宅対象の侵入盗への防犯対策を確認" },
+  { vertical: "garden-care", city: "fukuoka", organization: "福岡市シルバー人材センター", url: "https://www.city.fukuoka.lg.jp/fukushi/oldage-welfare/health/00/01/1-010401.html", purpose: "剪定・除草・草刈りの案内を確認" },
+);
+
 const approvedHosts = [
   "kankyo.metro.tokyo.lg.jp", "waterworks.metro.tokyo.lg.jp", "keishicho.metro.tokyo.lg.jp",
   "city.osaka.lg.jp", "police.pref.osaka.lg.jp", "city.yokohama.lg.jp", "police.pref.kanagawa.jp",
@@ -105,6 +120,9 @@ const approvedHosts = [
   "city.kawasaki.jp", "kawasaki-sc.or.jp",
   "city.nagoya.jp", "water.city.nagoya.jp", "sjc.ne.jp",
   "city.kyoto.lg.jp", "pref.kyoto.jp",
+  "faq.city.kobe.lg.jp", "city.kobe.lg.jp", "police.pref.hyogo.lg.jp", "kobe-sjc.or.jp",
+  "city.hiroshima.lg.jp", "water.city.hiroshima.lg.jp", "silver.hiroshima.jp",
+  "city.fukuoka.lg.jp",
 ];
 
 function cleanText(value) {

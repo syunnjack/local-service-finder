@@ -687,6 +687,45 @@ regionFacts.push(
   { vertical: "garden-care", city: "kyoto", verifiedAt, sources: [{ name: "京都市シルバー人材センター", detail: "庭木の剪定・除草を含む仕事の依頼先として案内されています。", url: "https://www.city.kyoto.lg.jp/hokenfukushi/page/0000336086.html" }], checks: ["木の本数・高さ、除草面積、枝葉処分、希望時期をそろえて伝える。", "高所・伐採など依頼できる範囲を確認する。"], faqs: [{ question: "京都市で剪定・除草を比較するには？", answer: "庭の条件と枝葉処分の要否をそろえ、同じ条件で確認します。" }] },
 );
 
+const additionalMajorCityFacts: Array<{
+  city: string;
+  vertical: string;
+  name: string;
+  detail: string;
+  url: string;
+}> = [
+  { city: "kobe", vertical: "moving", name: "神戸市：一時多量ごみ", detail: "引越しごみなどの一時多量ごみは市では収集せず、処理施設への持込みまたは一般廃棄物収集運搬許可業者への依頼を案内しています。", url: "https://faq.city.kobe.lg.jp/faq/show/677?site_domain=default" },
+  { city: "kobe", vertical: "plumbing", name: "神戸市指定給水装置工事事業者一覧", detail: "神戸市は指定給水装置工事事業者を公開し、複数業者から見積りを取り工事内容を確認するよう案内しています。", url: "https://www.city.kobe.lg.jp/a93427/ws/08.html" },
+  { city: "kobe", vertical: "locksmith", name: "兵庫県警：侵入を防ぐ防犯対策", detail: "住宅への侵入を防ぐための防犯対策を確認できます。", url: "https://www.police.pref.hyogo.lg.jp/seikatu/akisu/index.htm" },
+  { city: "kobe", vertical: "garden-care", name: "神戸市シルバー人材センター", detail: "植木剪定・除草（機械刈り）の依頼先と、作業場所ごとの担当センターを案内しています。", url: "https://www.kobe-sjc.or.jp/job_offer/" },
+  { city: "hiroshima", vertical: "moving", name: "広島市：大型ごみの自己搬入", detail: "市域内の家庭から出る大型ごみの自己搬入方法と受付時間を案内しています。", url: "https://www.city.hiroshima.lg.jp/living/gomi-kankyo/1021277/1021279/1003526.html" },
+  { city: "hiroshima", vertical: "plumbing", name: "広島市水道局指定給水装置工事事業者一覧", detail: "水道工事・修理は指定事業者との契約であり、複数の見積書を取るよう案内しています。", url: "https://www.water.city.hiroshima.lg.jp/soshiki/12/392.html" },
+  { city: "hiroshima", vertical: "locksmith", name: "広島市：犯罪発生状況", detail: "侵入窃盗を含む市内の犯罪発生状況を公開しています。", url: "https://www.city.hiroshima.lg.jp/living/1035962/1021171/1025681/1048028.html" },
+  { city: "hiroshima", vertical: "garden-care", name: "広島市シルバー人材センター", detail: "植木のせん定や除草を含む依頼可能な仕事を案内しています。", url: "https://silver.hiroshima.jp/job" },
+  { city: "fukuoka", vertical: "moving", name: "福岡市：引っ越しごみの出し方", detail: "引越し時の多量ごみ、許可業者への依頼、粗大ごみ受付の方法を案内しています。", url: "https://www.city.fukuoka.lg.jp/jonanku/seikatsukankyo/life/hikkosigominodasikata.html" },
+  { city: "fukuoka", vertical: "plumbing", name: "福岡市水道局指定給水装置工事事業者", detail: "指定給水装置工事事業者の情報と、宅内漏水時の相談先を案内しています。", url: "https://www.city.fukuoka.lg.jp/mizu/sessui/machi/suidousiteigyousya/" },
+  { city: "fukuoka", vertical: "locksmith", name: "福岡市：住宅対象の侵入盗への防犯対策", detail: "住宅対象の侵入盗など身近な犯罪に対する防犯対策を案内しています。", url: "https://www.city.fukuoka.lg.jp/shicho/kocho/opinion/demaekouza/d_lec_12.html" },
+  { city: "fukuoka", vertical: "garden-care", name: "福岡市シルバー人材センター", detail: "剪定・除草・草刈りを含む軽作業の案内と、区ごとの相談先を公開しています。", url: "https://www.city.fukuoka.lg.jp/fukushi/oldage-welfare/health/00/01/1-010401.html" },
+];
+
+for (const fact of additionalMajorCityFacts) {
+  regionFacts.push({
+    vertical: fact.vertical,
+    city: fact.city,
+    verifiedAt,
+    sources: [{ name: fact.name, detail: fact.detail, url: fact.url }],
+    checks: [
+      "対応地域・受付時期・作業範囲を公式情報と事業者に確認する。",
+      "最終料金や追加費用は、作業前に書面の見積りで確認する。",
+      "緊急時は安全を優先し、自治体・水道局・警察の案内も確認する。",
+    ],
+    faqs: [{
+      question: "この地域で依頼先を比較するときの確認点は？",
+      answer: "公式の案内で対象地域・受付方法を確認し、複数の候補に作業内容、対応時期、見積り条件を確認してください。",
+    }],
+  });
+}
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
