@@ -12,6 +12,9 @@ export const cities = [
   { slug: "kobe", name: "神戸市" },
   { slug: "hiroshima", name: "広島市" },
   { slug: "fukuoka", name: "福岡市" },
+  { slug: "shizuoka", name: "静岡市" },
+  { slug: "kumamoto", name: "熊本市" },
+  { slug: "okayama", name: "岡山市" },
 ] as const;
 
 export const getCity = (slug: string) => cities.find((city) => city.slug === slug);

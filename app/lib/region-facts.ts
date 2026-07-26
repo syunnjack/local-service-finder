@@ -726,6 +726,47 @@ for (const fact of additionalMajorCityFacts) {
   });
 }
 
+const regionalUtilityFacts: RegionFact[] = [
+  {
+    vertical: "plumbing", city: "shizuoka", verifiedAt,
+    sources: [{ name: "静岡市上下水道局", detail: "給水装置・下水道の修繕は、上下水道局が指定した事業者・工事店へ依頼するよう案内しています。", url: "https://www.city.shizuoka.lg.jp/p009025.html" }],
+    checks: ["指定事業者か、修繕対象の範囲、見積り条件を確認する。"],
+    faqs: [{ question: "静岡市で水道修理を比較するには？", answer: "指定事業者かを確認し、修理範囲と見積り条件をそろえて比較してください。" }],
+  },
+  {
+    vertical: "garden-care", city: "shizuoka", verifiedAt,
+    sources: [{ name: "静岡市：シルバー人材センターへの依頼", detail: "植木剪定を含む臨時的・短期的な業務の依頼方法を案内しています。", url: "https://www.city.shizuoka.lg.jp/s2837/s002765.html" }],
+    checks: ["樹木の本数・高さ・枝葉処分・希望時期をそろえて相談する。"],
+    faqs: [{ question: "静岡市で庭木の手入れを比較するには？", answer: "庭の条件と処分の要否をそろえ、受付状況と見積りを確認してください。" }],
+  },
+  {
+    vertical: "plumbing", city: "kumamoto", verifiedAt,
+    sources: [{ name: "熊本市上下水道局指定給水装置工事事業者一覧", detail: "熊本市上下水道局が指定給水装置工事事業者の一覧を公開しています。", url: "https://www.kumamoto-waterworks.jp/wp-content/uploads/2024/07/41795bab57d0a612010e0a1ba9865014.pdf" }],
+    checks: ["指定の有無、対応エリア、修理内容と見積りを確認する。"],
+    faqs: [{ question: "熊本市で水道修理を比較するには？", answer: "公式一覧で指定事業者を確認し、複数候補に同じ修理条件で見積りを依頼してください。" }],
+  },
+  {
+    vertical: "garden-care", city: "kumamoto", verifiedAt,
+    sources: [{ name: "熊本市シルバー人材センター", detail: "剪定・除草を依頼でき、地区によって新規受付の状況が異なることを公開しています。", url: "https://www.kumamoto-sjc.jp/irai.html" }],
+    checks: ["受付停止地域・待ち期間・枝葉処分を依頼前に確認する。"],
+    faqs: [{ question: "熊本市で剪定を依頼するには？", answer: "地区別の受付状況を確認し、庭の条件を伝えて見積りを取りましょう。" }],
+  },
+  {
+    vertical: "plumbing", city: "okayama", verifiedAt,
+    sources: [{ name: "岡山市水道局指定給水装置工事事業者", detail: "指定給水装置工事事業者の制度と手続情報を公開しています。", url: "https://www.water.okayama.jp/soshiki/kyusui/1/3/186.html" }],
+    checks: ["指定事業者か、作業範囲、見積り条件を確認する。"],
+    faqs: [{ question: "岡山市で水道工事を比較するには？", answer: "指定事業者かを確認したうえで、作業内容と費用条件をそろえて比較してください。" }],
+  },
+  {
+    vertical: "garden-care", city: "okayama", verifiedAt,
+    sources: [{ name: "岡山市シルバー人材センター", detail: "植木剪定を含む屋外作業の案内と相談先を公開しています。", url: "https://www.city.okayama.jp/kurashi/0000004367.html" }],
+    checks: ["樹木の本数・高さ・作業時期・処分の要否を伝える。"],
+    faqs: [{ question: "岡山市で庭木剪定を比較するには？", answer: "作業条件をそろえ、受付時期と見積り条件を確認してください。" }],
+  },
+];
+
+regionFacts.push(...regionalUtilityFacts);
+
 export function getRegionFact(vertical: string, city: string) {
   return regionFacts.find((fact) => fact.vertical === vertical && fact.city === city);
 }
