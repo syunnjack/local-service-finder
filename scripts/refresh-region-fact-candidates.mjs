@@ -20,6 +20,9 @@ const cityLabels = {
   kobe: "神戸市",
   hiroshima: "広島市",
   fukuoka: "福岡市",
+  shizuoka: "静岡市",
+  kumamoto: "熊本市",
+  okayama: "岡山市",
 };
 
 const verticalLabels = {
@@ -94,6 +97,15 @@ const sourceCandidates = [
 ].map(([vertical, city, organization, url, purpose]) => ({ vertical, city, organization, url, purpose }));
 
 sourceCandidates.push(
+  { vertical: "plumbing", city: "shizuoka", organization: "静岡市上下水道局", url: "https://www.city.shizuoka.lg.jp/p009025.html", purpose: "指定事業者・工事店への修繕依頼案内を確認" },
+  { vertical: "garden-care", city: "shizuoka", organization: "静岡市", url: "https://www.city.shizuoka.lg.jp/s2837/s002765.html", purpose: "シルバー人材センターの植木剪定案内を確認" },
+  { vertical: "plumbing", city: "kumamoto", organization: "熊本市上下水道局", url: "https://www.kumamoto-waterworks.jp/wp-content/uploads/2024/07/41795bab57d0a612010e0a1ba9865014.pdf", purpose: "指定給水装置工事事業者一覧を確認" },
+  { vertical: "garden-care", city: "kumamoto", organization: "熊本市シルバー人材センター", url: "https://www.kumamoto-sjc.jp/irai.html", purpose: "剪定・除草の受付状況を確認" },
+  { vertical: "plumbing", city: "okayama", organization: "岡山市水道局", url: "https://www.water.okayama.jp/soshiki/kyusui/1/3/186.html", purpose: "指定給水装置工事事業者情報を確認" },
+  { vertical: "garden-care", city: "okayama", organization: "岡山市", url: "https://www.city.okayama.jp/kurashi/0000004367.html", purpose: "シルバー人材センターの植木剪定案内を確認" },
+);
+
+sourceCandidates.push(
   { vertical: "moving", city: "kobe", organization: "神戸市", url: "https://faq.city.kobe.lg.jp/faq/show/677?site_domain=default", purpose: "引越し時の一時多量ごみの処分方法を確認" },
   { vertical: "plumbing", city: "kobe", organization: "神戸市水道局", url: "https://www.city.kobe.lg.jp/a93427/ws/08.html", purpose: "指定給水装置工事事業者と複数見積りの案内を確認" },
   { vertical: "locksmith", city: "kobe", organization: "兵庫県警", url: "https://www.police.pref.hyogo.lg.jp/seikatu/akisu/index.htm", purpose: "住宅侵入を防ぐ防犯対策を確認" },
@@ -123,6 +135,7 @@ const approvedHosts = [
   "faq.city.kobe.lg.jp", "city.kobe.lg.jp", "police.pref.hyogo.lg.jp", "kobe-sjc.or.jp",
   "city.hiroshima.lg.jp", "water.city.hiroshima.lg.jp", "silver.hiroshima.jp",
   "city.fukuoka.lg.jp",
+  "city.shizuoka.lg.jp", "kumamoto-waterworks.jp", "kumamoto-sjc.jp", "water.okayama.jp", "city.okayama.jp",
 ];
 
 function cleanText(value) {
