@@ -135,6 +135,39 @@ async function fetchCsv(source) {
   return text
 }
 
+/**
+ * 列名から意味を推定する。生活衛生系の施設一覧は自治体ごとに列名が違うが、
+ * 「施設名称」「施設所在地」のように似た語を使うため、優先順で寄せられる。
+ * 開設者・申請者の住所や電話を施設のものと取り違えないよう、施設側を先に見る。
+ */
+const AUTO_COLUMN_RULES = {
+  name: [/^施設[_]?名称$/, /の名称$/, /^名称$/, /施設名/],
+  address: [/^施設[_]?所在地$/, /^所在地[_]?連結表記$/, /所在地$/, /^施設住所$/],
+  phone: [/^施設電話番号$/, /^施設[_]?電話/, /電話番号（携帯電話を除く）/, /^ＴＥＬ/, /電話/],
+  // 「番号$」まで許すと「申請者電話番号」を許可番号として拾ってしまうため、
+  // 許可・確認を表す語に限定する。
+  permitNo: [/^確認番号$/, /^許可番号$/, /^指令番号$/, /^登録番号$/, /^確認済番号$/],
+  issuedDate: [/^確認年月日$/, /^検査確認日$/, /検査確認済年月日（西暦）/, /^許可日$/, /確認年月日/],
+  applicant: [/^開設者$/, /^開設者氏名$/, /^営業者氏名$/, /^申請者[_]?氏名$/, /法人名/, /開設者/],
+}
+
+function autoMapColumns(header) {
+  const normalized = header.map((cell) => String(cell ?? "").replace(/[\s　"]/g, ""))
+  const used = new Set()
+  const mapping = {}
+  for (const [key, patterns] of Object.entries(AUTO_COLUMN_RULES)) {
+    for (const pattern of patterns) {
+      const index = normalized.findIndex((cell, i) => !used.has(i) && cell && pattern.test(cell))
+      if (index >= 0) {
+        mapping[key] = header[index]
+        used.add(index)
+        break
+      }
+    }
+  }
+  return mapping
+}
+
 /** ヘッダー名の表記ゆれ（空白・改行）を吸収して列位置を引く */
 function indexOfColumn(header, wanted) {
   const normalize = (value) => String(value ?? "").replace(/[\s　]/g, "")
@@ -172,8 +205,13 @@ for (const source of sources) {
   }
 
   const header = rows[source.headerRow] ?? []
+  // 列名の揺れが大きい種別は自動推定に任せ、推定結果をログに出して間違いに気づけるようにする
+  const columnSpec = source.autoColumns ? autoMapColumns(header) : source.columns
+  if (source.autoColumns) {
+    console.log(`${source.city}: 列を自動判定 ${Object.entries(columnSpec).map(([k, v]) => `${k}=${v}`).join(" ")}`)
+  }
   const columnIndex = Object.fromEntries(
-    Object.entries(source.columns).map(([key, label]) => [key, indexOfColumn(header, label)]),
+    Object.entries(columnSpec).map(([key, label]) => [key, indexOfColumn(header, label)]),
   )
   const itemIndex = Object.fromEntries(
     Object.entries(source.items).map(([key, label]) => [key, indexOfColumn(header, label)]),

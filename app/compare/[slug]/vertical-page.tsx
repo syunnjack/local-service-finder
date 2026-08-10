@@ -3,18 +3,19 @@
 
 import { FormEvent, useEffect, useState } from "react"
 import type { Vertical } from "../../lib/verticals"
-import { PermitResults } from "./permit-results"
-import { VERTICAL_PERMITS, municipalitiesFor, municipalityLabel, type PermitOperator } from "../../lib/permits"
+import { PermitResults, type PermitData } from "./permit-results"
+import type { PermitOperator } from "../../lib/permits"
 
 type Review = { id: number; nickname: string; rating: number; body: string; helpful: number }
 
-export default function VerticalPage({ vertical: v }: { vertical: Vertical }) {
+export default function VerticalPage({ vertical: v, permitData }: { vertical: Vertical; permitData: PermitData | null }) {
   // 許認可の実データがある業種かどうか。無い業種で架空の事業者を並べることはしない。
-  const permitConfig = VERTICAL_PERMITS[v.slug]
+  const permitConfig = permitData?.config ?? null
   const hasPermits = Boolean(permitConfig)
-  const permitCities = permitConfig ? municipalitiesFor(permitConfig.category).map(municipalityLabel) : []
+  const municipality = permitData?.municipality ?? null
 
-  const [city, setCity] = useState(permitCities[0] ?? "")
+  // 自治体の切り替えはサーバー側（クエリ）で行うため、ここでは表示用に保持するだけ
+  const city = municipality ? `${municipality.prefecture}${municipality.city}` : ""
   // 目的の選択UIは実データが揃うまで出さない。送信内容には既定値を載せる。
   const service = v.services[0]
   const [selectedName, setSelectedName] = useState<string | null>(null)
@@ -110,12 +111,7 @@ export default function VerticalPage({ vertical: v }: { vertical: Vertical }) {
         </div>
 
         {hasPermits ? (
-          <PermitResults
-            category={permitConfig!.category}
-            defaultKind={permitConfig!.defaultKind}
-            onSelect={chooseOperator}
-            onMunicipalityChange={setCity}
-          />
+          <PermitResults data={permitData!} onSelect={chooseOperator} />
         ) : (
           <div className="preparing">
             <p>
