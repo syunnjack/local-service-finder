@@ -49,6 +49,18 @@ function parseCsv(text) {
 }
 
 /**
+ * 目黒区のように、CSVの1フィールドの中がタブ区切りになっているファイルがある。
+ * 外側の引用は parseCsv が外すので、残った1列を区切り文字で割り、
+ * 各セルに残る引用符を落とす。
+ */
+function splitDelimited(rows, delimiter) {
+  return rows.map((row) => {
+    const joined = row.length === 1 ? row[0] : row.join(",")
+    return joined.split(delimiter).map((cell) => cell.replace(/^"+|"+$/g, "").trim())
+  })
+}
+
+/**
  * 自治体のHTMLページから表を取り出す。CSV公開していない自治体が多いため。
  * 政府系サイトの表は素直なHTMLなので、正規表現で十分に読める。
  */
@@ -175,6 +187,18 @@ function indexOfColumn(header, wanted) {
   return header.findIndex((cell) => normalize(cell) === target)
 }
 
+/**
+ * Excelの日付はシリアル値のまま読めることがある（大阪府の確認年月日など）。
+ * そのまま出すと「31057」のような数字が画面に並ぶため日付に直す。
+ * Excelの基準日は1899-12-30。
+ */
+function fromExcelSerial(value) {
+  const serial = Number(value)
+  if (!Number.isInteger(serial) || serial < 10000 || serial > 60000) return null
+  const date = new Date(Date.UTC(1899, 11, 30) + serial * 86400000)
+  return date.toISOString().slice(0, 10)
+}
+
 function toIsoDate(year, month, day) {
   // Number("") は 0 になるため、空文字を先に弾く。
   // これを怠ると期限列を持たない自治体の業者が全員「0-00-00 = 期限切れ」になり、
@@ -194,7 +218,9 @@ let totalOperators = 0
 for (const source of sources) {
   let rows
   try {
-    rows = source.format === "html"
+    rows = source.delimiter
+      ? splitDelimited(parseCsv(await fetchCsv(source)), source.delimiter)
+      : source.format === "html"
       ? await fetchHtmlRows(source)
       : source.format === "xlsx"
         ? await fetchXlsxRows(source)
@@ -213,6 +239,10 @@ for (const source of sources) {
   const columnIndex = Object.fromEntries(
     Object.entries(columnSpec).map(([key, label]) => [key, indexOfColumn(header, label)]),
   )
+  // 見出しの付いていない列がある表（大阪府の美容所一覧など）は列位置で指定する
+  for (const [key, index] of Object.entries(source.columnsByIndex ?? {})) {
+    columnIndex[key] = index
+  }
   const itemIndex = Object.fromEntries(
     Object.entries(source.items).map(([key, label]) => [key, indexOfColumn(header, label)]),
   )
@@ -269,7 +299,7 @@ for (const source of sources) {
       note: cell(row, "note") || null,
       // 品目をフラグではなく自由記述で持つ自治体がある（静岡市など）
       itemsText: cell(row, "itemsText") || null,
-      issuedDate: cell(row, "issuedDate") || null,
+      issuedDate: fromExcelSerial(cell(row, "issuedDate")) ?? (cell(row, "issuedDate") || null),
       applicant: cell(row, "applicant") || null,
       manager: cell(row, "manager") || null,
       kind,
@@ -302,13 +332,16 @@ for (const source of sources) {
   // 利用者は「自分の市町村」で探すため、県単位のまま出すと使いづらい。
   if (source.splitByCity) {
     const groups = new Map()
-    const cityIndexInRow = source.cityColumn ? indexOfColumn(header, source.cityColumn) : -1
+    const cityIndexInRow = source.cityColumnIndex ?? (source.cityColumn ? indexOfColumn(header, source.cityColumn) : -1)
     for (const [index, operator] of operators.entries()) {
       // 推奨データセット形式は市区町村を専用列で持つ。住所からの推定より確実。
       const city = cityIndexInRow >= 0
         ? String(rows[source.headerRow + 1 + index]?.[cityIndexInRow] ?? "").trim() || null
         : extractCity(operator.address, source.prefecture)
       if (!city) continue
+      // 中核市などは独自に許認可を出しており、県のファイルに紛れ込んだ数件を
+      // そのまま足すと、その市の一覧が県側の不完全なデータで上書きされてしまう。
+      if (source.excludeCities?.includes(city)) continue
       if (!groups.has(city)) groups.set(city, [])
       groups.get(city).push(operator)
     }
