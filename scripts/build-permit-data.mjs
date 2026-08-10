@@ -250,7 +250,8 @@ async function fetchCsv(source) {
  * 開設者・申請者の住所や電話を施設のものと取り違えないよう、施設側を先に見る。
  */
 const AUTO_COLUMN_RULES = {
-  name: [/^施設[_]?名称$/, /の名称$/, /^名称$/, /施設名/],
+  // 「施設屋号」のように名称という語を含まない列がある（四日市市の美容所）
+  name: [/^施設[_]?名称$/, /の名称$/, /^名称$/, /施設名/, /屋号/, /^店舗名/],
   address: [/^施設[_]?所在地$/, /^所在地[_]?連結表記$/, /所在地$/, /^施設住所$/],
   phone: [/^施設電話番号$/, /^施設[_]?電話/, /電話番号（携帯電話を除く）/, /^ＴＥＬ/, /電話/],
   // 「番号$」まで許すと「申請者電話番号」を許可番号として拾ってしまうため、
@@ -346,6 +347,7 @@ function toIsoDate(year, month, day) {
 const sources = JSON.parse(await readFile(join(root, "data/permit-sources.json"), "utf8"))
 const today = new Date().toISOString().slice(0, 10)
 const municipalities = []
+const failures = []
 let totalOperators = 0
 
 for (const source of sources) {
@@ -359,6 +361,7 @@ for (const source of sources) {
         ? await fetchXlsxRows(source)
         : parseCsv(await fetchCsv(source))
   } catch (error) {
+    failures.push({ city: source.city, reason: String(error.message).slice(0, 60) })
     console.log(`${source.city}: 取得失敗 ${String(error.message).slice(0, 60)}`)
     continue
   }
@@ -382,6 +385,7 @@ for (const source of sources) {
 
   const missing = Object.entries(columnIndex).filter(([, index]) => index < 0).map(([key]) => key)
   if (missing.length) {
+    failures.push({ city: source.city, reason: `列が見つからない (${missing.join(", ")})` })
     console.log(`${source.city}: 列が見つからない (${missing.join(", ")}) — マッピングの更新が必要`)
     continue
   }
@@ -446,6 +450,7 @@ for (const source of sources) {
   }
 
   if (!operators.length) {
+    failures.push({ city: source.city, reason: "業者0件" })
     console.log(`${source.city}: 業者0件 — CSVの構成が変わった可能性`)
     continue
   }
@@ -510,3 +515,16 @@ for (const category of new Set(municipalities.map((m) => m.category))) {
 }
 console.log(`  対応自治体: ${municipalities.length}`)
 console.log(`  許可業者: ${totalOperators}`)
+
+// 取得に失敗したソースは、その自治体が丸ごと欠けた状態で公開されてしまう。
+// 件数が前回より減っていても気づけないため、必ず目立つ形で報告する。
+if (failures.length) {
+  console.log(`
+取り込めなかったソース ${failures.length} / ${sources.length} 件`)
+  for (const failure of failures) console.log(`  ${failure.city}: ${failure.reason}`)
+  console.log("上記の自治体は今回のデータから欠落している。原因を確認して再実行すること。")
+  process.exitCode = 1
+} else {
+  console.log(`
+全 ${sources.length} ソースを取り込んだ`)
+}
