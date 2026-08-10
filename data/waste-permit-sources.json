@@ -31,7 +31,10 @@
       "foodResource": "（事業系）食品循環資源",
       "wood": "（事業系）木くず"
     },
-    "truthyValues": ["1"]
+    "truthyValues": [
+      "1"
+    ],
+    "permitType": "収集運搬"
   },
   {
     "muniCode": "092011",
@@ -58,6 +61,73 @@
       "placenta": "品目：胞衣",
       "appliance": "品目：家電\nリサイクル4品目"
     },
-    "truthyValues": ["○", "〇", "◯", "●", "1", "可"]
+    "truthyValues": [
+      "○",
+      "〇",
+      "◯",
+      "●",
+      "1",
+      "可"
+    ],
+    "permitType": "収集運搬"
+  },
+  {
+    "muniCode": "232114",
+    "prefecture": "愛知県",
+    "city": "豊田市",
+    "permitType": "収集運搬・処分",
+    "sourcePage": "https://data.bodik.jp/dataset/232114_general_waste_disposal_operators",
+    "csvUrl": "https://data.bodik.jp/dataset/f2c5763d-7206-41bf-b08a-18c39b30dd25/resource/50df2f16-ccbc-4139-8f6b-c7e1714e11ed/download/2025714.csv",
+    "license": "CC BY 4.0",
+    "attribution": "豊田市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "業者名",
+      "phone": "電話番号",
+      "address": "住所"
+    },
+    "items": {
+      "collection": "収集運搬業",
+      "disposal": "処分業",
+      "burnable": "ごみ（許可品目）",
+      "sludge": "し尿及び浄化槽汚泥（許可品目）",
+      "temporary": "臨時ごみ"
+    },
+    "truthyValues": [
+      "○",
+      "〇",
+      "◯",
+      "●",
+      "1",
+      "可",
+      "有"
+    ]
+  },
+  {
+    "muniCode": "221007",
+    "prefecture": "静岡県",
+    "city": "静岡市",
+    "permitType": "処分",
+    "sourcePage": "https://data.bodik.jp/dataset/221007_ippaikyokagyousyaitiran",
+    "csvUrl": "https://data.bodik.jp/dataset/52581892-33f4-42d5-a8e6-c31016a695c1/resource/a7dfdddf-4229-4bcc-9077-fc462694c26d/download/ippaisyobunn.csv",
+    "license": "CC BY",
+    "attribution": "静岡市",
+    "encoding": "utf8",
+    "headerRow": 1,
+    "columns": {
+      "permitNo": "許可番号",
+      "name": "氏名（名称）",
+      "address": "所在地",
+      "phone": "電話番号",
+      "itemsText": "許可品目",
+      "note": "許可の条件",
+      "issuedDate": "許可年月日"
+    },
+    "items": {},
+    "truthyValues": [
+      "○",
+      "1"
+    ]
   }
 ]

@@ -61,7 +61,7 @@ export function PermitResults({
           >
             {municipalities.map((m) => (
               <option key={m.muniCode} value={m.muniCode}>
-                {municipalityLabel(m)}（{m.operatorCount}社）
+                {municipalityLabel(m)}（{m.operatorCount}社・{m.permitType}）
               </option>
             ))}
           </select>
@@ -74,7 +74,7 @@ export function PermitResults({
           </select>
         </label>
         <p className="permit-count">
-          {municipalityLabel(municipality)}の許可業者 <b>{operators.length}</b> 社
+          {municipalityLabel(municipality)}の{municipality.permitType}許可業者 <b>{operators.length}</b> 社
         </p>
       </div>
 
@@ -99,6 +99,8 @@ export function PermitResults({
                 {operator.address && <div><dt>所在地</dt><dd>{operator.address}</dd></div>}
                 {operator.phone && <div><dt>電話</dt><dd><a href={`tel:${operator.phone.replace(/[^\d+]/g, "")}`}>{operator.phone}</a></dd></div>}
                 {operator.vehicles && <div><dt>運搬車両</dt><dd>{operator.vehicles}台</dd></div>}
+                {operator.itemsText && <div><dt>許可品目</dt><dd>{operator.itemsText}</dd></div>}
+                {operator.issuedDate && <div><dt>許可年月日</dt><dd>{operator.issuedDate}</dd></div>}
                 {operator.note && <div><dt>限定事項</dt><dd>{operator.note}</dd></div>}
               </dl>
               <ul className="permit-items">
@@ -117,7 +119,7 @@ export function PermitResults({
       )}
 
       <p className="permit-source">
-        出典: {municipality.attribution}「一般廃棄物収集運搬業許可業者一覧」（{municipality.license}）／
+        出典: {municipality.attribution}「一般廃棄物{municipality.permitType}業 許可業者一覧」（{municipality.license}）／
         <a href={municipality.sourcePage} target="_blank" rel="noreferrer">公開ページ</a>
         ・取得 {permits.generatedAt}
         <br />
