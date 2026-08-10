@@ -230,6 +230,8 @@ for (const source of sources) {
   for (const row of rows.slice(source.headerRow + 1)) {
     const name = cell(row, "name")
     if (!name) continue
+    // 廃業日が入っている施設は現存しないため載せない
+    if (cell(row, "closedDate")) continue
 
     const expiry = toIsoDate(cell(row, "expiryYear"), cell(row, "expiryMonth"), cell(row, "expiryDay"))
     // 「更新申請受付中」のように日付が入らないケースがあるため、原文も残す
@@ -275,6 +277,7 @@ for (const source of sources) {
       expiry,
       expiryNote,
       expired: expiry ? expiry < today : false,
+      closedDate: cell(row, "closedDate") || null,
       items,
     })
   }
@@ -299,8 +302,12 @@ for (const source of sources) {
   // 利用者は「自分の市町村」で探すため、県単位のまま出すと使いづらい。
   if (source.splitByCity) {
     const groups = new Map()
-    for (const operator of operators) {
-      const city = extractCity(operator.address, source.prefecture)
+    const cityIndexInRow = source.cityColumn ? indexOfColumn(header, source.cityColumn) : -1
+    for (const [index, operator] of operators.entries()) {
+      // 推奨データセット形式は市区町村を専用列で持つ。住所からの推定より確実。
+      const city = cityIndexInRow >= 0
+        ? String(rows[source.headerRow + 1 + index]?.[cityIndexInRow] ?? "").trim() || null
+        : extractCity(operator.address, source.prefecture)
       if (!city) continue
       if (!groups.has(city)) groups.set(city, [])
       groups.get(city).push(operator)
