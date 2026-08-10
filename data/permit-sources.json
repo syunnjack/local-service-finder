@@ -194,5 +194,29 @@
     "truthyValues": [
       "1"
     ]
+  },
+  {
+    "category": "waste",
+    "format": "html",
+    "muniCode": "271004",
+    "prefecture": "大阪府",
+    "city": "大阪市",
+    "permitType": "収集運搬",
+    "sourcePage": "https://www.city.osaka.lg.jp/kankyo/page/0000183004.html",
+    "csvUrl": null,
+    "license": "出典表示（大阪市サイトの利用条件に従う）",
+    "attribution": "大阪市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "permitNo": "許可番号",
+      "name": "許可業者名",
+      "phone": "電話",
+      "address": "営業所所在地"
+    },
+    "items": {},
+    "truthyValues": [
+      "○"
+    ]
   }
 ]
