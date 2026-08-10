@@ -75,19 +75,25 @@ for (const target of targets) {
     }
 
     const diff = await git(target.cwd, "status", "--porcelain")
-    if (!diff) {
-      console.log(`${target.name}: 同期済み`)
-      continue
+    if (diff) {
+      const projectId = JSON.parse(await readFile(join(target.cwd, ".openai/hosting.json"), "utf8")).project_id
+      await git(target.cwd, "commit", "-am", `Sync from ${sourceBranch}\n\nproject_id (${projectId}) はこのブランチのものを保持している。`)
+      changed++
+      console.log(`${target.name}: 同期してコミット`)
+    } else {
+      console.log(`${target.name}: 内容は同期済み`)
     }
 
-    const projectId = JSON.parse(await readFile(join(target.cwd, ".openai/hosting.json"), "utf8")).project_id
-    await git(target.cwd, "commit", "-am", `Sync from ${sourceBranch}\n\nproject_id (${projectId}) はこのブランチのものを保持している。`)
-    changed++
-    console.log(`${target.name}: 同期してコミット`)
+    // コミットした直後だけでなく、前回 --push なしで実行した分も押せるように
+    // origin との差を見て判断する。
+    const ahead = await git(target.cwd, "rev-list", "--count", `origin/${target.branch}..HEAD`)
+    if (Number(ahead) === 0) continue
 
     if (shouldPush) {
       await git(target.cwd, "push", "origin", target.branch)
-      console.log(`${target.name}: push 済み`)
+      console.log(`${target.name}: push 済み（${ahead}コミット）`)
+    } else {
+      console.log(`${target.name}: 未pushのコミットが${ahead}件ある`)
     }
   } catch (error) {
     console.log(`${target.name}: 失敗 ${String(error.message).split("\n")[0].slice(0, 80)}`)
