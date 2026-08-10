@@ -815,5 +815,278 @@
     "truthyValues": [
       "1"
     ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "131016",
+    "prefecture": "東京都",
+    "city": "千代田区",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131016d2025000007",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/chiyoda/131016_chiyodaku_biyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "千代田区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "131059",
+    "prefecture": "東京都",
+    "city": "文京区",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131059d2025000007",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/bunkyo/131059_bunkyoku_biyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "文京区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "131067",
+    "prefecture": "東京都",
+    "city": "台東区",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131067d2025000007",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/taito/131067_taitoku_biyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "台東区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "131091",
+    "prefecture": "東京都",
+    "city": "品川区",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131091d2025000007",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/shinagawa/131091_shinagawaku_biyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "品川区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "131113",
+    "prefecture": "東京都",
+    "city": "大田区",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131113d2025000007",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/ota/131113_otaku_biyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "大田区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "131130",
+    "prefecture": "東京都",
+    "city": "渋谷区",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131130d2025000007",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/shibuya/131130_shibuyaku_biyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "渋谷区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "131164",
+    "prefecture": "東京都",
+    "city": "豊島区",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131164d2025000007",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/toshima/131164_toshimaku_biyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "豊島区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "131181",
+    "prefecture": "東京都",
+    "city": "荒川区",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131181d2025000007",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/arakawa/131181_arakawaku_biyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "荒川区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "131229",
+    "prefecture": "東京都",
+    "city": "葛飾区",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131229d2025000007",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/katsushika/131229_katsushikaku_biyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "葛飾区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "131032",
+    "prefecture": "東京都",
+    "city": "港区",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131032d0000000232",
+    "csvUrl": "https://opendata.city.minato.tokyo.jp/dataset/8fc687e5-d711-4f28-bbf3-403366192ee8/resource/94524ff8-962a-42d6-8b79-e06114345cc3/download",
+    "license": "CC BY 4.0",
+    "attribution": "港区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "permitNo": "確認番号",
+      "issuedDate": "確認日"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "041009",
+    "prefecture": "宮城県",
+    "city": "仙台市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "format": "xlsx",
+    "zipped": true,
+    "zipEntry": "美容所",
+    "sourcePage": "https://www.city.sendai.jp/sekatsuese/facilitylist/list.html",
+    "csvUrl": "https://www.city.sendai.jp/sekatsuese/facilitylist/documents/260331.zip",
+    "license": "政府標準利用規約準拠",
+    "attribution": "仙台市",
+    "headerRow": 1,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "施設ＴＥＬ1",
+      "applicant": "開設者名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
   }
 ]
