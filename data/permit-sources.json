@@ -34,7 +34,8 @@
     "truthyValues": [
       "1"
     ],
-    "permitType": "収集運搬"
+    "permitType": "収集運搬",
+    "category": "waste"
   },
   {
     "muniCode": "092011",
@@ -69,7 +70,8 @@
       "1",
       "可"
     ],
-    "permitType": "収集運搬"
+    "permitType": "収集運搬",
+    "category": "waste"
   },
   {
     "muniCode": "232114",
@@ -102,7 +104,8 @@
       "1",
       "可",
       "有"
-    ]
+    ],
+    "category": "waste"
   },
   {
     "muniCode": "221007",
@@ -127,6 +130,68 @@
     "items": {},
     "truthyValues": [
       "○",
+      "1"
+    ],
+    "category": "waste"
+  },
+  {
+    "category": "animal",
+    "muniCode": "102016",
+    "prefecture": "群馬県",
+    "city": "前橋市",
+    "permitType": "第一種動物取扱業",
+    "sourcePage": "https://data.bodik.jp/dataset/102016_doutorigyou",
+    "csvUrl": "https://data.bodik.jp/dataset/b3b168de-c15d-43d3-aae3-577f82e4feeb/resource/25f3d101-d380-4069-9589-79f3df0b59a2/download/doutori_maebashir8.4.1.csv",
+    "license": "CC BY 4.0",
+    "attribution": "前橋市",
+    "encoding": "sjis",
+    "headerRow": 0,
+    "columns": {
+      "name": "事業所_名称",
+      "address": "事業所_住所",
+      "permitNo": "登録番号",
+      "issuedDate": "登録年月日",
+      "kind": "区分",
+      "applicant": "申請者_法人個人名"
+    },
+    "items": {},
+    "animalColumns": {
+      "mammal": "哺乳類",
+      "bird": "鳥類",
+      "reptile": "爬虫類"
+    },
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "animal",
+    "muniCode": "242021",
+    "prefecture": "三重県",
+    "city": "四日市市",
+    "permitType": "第一種動物取扱業",
+    "sourcePage": "https://data.bodik.jp/dataset/242021_00052",
+    "csvUrl": "https://data.bodik.jp/dataset/ad8a07ad-8779-461b-8018-cef2a3bdc5a8/resource/a9132bd6-f85c-43bd-8291-1052ac186d62/download/242021_animal_20260630.csv",
+    "license": "CC BY 4.0",
+    "attribution": "四日市市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "事業所の名称",
+      "address": "事業所の所在地",
+      "permitNo": "登録番号",
+      "issuedDate": "登録年月日",
+      "kind": "種別",
+      "applicant": "申請者氏名",
+      "manager": "動物取扱責任者氏名"
+    },
+    "items": {},
+    "animalColumns": {
+      "mammal": "主として取り扱う動物の種類及び数（哺乳類）",
+      "bird": "主として取り扱う動物の種類及び数（鳥類）",
+      "reptile": "主として取り扱う動物の種類及び数（爬虫類）"
+    },
+    "truthyValues": [
       "1"
     ]
   }
