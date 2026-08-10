@@ -143,8 +143,13 @@ function extractDataFilesFromZip(buffer) {
     const localExtraLength = buffer.readUInt16LE(localOffset + 28)
     const start = localOffset + 30 + localNameLength + localExtraLength
     const body = buffer.subarray(start, start + compressedSize)
-    if (method === 0) files.push(body)
-    else if (method === 8) files.push(inflateRawSync(body))
+    // エントリ名は UTF-8 が基本だが、古いツールで作られた ZIP は Shift_JIS のことがある
+    let entryName = name
+    if (entryName.includes("�")) {
+      entryName = new TextDecoder("shift_jis").decode(buffer.subarray(offset - nameLength - extraLength - commentLength, offset - extraLength - commentLength))
+    }
+    if (method === 0) files.push({ name: entryName, body })
+    else if (method === 8) files.push({ name: entryName, body: inflateRawSync(body) })
     else throw new Error(`未対応の圧縮方式 ${method}`)
   }
   if (!files.length) throw new Error("ZIP内にファイルが見つからない")
@@ -155,8 +160,17 @@ function extractDataFilesFromZip(buffer) {
 async function fetchXlsxRows(source) {
   const response = await fetch(source.csvUrl, { signal: AbortSignal.timeout(60000), redirect: "follow" })
   if (!response.ok) throw new Error(`HTTP ${response.status}`)
+  let buffer = Buffer.from(await response.arrayBuffer())
+  // ZIPに業種別のxlsxをまとめている自治体（仙台市など）は、名前で対象ファイルを選ぶ
+  if (source.zipped) {
+    const files = extractDataFilesFromZip(buffer)
+    const pattern = new RegExp(source.zipEntry ?? "")
+    const hit = files.find((file) => pattern.test(file.name))
+    if (!hit) throw new Error(`ZIP内に ${source.zipEntry} に合うファイルが無い: ${files.map((f) => f.name).join(", ").slice(0, 120)}`)
+    buffer = hit.body
+  }
   const workbook = new ExcelJS.Workbook()
-  await workbook.xlsx.load(Buffer.from(await response.arrayBuffer()))
+  await workbook.xlsx.load(buffer)
   const sheet = workbook.worksheets[source.sheetIndex ?? 0]
   if (!sheet) throw new Error("シートが無い")
   const rows = []
@@ -210,9 +224,9 @@ async function fetchCsv(source) {
   if (source.zipped) {
     const files = extractDataFilesFromZip(buffer)
     if (files.length === 1) {
-      buffer = files[0]
+      buffer = files[0].body
     } else {
-      const texts = files.map((file) => decodeBuffer(file, source.encoding))
+      const texts = files.map((file) => decodeBuffer(file.body, source.encoding))
       return texts
         .map((text, index) => {
           const lines = text.split(LINE_BREAK)
@@ -293,6 +307,22 @@ function normalizeDate(value) {
     if (!Number.isNaN(parsed.getTime())) {
       return new Date(parsed.getTime() - parsed.getTimezoneOffset() * 60000).toISOString().slice(0, 10)
     }
+  }
+  // 「2024/11/22」（港区）や「2024.11.22」の区切り違い
+  const slash = text.match(/^(\d{4})[/.](\d{1,2})[/.](\d{1,2})$/)
+  if (slash) return toIsoDate(slash[1], slash[2], slash[3]) ?? text
+  // 「令和4年3月24日」（目黒区）などの和暦。元年は1年扱い
+  const wareki = text.match(/^(明治|大正|昭和|平成|令和)(元|\d{1,2})年(\d{1,2})月(\d{1,2})日$/)
+  if (wareki) {
+    const base = { 明治: 1867, 大正: 1911, 昭和: 1925, 平成: 1988, 令和: 2018 }[wareki[1]]
+    const year = base + (wareki[2] === "元" ? 1 : Number(wareki[2]))
+    return toIsoDate(year, wareki[3], wareki[4]) ?? text
+  }
+  // 「R7.4.1」（福岡市・大分市）や「H.30/4/1」（静岡市）などの元号略記
+  const abbrev = text.match(/^([MTSHR])\.?(\d{1,2})[./](\d{1,2})[./](\d{1,2})$/)
+  if (abbrev) {
+    const base = { M: 1867, T: 1911, S: 1925, H: 1988, R: 2018 }[abbrev[1]]
+    return toIsoDate(base + Number(abbrev[2]), abbrev[3], abbrev[4]) ?? text
   }
   return text
 }
