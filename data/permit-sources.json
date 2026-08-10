@@ -475,5 +475,50 @@
     "truthyValues": [
       "1"
     ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "221007",
+    "prefecture": "静岡県",
+    "city": "静岡市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/221007_biyoujo-20160331",
+    "csvUrl": "https://data.bodik.jp/dataset/1ea5012b-1ee2-4b62-ac8c-3b2be3458e0f/resource/012387c5-5b7b-4a21-837b-4b547a75b9f7/download/biyojo-20200331.csv",
+    "license": "CC BY 4.0",
+    "attribution": "静岡市",
+    "encoding": "sjis",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "440001",
+    "prefecture": "大分県",
+    "city": "大分県全域（大分市を除く）",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/440001_biyou_business",
+    "csvUrl": "https://data.bodik.jp/dataset/6f9441ae-8d62-4372-bfaa-7094faaedf27/resource/70019bce-5af5-4e53-b943-72e425eaaba6/download/440001_biyou_business_all.csv",
+    "license": "CC BY 4.0",
+    "attribution": "大分県",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "所在地_連結表記",
+      "phone": "施設電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "開設者名（法人名）",
+      "closedDate": "廃業年月日"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
   }
 ]
