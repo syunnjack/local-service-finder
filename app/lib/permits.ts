@@ -9,6 +9,8 @@ export type PermitOperator = {
   area: string | null
   vehicles: string | null
   note: string | null
+  itemsText: string | null
+  issuedDate: string | null
   expiry: string | null
   expiryNote: string | null
   expired: boolean
@@ -19,6 +21,7 @@ export type PermitMunicipality = {
   muniCode: string
   prefecture: string
   city: string
+  permitType: string
   license: string
   attribution: string
   sourcePage: string
@@ -42,6 +45,9 @@ export const ITEM_LABELS: Record<string, string> = {
   mattress: "スプリングマットレス等",
   sludge: "汚泥",
   placenta: "胞衣",
+  collection: "収集運搬業",
+  disposal: "処分業",
+  temporary: "臨時ごみ",
   businessBurnable: "事業系可燃物",
   foodResource: "事業系食品循環資源",
   wood: "事業系木くず",
