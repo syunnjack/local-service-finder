@@ -1,1 +1,0 @@
-import type{MetadataRoute}from"next";import{verticals}from"./lib/verticals";const base="https://machiselect.jp";export default function sitemap():MetadataRoute.Sitemap{return[{url:base,priority:1},{url:`${base}/privacy`,priority:.2},{url:`${base}/disclosure`,priority:.2},...verticals.map(v=>({url:`${base}/compare/${v.slug}`,priority:.8}))]}

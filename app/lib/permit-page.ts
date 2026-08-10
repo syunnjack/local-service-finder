@@ -1,0 +1,60 @@
+import { VERTICAL_PERMITS, municipalitySummaries, findMunicipality, operatorsIn, permits } from "./permits"
+import type { Vertical } from "./verticals"
+
+/**
+ * 許認可データを画面へ渡す形に整える。
+ *
+ * トップ（ジャンル専用ドメイン）、/compare/:slug、/area/:muni の3経路が
+ * 同じ中身を出すので、組み立てを1か所にまとめている。
+ * ずれると同じ内容が違う件数で表示され、どれが正しいのか分からなくなる。
+ */
+
+/** 1ページに載せる上限。名古屋市の美容所は4,882件あり全件は出せない。 */
+export const MAX_RESULTS = 200
+
+export function permitConfigFor(vertical: Vertical) {
+  return VERTICAL_PERMITS[vertical.slug] ?? null
+}
+
+export function buildPermitData(vertical: Vertical, { muniCode, keyword = "" }: { muniCode?: string; keyword?: string }) {
+  const config = permitConfigFor(vertical)
+  if (!config) return null
+
+  const municipality = findMunicipality(config.category, muniCode, config.nameFilter)
+  const operators = municipality ? operatorsIn(municipality, config.nameFilter) : []
+  const matched = operators.filter((operator) =>
+    !keyword ||
+    operator.name.includes(keyword) ||
+    (operator.address ?? "").includes(keyword))
+
+  // nameFilter は正規表現でクライアントへ渡せない。何を渡すかを明示しておく。
+  const clientConfig = {
+    category: config.category,
+    defaultKind: config.defaultKind,
+    headline: config.headline,
+    description: config.description,
+    sourceNote: config.sourceNote,
+  }
+
+  return {
+    config: clientConfig,
+    generatedAt: permits.generatedAt,
+    summaries: municipalitySummaries(config.category, config.nameFilter),
+    municipality: municipality
+      ? {
+          muniCode: municipality.muniCode,
+          prefecture: municipality.prefecture,
+          city: municipality.city,
+          permitType: municipality.permitType,
+          license: municipality.license,
+          attribution: municipality.attribution,
+          sourcePage: municipality.sourcePage,
+          operatorCount: operators.length,
+        }
+      : null,
+    keyword,
+    matchedCount: matched.length,
+    operators: matched.slice(0, MAX_RESULTS),
+    limit: MAX_RESULTS,
+  }
+}
