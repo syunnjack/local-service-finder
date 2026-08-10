@@ -609,5 +609,83 @@
     "truthyValues": [
       "1"
     ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "011002",
+    "prefecture": "北海道",
+    "city": "札幌市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://ckan.pf-sapporo.jp/dataset/0be3aa70-e0b3-4ac1-8674-35e995195627",
+    "csvUrl": "https://ckan.pf-sapporo.jp/dataset/0be3aa70-e0b3-4ac1-8674-35e995195627/resource/78e5ffc3-19ac-4836-9bc6-fdd48d6104a9/download/sapporo-eigyoshisetsu-biyo-r70731.csv",
+    "license": "CC BY 4.0",
+    "attribution": "札幌市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "施設TEL",
+      "issuedDate": "許可年月日",
+      "applicant": "開設者名",
+      "kind": "業種区分"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "141305",
+    "prefecture": "神奈川県",
+    "city": "川崎市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://www.city.kawasaki.jp/350/page/0000120745.html",
+    "csvUrl": "https://www.city.kawasaki.jp/350/cmsfiles/contents/0000120/120745/02biyoujo202606.csv",
+    "license": "出典表示（川崎市サイトの利用条件に従う）",
+    "attribution": "川崎市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "施設電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認日",
+      "applicant": "開設者名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "141003",
+    "prefecture": "神奈川県",
+    "city": "横浜市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://www.city.yokohama.lg.jp/kurashi/sumai-kurashi/seikatsu/kaiteki/kankyodata.html",
+    "csvUrl": "https://www.city.yokohama.lg.jp/kurashi/sumai-kurashi/seikatsu/kaiteki/kankyodata.files/20260401biyou.zip",
+    "zipped": true,
+    "delimiter": "\t",
+    "license": "CC BY 4.0",
+    "attribution": "横浜市",
+    "encoding": "utf-16le",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "施設電話番号",
+      "permitNo": "許可番号",
+      "issuedDate": "許可等年月日",
+      "applicant": "申請者氏名",
+      "kind": "業種"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
   }
 ]
