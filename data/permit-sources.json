@@ -251,5 +251,58 @@
     "truthyValues": [
       "1"
     ]
+  },
+  {
+    "category": "waste",
+    "format": "html",
+    "muniCode": "121002",
+    "prefecture": "千葉県",
+    "city": "千葉市",
+    "permitType": "収集運搬",
+    "sourcePage": "https://www.city.chiba.jp/kankyo/junkan/sangyohaikibutsu/kyokagyosya.html",
+    "csvUrl": null,
+    "license": "出典表示（千葉市サイトの利用条件に従う）",
+    "attribution": "千葉市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "業者名",
+      "address": "所在地",
+      "phone": "電話番号"
+    },
+    "items": {},
+    "truthyValues": [
+      "○"
+    ]
+  },
+  {
+    "category": "waste",
+    "format": "html",
+    "muniCode": "261009",
+    "prefecture": "京都府",
+    "city": "京都市",
+    "permitType": "収集運搬",
+    "sourcePage": "https://www.city.kyoto.lg.jp/kankyo/page/0000304410.html",
+    "csvUrl": null,
+    "license": "出典表示（京都市サイトの利用条件に従う）",
+    "attribution": "京都市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "permitNo": "許可番号",
+      "name": "許可業者名",
+      "address": "所在地 又は 住所",
+      "phone": "電話番号"
+    },
+    "items": {
+      "excellent": "優良事業者"
+    },
+    "truthyValues": [
+      "認定",
+      "○",
+      "〇",
+      "◯",
+      "●"
+    ]
   }
 ]

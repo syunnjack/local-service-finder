@@ -55,7 +55,21 @@ function parseCsv(text) {
 function parseHtmlTables(html) {
   const stripTags = (value) =>
     value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&")
-      .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/\s+/g, " ").trim()
+      .replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+      // CMSがリンクに付ける注記。業者名に混ざるので落とす。
+      // 括弧がタグ境界で分断され片方だけ残ることがあるため、
+      // 括弧の有無に関わらず注記本体を消してから、余った括弧を落とす。
+      .replace(/(外部サイトへリンク|新しいウィンドウで開きます|別ウィンドウで開きます)/g, "")
+      .replace(/[（(]\s*[)）]/g, "")
+      // 注記を消した結果、対応の無い括弧が残ることがある。開きと閉じの数が
+      // 合わない分だけ端から落とす（「(株)」のような正しい括弧は残す）。
+      .replace(/[）)]+$/, (tail, offset, whole) => {
+        const opens = (whole.slice(0, offset).match(/[（(]/g) ?? []).length
+        const closes = (whole.slice(0, offset).match(/[）)]/g) ?? []).length
+        const unmatched = Math.max(0, tail.length - Math.max(0, opens - closes))
+        return tail.slice(0, tail.length - unmatched)
+      })
+      .replace(/\s+/g, " ").trim()
   return html.split(/<table/i).slice(1).map((table) =>
     table.split(/<tr/i).slice(1).map((row) =>
       [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/gi)].map((match) => stripTags(match[1])),
