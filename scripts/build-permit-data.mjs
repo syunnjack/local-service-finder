@@ -176,7 +176,12 @@ async function fetchXlsxRows(source) {
   const rows = []
   sheet.eachRow((row) => {
     const cells = []
-    row.eachCell({ includeEmpty: true }, (cell) => cells.push(String(cell.text ?? "").trim()))
+    row.eachCell({ includeEmpty: true }, (cell) => {
+      // 結合セルの値が null のとき cell.text が例外を投げる（大阪府の理容所一覧など）
+      let text = ""
+      try { text = String(cell.text ?? "") } catch { text = "" }
+      cells.push(text.trim())
+    })
     rows.push(cells)
   })
   return rows
