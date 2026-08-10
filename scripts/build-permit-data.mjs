@@ -1,6 +1,9 @@
 /**
- * 自治体が公開している「一般廃棄物収集運搬業 許可業者一覧」を取り込み、
- * 正規化した JSON を生成する。
+ * 自治体が公開している許認可の業者一覧を取り込み、正規化した JSON を生成する。
+ *
+ * 扱う種別（category）
+ *   waste  : 一般廃棄物 収集運搬業／処分業（不用品回収）
+ *   animal : 第一種動物取扱業（ペットホテル。種別「保管」が動物の預かりにあたる）
  *
  * なぜやるか:
  *   不用品回収は無許可業者による不法投棄・高額請求のトラブルが多い。
@@ -76,7 +79,7 @@ function toIsoDate(year, month, day) {
   return `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`
 }
 
-const sources = JSON.parse(await readFile(join(root, "data/waste-permit-sources.json"), "utf8"))
+const sources = JSON.parse(await readFile(join(root, "data/permit-sources.json"), "utf8"))
 const today = new Date().toISOString().slice(0, 10)
 const municipalities = []
 let totalOperators = 0
@@ -116,6 +119,17 @@ for (const source of sources) {
     // 「更新申請受付中」のように日付が入らないケースがあるため、原文も残す
     const expiryNote = expiry ? null : (cell(row, "expiryYear") || null)
 
+    // 前橋市の区分は「01販売」のように連番が前置される。表示用に数字を落とす。
+    const kind = cell(row, "kind").replace(/^\d+/, "").trim() || null
+
+    // 取り扱う動物は「犬(40)」のような自由記述。列ごとにまとめて持つ。
+    const animals = {}
+    for (const [key, label] of Object.entries(source.animalColumns ?? {})) {
+      const index = indexOfColumn(header, label)
+      const value = index >= 0 ? String(row[index] ?? "").trim() : ""
+      if (value) animals[key] = value
+    }
+
     const items = {}
     for (const [key, index] of Object.entries(itemIndex)) {
       if (index < 0) continue
@@ -134,6 +148,10 @@ for (const source of sources) {
       // 品目をフラグではなく自由記述で持つ自治体がある（静岡市など）
       itemsText: cell(row, "itemsText") || null,
       issuedDate: cell(row, "issuedDate") || null,
+      applicant: cell(row, "applicant") || null,
+      manager: cell(row, "manager") || null,
+      kind,
+      animals,
       expiry,
       expiryNote,
       expired: expiry ? expiry < today : false,
@@ -148,6 +166,7 @@ for (const source of sources) {
 
   totalOperators += operators.length
   municipalities.push({
+    category: source.category ?? "waste",
     muniCode: source.muniCode,
     prefecture: source.prefecture,
     city: source.city,
@@ -165,11 +184,15 @@ for (const source of sources) {
 
 await mkdir(join(root, "app/data"), { recursive: true })
 await writeFile(
-  join(root, "app/data/waste-permits.json"),
+  join(root, "app/data/permits.json"),
   `${JSON.stringify({ generatedAt: today, municipalities }, null, 1)}\n`,
   "utf8",
 )
 
 console.log(`\n生成完了`)
+for (const category of new Set(municipalities.map((m) => m.category))) {
+  const group = municipalities.filter((m) => m.category === category)
+  console.log(`  ${category}: ${group.length}自治体 / ${group.reduce((s, m) => s + m.operatorCount, 0)}件`)
+}
 console.log(`  対応自治体: ${municipalities.length}`)
 console.log(`  許可業者: ${totalOperators}`)
