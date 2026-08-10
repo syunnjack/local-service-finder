@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react"
 import { ITEM_LABELS, ANIMAL_LABELS, type PermitOperator, type MunicipalitySummary } from "../../lib/permits"
+import { areaPath } from "../../lib/routes"
 
 export type PermitData = {
   config: { category: string; defaultKind?: string; headline: string; description: string; sourceNote?: string }
@@ -71,24 +72,36 @@ export function PermitResults({
 
   return (
     <>
-      {/* 自治体と検索語はサーバーで解決するため通常のGETフォームにする */}
+      {/* 検索語はサーバーで解決するため通常のGETフォームにする */}
       <form className="permit-filters" method="get">
-        <label>
-          市区町村
-          <select name="muni" defaultValue={municipality.muniCode}>
-            {summaries.map((s) => (
-              <option key={s.muniCode} value={s.muniCode}>
-                {s.prefecture}{s.city}（{s.operatorCount.toLocaleString("ja-JP")}件）
-              </option>
-            ))}
-          </select>
-        </label>
         <label>
           店名・住所で絞り込む
           <input type="text" name="q" defaultValue={keyword} placeholder="例：○○町、△△店" />
         </label>
         <button type="submit">この条件で探す</button>
       </form>
+
+      {/*
+        市区町村の切り替えは選択肢ではなくリンクにしている。
+        select だと検索エンジンが各市区町村のページへ辿り着けず、
+        220自治体分の中身が1ページ分としてしか扱われない。
+      */}
+      <nav className="permit-areas" aria-label="市区町村を選ぶ">
+        <b>市区町村から探す</b>
+        <ul>
+          {summaries.map((s) => (
+            <li key={s.muniCode}>
+              <a
+                href={areaPath(s.muniCode)}
+                aria-current={s.muniCode === municipality.muniCode ? "page" : undefined}
+              >
+                {s.prefecture}{s.city}
+                <span>{s.operatorCount.toLocaleString("ja-JP")}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       {(items.length > 0 || kinds.length > 0) && (
         <div className="permit-filters">
