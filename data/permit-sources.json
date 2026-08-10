@@ -687,5 +687,53 @@
     "truthyValues": [
       "1"
     ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "281000",
+    "prefecture": "兵庫県",
+    "city": "神戸市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://www.city.kobe.lg.jp/a99427/kenko/health/hygiene/dataset.html",
+    "csvUrl": "https://www.city.kobe.lg.jp/documents/6359/r7_biyousho.csv",
+    "delimiter": "\t",
+    "license": "CC BY 4.0",
+    "attribution": "神戸市",
+    "encoding": "utf-16le",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "ＴＥＬ１（公開用）",
+      "permitNo": "確認番号",
+      "issuedDate": "確認日",
+      "applicant": "開設者名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "271004",
+    "prefecture": "大阪府",
+    "city": "大阪市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://www.city.osaka.lg.jp/kenko/page/0000431136.html",
+    "csvUrl": "https://www.city.osaka.lg.jp/kenko/cmsfiles/contents/0000431/431136/bi20260331.csv",
+    "license": "CC BY 4.0",
+    "attribution": "大阪市",
+    "encoding": "sjis",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "applicant": "営業者名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
   }
 ]
