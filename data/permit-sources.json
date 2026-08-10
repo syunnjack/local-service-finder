@@ -304,5 +304,176 @@
       "◯",
       "●"
     ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "242021",
+    "prefecture": "三重県",
+    "city": "四日市市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/242021_00112",
+    "csvUrl": "https://data.bodik.jp/dataset/fb1ba35c-5541-4801-a63b-898b162a6ea1/resource/731aae5d-d069-4917-a576-9dbf84b9767b/download/242021_beauty_20260731.csv",
+    "license": "CC BY 4.0",
+    "attribution": "四日市市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "252018",
+    "prefecture": "滋賀県",
+    "city": "大津市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/252018_p_6813_1464915761241",
+    "csvUrl": "https://data.bodik.jp/dataset/cc0d476f-a5cc-429b-9797-8bb84c3df02f/resource/177df3f3-af8b-4619-aa54-337890a95e51/download/biyo0731.csv",
+    "license": "CC BY 4.0",
+    "attribution": "大津市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "272159",
+    "prefecture": "大阪府",
+    "city": "寝屋川市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/272159_hair_dressing",
+    "csvUrl": "https://data.bodik.jp/dataset/aa79fd70-d439-4bbf-b393-b94e2f7fa385/resource/47564a63-24f7-45b8-b9c5-2a151c583c55/download/272159_hair_dressing_20260630.csv",
+    "license": "CC BY 4.0",
+    "attribution": "寝屋川市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "231002",
+    "prefecture": "愛知県",
+    "city": "名古屋市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/231002_1304010000_kanyaku_02",
+    "csvUrl": "https://data.bodik.jp/dataset/0e733762-f6ca-453c-9c96-b9e2b1816924/resource/87bfb1b7-2284-4f77-96fc-cb43f8943372/download/biyoujoichiran_r6.8.31.csv",
+    "license": "CC BY 4.0",
+    "attribution": "名古屋市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "401005",
+    "prefecture": "福岡県",
+    "city": "北九州市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/401005_biyosyoichiran",
+    "csvUrl": "https://data.bodik.jp/dataset/c8266fc8-5d1f-4d3b-93aa-44486f5187ea/resource/e2d41b78-8fa5-4c8f-9629-57dd3a905c38/download/401005_biyosyoichiran_20260630.csv",
+    "license": "CC BY 4.0",
+    "attribution": "北九州市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "442011",
+    "prefecture": "大分県",
+    "city": "大分市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/442011_beauty_salon",
+    "csvUrl": "https://data.bodik.jp/dataset/38ee3063-3b34-4a32-bff3-2ad92611b7a4/resource/66130b2d-f2d2-4be2-b163-c0e41f5a33d0/download/20260331biyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "大分市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "422011",
+    "prefecture": "長崎県",
+    "city": "長崎市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/422011_biyosho_all",
+    "csvUrl": "https://data.bodik.jp/dataset/9508163b-44a6-4356-abb3-b631b1e4ef72/resource/7d5b0ea8-048e-4534-a8ed-bf9f772c958f/download/422011_biyosho_all.csv",
+    "license": "CC BY 4.0",
+    "attribution": "長崎市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "122025",
+    "prefecture": "千葉県",
+    "city": "船橋市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/122041_20260401_seikatsueisei-eigyoushisetsu_biyousyo",
+    "csvUrl": "https://data.bodik.jp/dataset/89b146c9-d7c4-4820-921e-edeee4f396d9/resource/ff85f1bb-95c1-42f4-b176-8c4c5b43f50d/download/biyousyoroichiranall-5.csv",
+    "license": "CC BY 4.0",
+    "attribution": "船橋市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "401307",
+    "prefecture": "福岡県",
+    "city": "福岡市",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/401307_biyousyo_kensakakuninzumi",
+    "csvUrl": "https://data.bodik.jp/dataset/bcfa330c-cfd4-4eaf-9568-52436dc0e20d/resource/f029fc9e-b2f5-46a5-a2b6-e62d8113dbc1/download/202608031107.csv",
+    "license": "CC BY 4.0",
+    "attribution": "福岡市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
   }
 ]
