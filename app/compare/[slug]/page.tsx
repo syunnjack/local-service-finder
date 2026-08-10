@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getVertical, verticals } from "../../lib/verticals"
-import { VERTICAL_PERMITS, municipalitySummaries, findMunicipality, permits } from "../../lib/permits"
+import { VERTICAL_PERMITS, municipalitySummaries, findMunicipality, operatorsIn, permits } from "../../lib/permits"
 import VerticalPage from "./vertical-page"
 
 export function generateStaticParams() {
@@ -38,23 +38,26 @@ export default async function Page({
 
   const { muni, q } = await searchParams
   const keyword = (q ?? "").trim()
-  const municipality = findMunicipality(config.category, muni)
+  const municipality = findMunicipality(config.category, muni, config.nameFilter)
 
   // 全件をクライアントへ送ると8MB超になるため、サーバーで絞ってから渡す
   const matched = municipality
-    ? municipality.operators.filter((operator) =>
+    ? operatorsIn(municipality, config.nameFilter).filter((operator) =>
         !keyword ||
         operator.name.includes(keyword) ||
         (operator.address ?? "").includes(keyword))
     : []
 
+  // 正規表現はクライアントコンポーネントへ渡せないので、表示に使う値だけ取り出す
+  const { nameFilter: _nameFilter, ...clientConfig } = config
+
   return (
     <VerticalPage
       vertical={vertical}
       permitData={{
-        config,
+        config: clientConfig,
         generatedAt: permits.generatedAt,
-        summaries: municipalitySummaries(config.category),
+        summaries: municipalitySummaries(config.category, config.nameFilter),
         municipality: municipality
           ? {
               muniCode: municipality.muniCode,
@@ -64,7 +67,7 @@ export default async function Page({
               license: municipality.license,
               attribution: municipality.attribution,
               sourcePage: municipality.sourcePage,
-              operatorCount: municipality.operatorCount,
+              operatorCount: operatorsIn(municipality, config.nameFilter).length,
             }
           : null,
         keyword,

@@ -51,15 +51,25 @@ export type MunicipalitySummary = {
   operatorCount: number
 }
 
-export function municipalitySummaries(category: string): MunicipalitySummary[] {
-  return municipalitiesFor(category).map(({ muniCode, prefecture, city, permitType, operatorCount }) => ({
-    muniCode, prefecture, city, permitType, operatorCount,
+export function municipalitySummaries(category: string, nameFilter?: RegExp): MunicipalitySummary[] {
+  return municipalitiesFor(category, nameFilter).map((m) => ({
+    muniCode: m.muniCode,
+    prefecture: m.prefecture,
+    city: m.city,
+    permitType: m.permitType,
+    operatorCount: operatorsIn(m, nameFilter).length,
   }))
 }
 
-export function findMunicipality(category: string, muniCode?: string) {
-  const list = municipalitiesFor(category)
+export function findMunicipality(category: string, muniCode?: string, nameFilter?: RegExp) {
+  const list = municipalitiesFor(category, nameFilter)
   return list.find((m) => m.muniCode === muniCode) ?? list[0] ?? null
+}
+
+/** nameFilter を通した事業者。指定が無ければ全件。 */
+export function operatorsIn(municipality: PermitMunicipality, nameFilter?: RegExp) {
+  if (!nameFilter) return municipality.operators
+  return municipality.operators.filter((operator) => nameFilter.test(operator.name))
 }
 
 /**
@@ -73,6 +83,13 @@ export const VERTICAL_PERMITS: Record<string, {
   /** 画面に出す説明 */
   headline: string
   description: string
+  /**
+   * 許認可の種類が業種と1対1でない場合に、施設名で絞り込む。
+   * ネイル・エステには専用の許認可が無く、美容所の届出簿の中に混ざっている。
+   * 施設名からの判別なので取りこぼしがある。その旨を sourceNote に必ず書く。
+   */
+  nameFilter?: RegExp
+  sourceNote?: string
 }> = {
   "junk-removal": {
     category: "waste",
@@ -92,6 +109,24 @@ export const VERTICAL_PERMITS: Record<string, {
     description:
       "自治体が公開している理容所の一覧から、施設名・所在地・電話・確認年月日を確認できます。理容所（バーバー・顔剃りのできる店）の開設には保健所への届出と確認が必要です。",
   },
+  nail: {
+    category: "beauty",
+    headline: "美容所の届出がある店だけ。",
+    description:
+      "ネイルサロンには専用の許認可がありませんが、まつげエクステやまつげパーマを扱う場合など、美容所として保健所へ届け出ている店があります。ここでは届出済みの美容所のうち、店名からネイルサロンと分かる店を掲載しています。",
+    nameFilter: /ネイル|ﾈｲﾙ|nail/i,
+    sourceNote:
+      "店名に「ネイル」を含むかどうかで判別しているため、別の店名で営業しているネイルサロンは載りません。掲載が無いことは、その店に問題があることを意味しません。",
+  },
+  esthetic: {
+    category: "beauty",
+    headline: "美容所の届出がある店だけ。",
+    description:
+      "エステティックサロンには専用の許認可がありませんが、まつげ・眉・ヘアの施術を伴う場合など、美容所として保健所へ届け出ている店があります。ここでは届出済みの美容所のうち、店名からエステサロンと分かる店を掲載しています。",
+    nameFilter: /エステ|ｴｽﾃ|esthe|Ｅｓｔｈｅ/i,
+    sourceNote:
+      "店名に「エステ」を含むかどうかで判別しているため、別の店名で営業しているサロンは載りません。掲載が無いことは、その店に問題があることを意味しません。",
+  },
   "pet-hotel": {
     category: "animal",
     defaultKind: "保管",
@@ -101,8 +136,11 @@ export const VERTICAL_PERMITS: Record<string, {
   },
 }
 
-export function municipalitiesFor(category: string) {
-  return permits.municipalities.filter((municipality) => municipality.category === category)
+export function municipalitiesFor(category: string, nameFilter?: RegExp) {
+  const list = permits.municipalities.filter((municipality) => municipality.category === category)
+  if (!nameFilter) return list
+  // 絞り込みの結果0件になる自治体は選択肢に出さない
+  return list.filter((municipality) => operatorsIn(municipality, nameFilter).length > 0)
 }
 
 /** 品目キーと画面表示名。自治体ごとに扱う品目が違うため、存在するものだけ出す。 */

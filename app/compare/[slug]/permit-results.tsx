@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 import { ITEM_LABELS, ANIMAL_LABELS, type PermitOperator, type MunicipalitySummary } from "../../lib/permits"
 
 export type PermitData = {
-  config: { category: string; defaultKind?: string; headline: string; description: string }
+  config: { category: string; defaultKind?: string; headline: string; description: string; sourceNote?: string }
   generatedAt: string
   summaries: MunicipalitySummary[]
   municipality: {
@@ -170,6 +170,7 @@ export function PermitResults({
         <br />
         許可・登録の有無や期限は取得時点のものです。依頼前に自治体の最新情報でご確認ください。
         ここに掲載していない事業者が無許可・無登録とは限りません（他の自治体で許可を受けている場合があります）。
+        {data.config.sourceNote && <><br />{data.config.sourceNote}</>}
       </p>
     </>
   )
