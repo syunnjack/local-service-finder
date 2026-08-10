@@ -520,5 +520,94 @@
     "truthyValues": [
       "1"
     ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "131105",
+    "prefecture": "東京都",
+    "city": "目黒区",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/131105_hairdressingshop",
+    "csvUrl": "https://data.bodik.jp/dataset/f5569102-a9da-435f-aa43-d95c21dcd3c3/resource/bb9172ca-9ef5-41a0-b31f-032a0d26e6e9/download/131105_hairdressingshop_20260331.csv",
+    "license": "CC BY 4.0",
+    "attribution": "目黒区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "delimiter": "\t",
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "ＴＥＬ１",
+      "permitNo": "許可番号",
+      "issuedDate": "許可日",
+      "applicant": "営業者名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "240000",
+    "prefecture": "三重県",
+    "city": "三重県",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "splitByCity": true,
+    "minOperatorsPerCity": 3,
+    "excludeCities": [
+      "四日市市"
+    ],
+    "format": "xlsx",
+    "sourcePage": "https://data.bodik.jp/dataset/240001_biyousyo",
+    "csvUrl": "https://data.bodik.jp/dataset/824ac0dd-f85e-425b-a1a4-73abed0b815e/resource/2a625a1b-2efe-4876-9859-49ad35363608/download/202606.xlsx",
+    "license": "CC BY 4.0",
+    "attribution": "三重県",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "屋号",
+      "address": "施設住所",
+      "phone": "施設電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "開設者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "beauty",
+    "muniCode": "270008",
+    "prefecture": "大阪府",
+    "city": "大阪府",
+    "permitType": "美容所（保健所の確認済み施設）",
+    "splitByCity": true,
+    "minOperatorsPerCity": 3,
+    "cityColumnIndex": 2,
+    "excludeCities": [
+      "寝屋川市"
+    ],
+    "format": "xlsx",
+    "sourcePage": "https://data.bodik.jp/dataset/270008_biyousyotodokedesisetuitiran",
+    "csvUrl": "https://data.bodik.jp/dataset/e8079500-b5cd-497f-84d9-c21999d876a2/resource/1a4a47bb-4431-4f86-b946-c51810645de4/download/biyou-ichiran-0803.xlsx",
+    "license": "CC BY 4.0",
+    "attribution": "大阪府",
+    "encoding": "utf8",
+    "headerRow": 17,
+    "columns": {},
+    "columnsByIndex": {
+      "name": 3,
+      "address": 4,
+      "applicant": 5,
+      "phone": 6,
+      "issuedDate": 7
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
   }
 ]
