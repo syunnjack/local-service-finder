@@ -131,6 +131,9 @@ for (const source of sources) {
       area: cell(row, "area") || null,
       vehicles: cell(row, "vehicles") || null,
       note: cell(row, "note") || null,
+      // 品目をフラグではなく自由記述で持つ自治体がある（静岡市など）
+      itemsText: cell(row, "itemsText") || null,
+      issuedDate: cell(row, "issuedDate") || null,
       expiry,
       expiryNote,
       expired: expiry ? expiry < today : false,
@@ -148,6 +151,8 @@ for (const source of sources) {
     muniCode: source.muniCode,
     prefecture: source.prefecture,
     city: source.city,
+    // 収集運搬か処分かで意味が違う。不用品の持ち出しに必要なのは収集運搬の許可。
+    permitType: source.permitType ?? "収集運搬",
     license: source.license,
     attribution: source.attribution,
     sourcePage: source.sourcePage,
