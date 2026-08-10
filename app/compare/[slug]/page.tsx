@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getVertical, verticals } from "../../lib/verticals"
-import { VERTICAL_PERMITS, municipalitySummaries, findMunicipality, operatorsIn, permits } from "../../lib/permits"
+import { buildPermitData } from "../../lib/permit-page"
 import VerticalPage from "./vertical-page"
 
 export function generateStaticParams() {
@@ -15,12 +15,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${v.name}を市町村別に比較｜まちセレクト`,
     description: `${v.name}の料金・口コミ・${v.points.join("・")}を地域別に比較します。`,
-    alternates: { canonical: `https://${v.domain}` },
+    // 各ジャンルの正規URLは専用ドメインのトップ。ポータル側の同じ中身と割れないようにする。
+    alternates: { canonical: `https://${v.domain}/` },
   }
 }
-
-/** 1自治体あたりクライアントへ渡す上限。名古屋市の美容所は4,882件あり全件は送れない。 */
-const MAX_RESULTS = 200
 
 export default async function Page({
   params,
@@ -33,48 +31,8 @@ export default async function Page({
   const vertical = getVertical(slug)
   if (!vertical) notFound()
 
-  const config = VERTICAL_PERMITS[slug]
-  if (!config) return <VerticalPage vertical={vertical} permitData={null} />
-
   const { muni, q } = await searchParams
-  const keyword = (q ?? "").trim()
-  const municipality = findMunicipality(config.category, muni, config.nameFilter)
+  const permitData = buildPermitData(vertical, { muniCode: muni, keyword: (q ?? "").trim() })
 
-  // 全件をクライアントへ送ると8MB超になるため、サーバーで絞ってから渡す
-  const matched = municipality
-    ? operatorsIn(municipality, config.nameFilter).filter((operator) =>
-        !keyword ||
-        operator.name.includes(keyword) ||
-        (operator.address ?? "").includes(keyword))
-    : []
-
-  // 正規表現はクライアントコンポーネントへ渡せないので、表示に使う値だけ取り出す
-  const { nameFilter: _nameFilter, ...clientConfig } = config
-
-  return (
-    <VerticalPage
-      vertical={vertical}
-      permitData={{
-        config: clientConfig,
-        generatedAt: permits.generatedAt,
-        summaries: municipalitySummaries(config.category, config.nameFilter),
-        municipality: municipality
-          ? {
-              muniCode: municipality.muniCode,
-              prefecture: municipality.prefecture,
-              city: municipality.city,
-              permitType: municipality.permitType,
-              license: municipality.license,
-              attribution: municipality.attribution,
-              sourcePage: municipality.sourcePage,
-              operatorCount: operatorsIn(municipality, config.nameFilter).length,
-            }
-          : null,
-        keyword,
-        matchedCount: matched.length,
-        operators: matched.slice(0, MAX_RESULTS),
-        limit: MAX_RESULTS,
-      }}
-    />
-  )
+  return <VerticalPage vertical={vertical} permitData={permitData} />
 }
