@@ -1779,5 +1779,131 @@
     "truthyValues": [
       "1"
     ]
+  },
+  {
+    "category": "animal",
+    "muniCode": "011002",
+    "prefecture": "北海道",
+    "city": "札幌市",
+    "permitType": "第一種動物取扱業",
+    "sourcePage": "https://ckan.pf-sapporo.jp/dataset/doubutsutoriatsukaigyou",
+    "csvUrl": "https://ckan.pf-sapporo.jp/dataset/93300815-9410-436b-9b7d-79e092e02f4f/resource/10d04cc6-d862-4a89-b94e-e835b4e5bd8e/download/20260803_hp_openlist.csv",
+    "license": "CC BY 4.0",
+    "attribution": "札幌市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "permitNo": "登録番号",
+      "issuedDate": "登録年月日",
+      "applicant": "事業者名",
+      "name": "事業所名称",
+      "address": "事業所所在地",
+      "kind": "種別",
+      "manager": "動物取扱責任者",
+      "note": "主に取り扱う動物の種類及び数"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "animal",
+    "muniCode": "072010",
+    "prefecture": "福島県",
+    "city": "福島市",
+    "permitType": "第一種動物取扱業",
+    "sourcePage": "https://www.city.fukushima.fukushima.jp/soshiki/2/1005/1/1/5/1_2/index.html",
+    "csvUrl": "https://www.city.fukushima.fukushima.jp/material/files/group/7/r0807doubutsu.csv",
+    "license": "政府標準利用規約準拠",
+    "attribution": "福島市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "kind": "業の種別",
+      "permitNo": "登録番号",
+      "name": "事業所名称",
+      "address": "事業所所在地",
+      "phone": "事業所電話番号",
+      "applicant": "申請者氏名（法人にあっては、名称及び代表者の氏名）",
+      "issuedDate": "登録年月日"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "animal",
+    "muniCode": "122173",
+    "prefecture": "千葉県",
+    "city": "柏市",
+    "permitType": "第一種動物取扱業",
+    "format": "xlsx",
+    "sourcePage": "https://www.city.kashiwa.lg.jp/dobutsuaigo/shiseijoho/jouhoukoukai/opendate/animal_dealer.html",
+    "csvUrl": "https://www.city.kashiwa.lg.jp/documents/28814/r8_7.xlsx",
+    "license": "柏市オープンデータ利用規約",
+    "attribution": "柏市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "applicant": "申請者氏名",
+      "name": "事業所名",
+      "address": "事業所所在地",
+      "manager": "動物取扱責任者名",
+      "note": "主として扱う動物の種類，数",
+      "issuedDate": "初回登録年月日",
+      "permitNo": "登録番号",
+      "kind": "種別",
+      "expiry": "登録満了年月日"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "waste",
+    "muniCode": "162116",
+    "prefecture": "富山県",
+    "city": "射水市",
+    "permitType": "収集運搬",
+    "sourcePage": "https://opendata.city.imizu.toyama.jp/dataset/waste_collector_disposal_contractors",
+    "csvUrl": "https://opendata.city.imizu.toyama.jp/dataset/158bed25-099f-458d-9fb6-88559628dd6b/resource/91a2bc57-9896-4f6e-a2b2-1a6e8688e61d/download/r8.csv",
+    "license": "CC BY 4.0",
+    "attribution": "射水市",
+    "encoding": "sjis",
+    "headerRow": 2,
+    "columns": {
+      "name": "名称",
+      "address": "所　　在　　地",
+      "phone": "電話番号",
+      "itemsText": "許可内容"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "waste",
+    "muniCode": "472115",
+    "prefecture": "沖縄県",
+    "city": "沖縄市",
+    "permitType": "収集運搬（事業系）",
+    "sourcePage": "https://data.bodik.jp/dataset/472115_business_system_general_waste_20241201",
+    "csvUrl": "https://data.bodik.jp/dataset/6e9b63f6-58d0-4629-bcce-3d11619dd792/resource/a3183631-2310-4ba5-8658-730ccf3463bd/download/upload",
+    "license": "CC BY 4.0",
+    "attribution": "沖縄市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設_名称",
+      "address": "施設_住所"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
   }
 ]
