@@ -40,6 +40,29 @@ export type PermitMunicipality = {
 export const permits = permitData as { generatedAt: string; municipalities: PermitMunicipality[] }
 
 /**
+ * 一覧の選択肢だけを持つ軽量版。全件をクライアントへ送ると8MB超になるため、
+ * サーバーで自治体を選んでから、その自治体の事業者だけを渡す。
+ */
+export type MunicipalitySummary = {
+  muniCode: string
+  prefecture: string
+  city: string
+  permitType: string
+  operatorCount: number
+}
+
+export function municipalitySummaries(category: string): MunicipalitySummary[] {
+  return municipalitiesFor(category).map(({ muniCode, prefecture, city, permitType, operatorCount }) => ({
+    muniCode, prefecture, city, permitType, operatorCount,
+  }))
+}
+
+export function findMunicipality(category: string, muniCode?: string) {
+  const list = municipalitiesFor(category)
+  return list.find((m) => m.muniCode === muniCode) ?? list[0] ?? null
+}
+
+/**
  * 業種と、その業種で確認できる許認可の対応。
  * ここに無い業種はまだ実データが無いので、架空の事業者を並べずに準備中と出す。
  */
@@ -56,6 +79,12 @@ export const VERTICAL_PERMITS: Record<string, {
     headline: "許可を持つ業者だけ。",
     description:
       "自治体が公開している一般廃棄物の許可業者一覧から、許可番号・許可期限・対応品目を確認できます。無許可業者は掲載していません。",
+  },
+  "hair-salon": {
+    category: "beauty",
+    headline: "保健所の確認を受けた店だけ。",
+    description:
+      "自治体が公開している美容所の一覧から、施設名・所在地・電話・確認年月日を確認できます。美容所の開設には保健所への届出と確認が必要です。",
   },
   "pet-hotel": {
     category: "animal",
