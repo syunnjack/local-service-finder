@@ -277,6 +277,26 @@ function fromExcelSerial(value) {
   return date.toISOString().slice(0, 10)
 }
 
+/**
+ * 日付表記のゆれを YYYY-MM-DD に寄せる。
+ * Excelのシリアル値のほか、ExcelJS が日付セルを
+ * 「Mon May 02 2022 09:00:00 GMT+0900」の形で返すことがある。
+ * そのまま出すと画面に英語の長い文字列が並ぶ。
+ */
+function normalizeDate(value) {
+  const text = String(value ?? "").trim()
+  if (!text) return null
+  const serial = fromExcelSerial(text)
+  if (serial) return serial
+  if (/^[A-Z][a-z]{2} [A-Z][a-z]{2} \d{2} \d{4}/.test(text)) {
+    const parsed = new Date(text)
+    if (!Number.isNaN(parsed.getTime())) {
+      return new Date(parsed.getTime() - parsed.getTimezoneOffset() * 60000).toISOString().slice(0, 10)
+    }
+  }
+  return text
+}
+
 function toIsoDate(year, month, day) {
   // Number("") は 0 になるため、空文字を先に弾く。
   // これを怠ると期限列を持たない自治体の業者が全員「0-00-00 = 期限切れ」になり、
@@ -377,7 +397,7 @@ for (const source of sources) {
       note: cell(row, "note") || null,
       // 品目をフラグではなく自由記述で持つ自治体がある（静岡市など）
       itemsText: cell(row, "itemsText") || null,
-      issuedDate: fromExcelSerial(cell(row, "issuedDate")) ?? (cell(row, "issuedDate") || null),
+      issuedDate: normalizeDate(cell(row, "issuedDate")),
       applicant: cell(row, "applicant") || null,
       manager: cell(row, "manager") || null,
       kind,
