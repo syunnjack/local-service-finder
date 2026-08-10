@@ -47,6 +47,35 @@ function parseCsv(text) {
   return rows
 }
 
+/**
+ * 自治体のHTMLページから表を取り出す。CSV公開していない自治体が多いため。
+ * 政府系サイトの表は素直なHTMLなので、正規表現で十分に読める。
+ */
+function parseHtmlTables(html) {
+  const stripTags = (value) =>
+    value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/\s+/g, " ").trim()
+  return html.split(/<table/i).slice(1).map((table) =>
+    table.split(/<tr/i).slice(1).map((row) =>
+      [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/gi)].map((match) => stripTags(match[1])),
+    ).filter((cells) => cells.length > 0),
+  )
+}
+
+async function fetchHtmlRows(source) {
+  const response = await fetch(source.sourcePage, { signal: AbortSignal.timeout(45000), redirect: "follow" })
+  if (!response.ok) throw new Error(`HTTP ${response.status}`)
+  const buffer = Buffer.from(await response.arrayBuffer())
+  let html = buffer.toString("utf8")
+  if ((html.match(/�/g) || []).length > 20) html = new TextDecoder("shift_jis").decode(buffer)
+
+  const tables = parseHtmlTables(html)
+  // 同じ表が区ごとに分割されて重複することがあるため、既定では最大の表だけを使う
+  const target = tables.reduce((best, table) => (table.length > best.length ? table : best), [])
+  if (target.length < 2) throw new Error("表を取り出せない")
+  return target
+}
+
 async function fetchCsv(source) {
   const response = await fetch(source.csvUrl, { signal: AbortSignal.timeout(45000), redirect: "follow" })
   if (!response.ok) throw new Error(`HTTP ${response.status}`)
@@ -87,7 +116,7 @@ let totalOperators = 0
 for (const source of sources) {
   let rows
   try {
-    rows = parseCsv(await fetchCsv(source))
+    rows = source.format === "html" ? await fetchHtmlRows(source) : parseCsv(await fetchCsv(source))
   } catch (error) {
     console.log(`${source.city}: 取得失敗 ${String(error.message).slice(0, 60)}`)
     continue
