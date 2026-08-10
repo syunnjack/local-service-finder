@@ -218,5 +218,38 @@
     "truthyValues": [
       "○"
     ]
+  },
+  {
+    "category": "animal",
+    "format": "xlsx",
+    "splitByCity": true,
+    "minOperatorsPerCity": 3,
+    "muniCode": "24000",
+    "prefecture": "三重県",
+    "city": "三重県",
+    "permitType": "第一種動物取扱業",
+    "sourcePage": "https://data.bodik.jp/dataset/240001_dai1syudoubutsutoriatsukaigyou",
+    "csvUrl": "https://data.bodik.jp/dataset/22337592-a13e-4f06-aaa8-b0bf9b3f2d88/resource/f4e1c993-428d-49fc-b3de-098842ea22e3/download/202606.xlsx",
+    "license": "CC BY 4.0",
+    "attribution": "三重県",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "事業所名",
+      "address": "事業所住所",
+      "permitNo": "登録番号",
+      "issuedDate": "登録年月日",
+      "kind": "業種",
+      "applicant": "申請者氏名"
+    },
+    "items": {},
+    "animalColumns": {
+      "mammal": "取り扱う動物の種類及び数（哺乳類）",
+      "bird": "取り扱う動物の種類及び数（鳥類）",
+      "reptile": "取り扱う動物の種類及び数（爬虫類）"
+    },
+    "truthyValues": [
+      "1"
+    ]
   }
 ]
