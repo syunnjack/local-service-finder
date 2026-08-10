@@ -4,14 +4,15 @@
 import { FormEvent, useEffect, useState } from "react"
 import type { Vertical } from "../../lib/verticals"
 import { PermitResults } from "./permit-results"
-import { permits, VERTICALS_WITH_PERMITS, municipalityLabel, type PermitOperator } from "../../lib/permits"
+import { VERTICAL_PERMITS, municipalitiesFor, municipalityLabel, type PermitOperator } from "../../lib/permits"
 
 type Review = { id: number; nickname: string; rating: number; body: string; helpful: number }
 
 export default function VerticalPage({ vertical: v }: { vertical: Vertical }) {
-  // 許可業者の実データがある業種かどうか。無い業種で架空の業者を並べることはしない。
-  const hasPermits = VERTICALS_WITH_PERMITS.has(v.slug)
-  const permitCities = permits.municipalities.map(municipalityLabel)
+  // 許認可の実データがある業種かどうか。無い業種で架空の事業者を並べることはしない。
+  const permitConfig = VERTICAL_PERMITS[v.slug]
+  const hasPermits = Boolean(permitConfig)
+  const permitCities = permitConfig ? municipalitiesFor(permitConfig.category).map(municipalityLabel) : []
 
   const [city, setCity] = useState(permitCities[0] ?? "")
   // 目的の選択UIは実データが揃うまで出さない。送信内容には既定値を載せる。
@@ -85,12 +86,9 @@ export default function VerticalPage({ vertical: v }: { vertical: Vertical }) {
         <p>{v.category.toUpperCase()} · LOCAL COMPARISON</p>
         {hasPermits ? (
           <>
-            <h1>許可を持つ<br /><em>{v.name}業者だけ。</em></h1>
-            <span>
-              自治体が公開している一般廃棄物収集運搬業の許可業者一覧から、
-              許可番号・許可期限・対応品目を確認できます。無許可業者は掲載していません。
-            </span>
-            <a href="#results" onClick={() => track("compare")}>許可業者を見る →</a>
+            <h1>{v.name}は<br /><em>{permitConfig!.headline}</em></h1>
+            <span>{permitConfig!.description}</span>
+            <a href="#results" onClick={() => track("compare")}>一覧を見る →</a>
             <small>掲載データは自治体の公開情報にもとづく実データです。</small>
           </>
         ) : (
@@ -106,13 +104,18 @@ export default function VerticalPage({ vertical: v }: { vertical: Vertical }) {
         <div className="head">
           <div>
             <p>LOCAL RESULTS</p>
-            <h2>{hasPermits ? `${v.name}の許可業者` : v.name}</h2>
+            <h2>{hasPermits ? `${v.name}の許可・登録事業者` : v.name}</h2>
           </div>
-          {hasPermits && <span>自治体の許可業者一覧より</span>}
+          {hasPermits && <span>自治体の公開情報より</span>}
         </div>
 
         {hasPermits ? (
-          <PermitResults onSelect={chooseOperator} onMunicipalityChange={setCity} />
+          <PermitResults
+            category={permitConfig!.category}
+            defaultKind={permitConfig!.defaultKind}
+            onSelect={chooseOperator}
+            onMunicipalityChange={setCity}
+          />
         ) : (
           <div className="preparing">
             <p>
