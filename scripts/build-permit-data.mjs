@@ -317,8 +317,9 @@ function normalizeDate(value) {
   // 「2024/11/22」（港区）や「2024.11.22」の区切り違い
   const slash = text.match(/^(\d{4})[/.](\d{1,2})[/.](\d{1,2})$/)
   if (slash) return toIsoDate(slash[1], slash[2], slash[3]) ?? text
-  // 「令和4年3月24日」（目黒区）などの和暦。元年は1年扱い
-  const wareki = text.match(/^(明治|大正|昭和|平成|令和)(元|\d{1,2})年(\d{1,2})月(\d{1,2})日$/)
+  // 「令和4年3月24日」（目黒区）などの和暦。「令和9年 1月30日」のように
+  // 桁揃えの空白が入ることがある（柏市）。元年は1年扱い
+  const wareki = text.match(/^(明治|大正|昭和|平成|令和)\s*(元|\d{1,2})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日$/)
   if (wareki) {
     const base = { 明治: 1867, 大正: 1911, 昭和: 1925, 平成: 1988, 令和: 2018 }[wareki[1]]
     const year = base + (wareki[2] === "元" ? 1 : Number(wareki[2]))
@@ -400,7 +401,12 @@ for (const source of sources) {
     // 廃業日が入っている施設は現存しないため載せない
     if (cell(row, "closedDate")) continue
 
-    const expiry = toIsoDate(cell(row, "expiryYear"), cell(row, "expiryMonth"), cell(row, "expiryDay"))
+    let expiry = toIsoDate(cell(row, "expiryYear"), cell(row, "expiryMonth"), cell(row, "expiryDay"))
+    // 満了日を1列で持つ自治体（柏市の「登録満了年月日」など）。和暦もISOに寄せる
+    if (!expiry) {
+      const single = normalizeDate(cell(row, "expiry"))
+      if (single && /^\d{4}-\d{2}-\d{2}$/.test(single)) expiry = single
+    }
     // 「更新申請受付中」のように日付が入らないケースがあるため、原文も残す
     const expiryNote = expiry ? null : (cell(row, "expiryYear") || null)
 
