@@ -1088,5 +1088,696 @@
     "truthyValues": [
       "1"
     ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "131105",
+    "prefecture": "東京都",
+    "city": "目黒区",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/131105_barber",
+    "csvUrl": "https://data.bodik.jp/dataset/4461b352-4ce7-451a-bfba-e2320c887530/resource/ba2a6afb-2b61-4bbd-833a-e52d4262a838/download/131105_barber_20260331.csv",
+    "license": "CC BY 4.0",
+    "attribution": "目黒区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "delimiter": "\t",
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "ＴＥＬ１",
+      "permitNo": "許可番号",
+      "issuedDate": "許可日",
+      "applicant": "営業者名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "131016",
+    "prefecture": "東京都",
+    "city": "千代田区",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131016d2025000006",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/chiyoda/131016_chiyodaku_riyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "千代田区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "131059",
+    "prefecture": "東京都",
+    "city": "文京区",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131059d2025000006",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/bunkyo/131059_bunkyoku_riyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "文京区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "131067",
+    "prefecture": "東京都",
+    "city": "台東区",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131067d2025000006",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/taito/131067_taitoku_riyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "台東区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "131091",
+    "prefecture": "東京都",
+    "city": "品川区",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131091d2025000006",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/shinagawa/131091_shinagawaku_riyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "品川区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "131113",
+    "prefecture": "東京都",
+    "city": "大田区",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131113d2025000006",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/ota/131113_otaku_riyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "大田区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "131130",
+    "prefecture": "東京都",
+    "city": "渋谷区",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131130d2025000006",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/shibuya/131130_shibuyaku_riyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "渋谷区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "131164",
+    "prefecture": "東京都",
+    "city": "豊島区",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131164d2025000006",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/toshima/131164_toshimaku_riyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "豊島区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "131181",
+    "prefecture": "東京都",
+    "city": "荒川区",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131181d2025000006",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/arakawa/131181_arakawaku_riyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "荒川区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "131229",
+    "prefecture": "東京都",
+    "city": "葛飾区",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131229d2025000006",
+    "csvUrl": "https://www.opendata.metro.tokyo.lg.jp/katsushika/131229_katsushikaku_riyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "葛飾区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "名称",
+      "address": "所在地_連結表記",
+      "phone": "電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "営業者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "131032",
+    "prefecture": "東京都",
+    "city": "港区",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://catalog.data.metro.tokyo.lg.jp/dataset/t131032d0000000231",
+    "csvUrl": "https://opendata.city.minato.tokyo.jp/dataset/639a0ed3-b705-410b-85a9-63cbe58f62e3/resource/08c8b473-766c-4a9c-9082-4154212e176a/download/riyou.csv",
+    "license": "CC BY 4.0",
+    "attribution": "港区",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "permitNo": "確認番号",
+      "issuedDate": "確認日"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "041009",
+    "prefecture": "宮城県",
+    "city": "仙台市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "format": "xlsx",
+    "zipped": true,
+    "zipEntry": "理容所",
+    "sourcePage": "https://www.city.sendai.jp/sekatsuese/facilitylist/list.html",
+    "csvUrl": "https://www.city.sendai.jp/sekatsuese/facilitylist/documents/260331.zip",
+    "license": "政府標準利用規約準拠",
+    "attribution": "仙台市",
+    "headerRow": 1,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "施設ＴＥＬ1",
+      "applicant": "開設者名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "141003",
+    "prefecture": "神奈川県",
+    "city": "横浜市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://www.city.yokohama.lg.jp/kurashi/sumai-kurashi/seikatsu/kaiteki/kankyodata.html",
+    "csvUrl": "https://www.city.yokohama.lg.jp/kurashi/sumai-kurashi/seikatsu/kaiteki/kankyodata.files/20260401riyou.zip",
+    "zipped": true,
+    "delimiter": "\t",
+    "license": "CC BY 4.0",
+    "attribution": "横浜市",
+    "encoding": "utf-16le",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "施設電話番号",
+      "permitNo": "許可番号",
+      "issuedDate": "許可等年月日",
+      "applicant": "申請者氏名",
+      "kind": "業種"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "281000",
+    "prefecture": "兵庫県",
+    "city": "神戸市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://www.city.kobe.lg.jp/a99427/kenko/health/hygiene/dataset.html",
+    "csvUrl": "https://www.city.kobe.lg.jp/documents/6359/r7_riyousho.csv",
+    "delimiter": "\t",
+    "license": "CC BY 4.0",
+    "attribution": "神戸市",
+    "encoding": "utf-16le",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "ＴＥＬ１（公開用）",
+      "permitNo": "確認番号",
+      "issuedDate": "確認日",
+      "applicant": "開設者名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "271004",
+    "prefecture": "大阪府",
+    "city": "大阪市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://www.city.osaka.lg.jp/kenko/page/0000431136.html",
+    "csvUrl": "https://www.city.osaka.lg.jp/kenko/cmsfiles/contents/0000431/431136/ri20260331.csv",
+    "license": "CC BY 4.0",
+    "attribution": "大阪市",
+    "encoding": "sjis",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "applicant": "営業者名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "141305",
+    "prefecture": "神奈川県",
+    "city": "川崎市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://www.city.kawasaki.jp/350/page/0000120745.html",
+    "csvUrl": "https://www.city.kawasaki.jp/350/cmsfiles/contents/0000120/120745/01riyoujo202606.csv",
+    "license": "出典表示（川崎市サイトの利用条件に従う）",
+    "attribution": "川崎市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "施設電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認日",
+      "applicant": "開設者名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "011002",
+    "prefecture": "北海道",
+    "city": "札幌市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://ckan.pf-sapporo.jp/dataset/0be3aa70-e0b3-4ac1-8674-35e995195627",
+    "csvUrl": "https://ckan.pf-sapporo.jp/dataset/0be3aa70-e0b3-4ac1-8674-35e995195627/resource/c1edfb53-2440-4cda-9007-e76962d3d5eb/download/sapporo-eigyoshisetsu-riyo-r80630.csv",
+    "license": "CC BY 4.0",
+    "attribution": "札幌市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "施設所在地",
+      "phone": "施設TEL",
+      "issuedDate": "許可年月日",
+      "applicant": "開設者名",
+      "kind": "業種区分"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "221007",
+    "prefecture": "静岡県",
+    "city": "静岡市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/221007_riyoujo-20160331",
+    "csvUrl": "https://data.bodik.jp/dataset/f4b70b46-ad92-4af7-84bb-3282d9fcfdff/resource/078bf0fd-81f4-44ae-abaf-674ffc07e873/download/riyojo-20200331.csv",
+    "license": "CC BY 4.0",
+    "attribution": "静岡市",
+    "encoding": "sjis",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "252018",
+    "prefecture": "滋賀県",
+    "city": "大津市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/252018_p_9629_1464914587129",
+    "csvUrl": "https://data.bodik.jp/dataset/38908ca8-beaa-45f6-b130-8e9ae9f6d97d/resource/53520e16-5488-4d92-b9a1-a7d1365fe595/download/riyo0731.csv",
+    "license": "CC BY 4.0",
+    "attribution": "大津市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "242021",
+    "prefecture": "三重県",
+    "city": "四日市市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/242021_00111",
+    "csvUrl": "https://data.bodik.jp/dataset/9fac6464-fcdc-45f0-91a8-fd766c1b3f39/resource/05681b10-27af-4373-affc-f75c5875f378/download/242021_barber_20260731.csv",
+    "license": "CC BY 4.0",
+    "attribution": "四日市市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設屋号",
+      "address": "施設住所",
+      "phone": "施設電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "開設者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "240000",
+    "prefecture": "三重県",
+    "city": "三重県",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "splitByCity": true,
+    "minOperatorsPerCity": 3,
+    "excludeCities": [
+      "四日市市"
+    ],
+    "format": "xlsx",
+    "sourcePage": "https://data.bodik.jp/dataset/240001_barbar",
+    "csvUrl": "https://data.bodik.jp/dataset/b3d52d9a-7818-4721-8336-23adebaf3da3/resource/8a273176-3714-46de-ba68-aeb2b5742c09/download/202606.xlsx",
+    "license": "CC BY 4.0",
+    "attribution": "三重県",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "屋号",
+      "address": "施設住所",
+      "phone": "施設電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "開設者氏名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "272159",
+    "prefecture": "大阪府",
+    "city": "寝屋川市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/272159_barber",
+    "csvUrl": "https://data.bodik.jp/dataset/d7f05be4-01d8-4150-8b9b-c5146a906187/resource/f3ca83a8-b980-4b25-befe-3c31926928ff/download/272159_barber_20250531.csv",
+    "license": "CC BY 4.0",
+    "attribution": "寝屋川市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "401005",
+    "prefecture": "福岡県",
+    "city": "北九州市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/401005_riyosyoichian",
+    "csvUrl": "https://data.bodik.jp/dataset/8be510bd-5f67-4570-a250-b34ffdac8d37/resource/de285cce-eb00-4227-88b7-8c94446cf6b2/download/401005_riyosyoichiran_20260630.csv",
+    "license": "CC BY 4.0",
+    "attribution": "北九州市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "442011",
+    "prefecture": "大分県",
+    "city": "大分市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/442011_barber_shop",
+    "csvUrl": "https://data.bodik.jp/dataset/68c0d0a8-7b2c-4217-ba83-90fd8accca19/resource/fcde9e81-40a5-4da8-bdbd-a9b882074224/download/20260331riyousyo.csv",
+    "license": "CC BY 4.0",
+    "attribution": "大分市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "440001",
+    "prefecture": "大分県",
+    "city": "大分県全域（大分市を除く）",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/440001_riyou_business",
+    "csvUrl": "https://data.bodik.jp/dataset/c831c8ce-6159-4cf4-80a4-fe2beece08f2/resource/e92eb14e-100f-48ac-9f47-a0efb7092851/download/440001_riyou_business_all.csv",
+    "license": "CC BY 4.0",
+    "attribution": "大分県",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "name": "施設名称",
+      "address": "所在地_連結表記",
+      "phone": "施設電話番号",
+      "permitNo": "確認番号",
+      "issuedDate": "確認年月日",
+      "applicant": "開設者名（法人名）",
+      "closedDate": "廃業年月日"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "422011",
+    "prefecture": "長崎県",
+    "city": "長崎市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/422011_riyosho_all",
+    "csvUrl": "https://data.bodik.jp/dataset/ab4e452b-c72a-49f4-9b25-0379893cce3f/resource/6ccea115-9386-462c-b581-d1d959f16744/download/422011_riyosho_all.csv",
+    "license": "CC BY 4.0",
+    "attribution": "長崎市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "122025",
+    "prefecture": "千葉県",
+    "city": "船橋市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/122041_20260401_seikatsueisei-eigyoushisetsu_riyousyo",
+    "csvUrl": "https://data.bodik.jp/dataset/deb35006-3f85-4626-a2ea-c65823dae612/resource/73e5f3c8-4a05-4056-9f00-2b6b249402ce/download/riyouroichiranall-.csv",
+    "license": "CC BY 4.0",
+    "attribution": "船橋市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "401307",
+    "prefecture": "福岡県",
+    "city": "福岡市",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "sourcePage": "https://data.bodik.jp/dataset/401307_riyousyo_kensakakuninzumi",
+    "csvUrl": "https://data.bodik.jp/dataset/5ff384ca-dcc8-401f-9ce6-59d5b139e921/resource/58e0494e-bc04-4298-a031-2caa64c2e254/download/202608031126.csv",
+    "license": "CC BY 4.0",
+    "attribution": "福岡市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "autoColumns": true,
+    "columns": {},
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "barber",
+    "muniCode": "270008",
+    "prefecture": "大阪府",
+    "city": "大阪府",
+    "permitType": "理容所（保健所の確認済み施設）",
+    "splitByCity": true,
+    "minOperatorsPerCity": 3,
+    "cityColumnIndex": 2,
+    "excludeCities": [
+      "寝屋川市"
+    ],
+    "format": "xlsx",
+    "sourcePage": "https://data.bodik.jp/dataset/270008_riyou-ichiran",
+    "csvUrl": "https://data.bodik.jp/dataset/7ef31733-3fef-4fae-a163-b91c75f1eac2/resource/96f0f303-c561-4e47-a3a4-da7f1e2a133f/download/riyou-ichiran-0803.xlsx",
+    "license": "CC BY 4.0",
+    "attribution": "大阪府",
+    "encoding": "utf8",
+    "headerRow": 4,
+    "columns": {},
+    "columnsByIndex": {
+      "name": 3,
+      "address": 4,
+      "applicant": 5,
+      "phone": 6,
+      "issuedDate": 7
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
   }
 ]

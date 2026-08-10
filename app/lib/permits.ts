@@ -86,6 +86,12 @@ export const VERTICAL_PERMITS: Record<string, {
     description:
       "自治体が公開している美容所の一覧から、施設名・所在地・電話・確認年月日を確認できます。美容所の開設には保健所への届出と確認が必要です。",
   },
+  "mens-beauty": {
+    category: "barber",
+    headline: "保健所の確認を受けた店だけ。",
+    description:
+      "自治体が公開している理容所の一覧から、施設名・所在地・電話・確認年月日を確認できます。理容所（バーバー・顔剃りのできる店）の開設には保健所への届出と確認が必要です。",
+  },
   "pet-hotel": {
     category: "animal",
     defaultKind: "保管",
