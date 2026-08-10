@@ -1,0 +1,63 @@
+[
+  {
+    "muniCode": "382019",
+    "prefecture": "愛媛県",
+    "city": "松山市",
+    "sourcePage": "https://www.city.matsuyama.ehime.jp/shisei/opendata/metadata/ippaisyuuun.html",
+    "csvUrl": "https://www.city.matsuyama.ehime.jp/shisei/opendata/metadata/ippaisyuuun.files/ippaisyuun260701.csv",
+    "license": "CC BY 4.0",
+    "attribution": "松山市",
+    "encoding": "utf8",
+    "headerRow": 0,
+    "columns": {
+      "permitNo": "許可番号",
+      "name": "許可業者名",
+      "nameKana": "許可業者名（カナ）",
+      "phone": "電話番号(松山事業所)",
+      "address": "事業所住所（松山事業所）",
+      "area": "校区（松山事業所）",
+      "expiryYear": "許可期限年",
+      "expiryMonth": "許可期限月",
+      "expiryDay": "許可期限日"
+    },
+    "items": {
+      "burnable": "(家庭系)可燃ごみ",
+      "plastic": "(家庭系)プラスチック製容器包装",
+      "bulky": "(家庭系)粗大ごみ",
+      "landfill": "(家庭系)埋立ごみ",
+      "appliance": "(家庭系)特定家庭用機器一般廃棄物",
+      "mattress": "(家庭系)スプリングマットレス等",
+      "businessBurnable": "（事業系）可燃物",
+      "foodResource": "（事業系）食品循環資源",
+      "wood": "（事業系）木くず"
+    },
+    "truthyValues": ["1"]
+  },
+  {
+    "muniCode": "092011",
+    "prefecture": "栃木県",
+    "city": "宇都宮市",
+    "sourcePage": "https://catalog.city.utsunomiya.tochigi.jp/dataset/ippaisyuuunn",
+    "csvUrl": "https://catalog.city.utsunomiya.tochigi.jp/dataset/198269a5-e590-48a6-8a58-8b8f569f30c6/resource/210e2886-2ffc-4f52-a195-033196500db5/download/2092011_ippaisyuuunn_-20260601.csv",
+    "license": "CC BY",
+    "attribution": "宇都宮市",
+    "encoding": "utf8",
+    "headerRow": 1,
+    "columns": {
+      "permitNo": "許可番号",
+      "name": "許可証の本市内における事務所の名称",
+      "phone": "電話番号",
+      "address": "住所",
+      "note": "限定",
+      "vehicles": "運搬車両台数"
+    },
+    "items": {
+      "burnable": "品目：ごみ",
+      "bulky": "品目：粗大",
+      "sludge": "品目：汚泥",
+      "placenta": "品目：胞衣",
+      "appliance": "品目：家電\nリサイクル4品目"
+    },
+    "truthyValues": ["○", "〇", "◯", "●", "1", "可"]
+  }
+]
