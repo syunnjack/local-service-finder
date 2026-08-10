@@ -735,5 +735,85 @@
     "truthyValues": [
       "1"
     ]
+  },
+  {
+    "category": "waste",
+    "format": "xlsx",
+    "muniCode": "452017",
+    "prefecture": "宮崎県",
+    "city": "宮崎市",
+    "permitType": "収集運搬",
+    "sourcePage": "https://data.bodik.jp/dataset/452017_09seisaku_011",
+    "csvUrl": "https://data.bodik.jp/dataset/52a9a0ad-8b46-4229-8bf6-9b3dd6f1c252/resource/311814fb-ae4f-4c96-a157-fd1ff57498d9/download/1-1.7.xlsx",
+    "license": "CC BY 4.0",
+    "attribution": "宮崎市",
+    "encoding": "utf8",
+    "headerRow": 4,
+    "columns": {
+      "permitNo": "許可番号",
+      "name": "業者名",
+      "address": "所在地（事務所）",
+      "phone": "電話",
+      "applicant": "代表者名"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "waste",
+    "format": "xlsx",
+    "muniCode": "452033",
+    "prefecture": "宮崎県",
+    "city": "延岡市",
+    "permitType": "収集運搬（事業系）",
+    "sourcePage": "https://data.bodik.jp/dataset/452033_ippanhaikibutusyusyuunnpankyokagyousya",
+    "csvUrl": "https://data.bodik.jp/dataset/cbfee04d-8747-4d0a-9719-1e2d3cc33be2/resource/1b769622-004d-4bd3-813f-ef9989b4275b/download/ippanhaikibutusyusyuunnpankyokagyousya.xlsx",
+    "license": "CC BY 4.0",
+    "attribution": "延岡市",
+    "encoding": "utf8",
+    "headerRow": 1,
+    "columns": {
+      "name": "業者名",
+      "address": "住所",
+      "phone": "電話番号"
+    },
+    "items": {},
+    "truthyValues": [
+      "1"
+    ]
+  },
+  {
+    "category": "animal",
+    "format": "xlsx",
+    "muniCode": "430005",
+    "prefecture": "熊本県",
+    "city": "熊本県",
+    "permitType": "第一種動物取扱業",
+    "splitByCity": true,
+    "minOperatorsPerCity": 3,
+    "sourcePage": "https://data.bodik.jp/dataset/430005_doubutsutoriatsukai",
+    "csvUrl": "https://data.bodik.jp/dataset/6822f1f6-cd10-47b8-9c3f-a58d5c8e38ac/resource/88478f46-85e0-4c42-8b72-a984fc9ce295/download/250_r7.3.31.xlsx",
+    "license": "CC BY 4.0",
+    "attribution": "熊本県",
+    "encoding": "utf8",
+    "headerRow": 3,
+    "columns": {
+      "name": "名称",
+      "address": "所在地",
+      "kind": "種別",
+      "permitNo": "登録番号",
+      "issuedDate": "登録（更新）\n年月日",
+      "applicant": "氏名\n（法人にあっては、\n名称及び代表者の氏名）",
+      "manager": "動物取扱責任者\nの氏名"
+    },
+    "items": {},
+    "animalColumns": {
+      "mammal": "主として取扱う\n動物の種類及び数"
+    },
+    "truthyValues": [
+      "1"
+    ]
   }
 ]
