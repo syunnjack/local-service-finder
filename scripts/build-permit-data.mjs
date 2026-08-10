@@ -19,10 +19,14 @@
  */
 import { readFile, writeFile, mkdir } from "node:fs/promises"
 import ExcelJS from "exceljs"
+import { inflateRawSync } from "node:zlib"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
+
+/** 改行での分割。CRLF と LF の両方に対応する。 */
+const LINE_BREAK = new RegExp(String.fromCharCode(13) + "?" + String.fromCharCode(10))
 
 /** ダブルクォート対応のCSVパーサ。セル内の改行も保持する。 */
 function parseCsv(text) {
@@ -103,6 +107,50 @@ async function fetchHtmlRows(source) {
   return target
 }
 
+/**
+ * ZIPで配布されている一覧を取り出す（横浜市など）。
+ * 横浜市は18区それぞれのCSVが1つのZIPに入っているため、全ファイルを取り出す。
+ * 先頭がディレクトリのエントリになっていることもある。
+ * 依存を増やさないよう node:zlib の inflateRaw で展開する。
+ */
+function extractDataFilesFromZip(buffer) {
+  // End of Central Directory を末尾から探す
+  let eocd = -1
+  for (let i = buffer.length - 22; i >= 0 && i > buffer.length - 66000; i--) {
+    if (buffer.readUInt32LE(i) === 0x06054b50) { eocd = i; break }
+  }
+  if (eocd < 0) throw new Error("ZIPの構造を読めない")
+
+  const entryCount = buffer.readUInt16LE(eocd + 10)
+  let offset = buffer.readUInt32LE(eocd + 16)
+  const files = []
+
+  for (let index = 0; index < entryCount; index++) {
+    if (buffer.readUInt32LE(offset) !== 0x02014b50) break
+    const method = buffer.readUInt16LE(offset + 10)
+    const compressedSize = buffer.readUInt32LE(offset + 20)
+    const nameLength = buffer.readUInt16LE(offset + 28)
+    const extraLength = buffer.readUInt16LE(offset + 30)
+    const commentLength = buffer.readUInt16LE(offset + 32)
+    const localOffset = buffer.readUInt32LE(offset + 42)
+    const name = buffer.subarray(offset + 46, offset + 46 + nameLength).toString("utf8")
+    offset += 46 + nameLength + extraLength + commentLength
+
+    // ディレクトリと Mac の付随ファイルは飛ばす
+    if (name.endsWith("/") || name.startsWith("__MACOSX") || compressedSize === 0) continue
+
+    const localNameLength = buffer.readUInt16LE(localOffset + 26)
+    const localExtraLength = buffer.readUInt16LE(localOffset + 28)
+    const start = localOffset + 30 + localNameLength + localExtraLength
+    const body = buffer.subarray(start, start + compressedSize)
+    if (method === 0) files.push(body)
+    else if (method === 8) files.push(inflateRawSync(body))
+    else throw new Error(`未対応の圧縮方式 ${method}`)
+  }
+  if (!files.length) throw new Error("ZIP内にファイルが見つからない")
+  return files
+}
+
 /** Excel（xlsx）を行の二次元配列にする。県単位で公開している自治体があるため。 */
 async function fetchXlsxRows(source) {
   const response = await fetch(source.csvUrl, { signal: AbortSignal.timeout(60000), redirect: "follow" })
@@ -133,18 +181,48 @@ function extractCity(address, prefecture) {
   return match ? match[1] : null
 }
 
+/**
+ * 自治体のCSVは Shift_JIS や UTF-16 のこともある。
+ * 設定を優先しつつ、化けていたら候補を順に試す。
+ */
+function decodeBuffer(buffer, encoding) {
+  const decode = (name) => new TextDecoder(name).decode(buffer).replace(/^﻿/, "")
+  const garbled = (value) => (value.match(/�/g) || []).length > 5
+
+  if (encoding && encoding !== "utf8") {
+    const specified = decode(encoding === "sjis" ? "shift_jis" : encoding)
+    if (!garbled(specified)) return specified
+  }
+  const utf8 = buffer.toString("utf8").replace(/^﻿/, "")
+  if (!garbled(utf8)) return utf8
+  for (const name of ["shift_jis", "utf-16le", "euc-jp"]) {
+    const candidate = decode(name)
+    if (!garbled(candidate)) return candidate
+  }
+  return utf8
+}
+
 async function fetchCsv(source) {
   const response = await fetch(source.csvUrl, { signal: AbortSignal.timeout(45000), redirect: "follow" })
   if (!response.ok) throw new Error(`HTTP ${response.status}`)
-  const buffer = Buffer.from(await response.arrayBuffer())
-  // 自治体のCSVは Shift_JIS のことも多い。設定に従いつつ、化けたら自動で切り替える。
-  let text = source.encoding === "sjis"
-    ? new TextDecoder("shift_jis").decode(buffer)
-    : buffer.toString("utf8")
-  if ((text.match(/�/g) || []).length > 5) {
-    text = new TextDecoder("shift_jis").decode(buffer)
+  let buffer = Buffer.from(await response.arrayBuffer())
+  // ZIP内に複数ファイルがある場合は、2つ目以降の見出し行を落として連結する
+  if (source.zipped) {
+    const files = extractDataFilesFromZip(buffer)
+    if (files.length === 1) {
+      buffer = files[0]
+    } else {
+      const texts = files.map((file) => decodeBuffer(file, source.encoding))
+      return texts
+        .map((text, index) => {
+          const lines = text.split(LINE_BREAK)
+          // 2つ目以降のファイルは見出し行を落としてから繋ぐ
+          return (index === 0 ? lines : lines.slice(source.headerRow + 1)).join("\n")
+        })
+        .join("\n")
+    }
   }
-  return text
+  return decodeBuffer(buffer, source.encoding)
 }
 
 /**
