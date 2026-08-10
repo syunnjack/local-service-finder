@@ -18,6 +18,7 @@
  *     期限切れであることを明示する（勝手に除外すると事実と食い違う）。
  */
 import { readFile, writeFile, mkdir } from "node:fs/promises"
+import ExcelJS from "exceljs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -76,6 +77,36 @@ async function fetchHtmlRows(source) {
   return target
 }
 
+/** Excel（xlsx）を行の二次元配列にする。県単位で公開している自治体があるため。 */
+async function fetchXlsxRows(source) {
+  const response = await fetch(source.csvUrl, { signal: AbortSignal.timeout(60000), redirect: "follow" })
+  if (!response.ok) throw new Error(`HTTP ${response.status}`)
+  const workbook = new ExcelJS.Workbook()
+  await workbook.xlsx.load(Buffer.from(await response.arrayBuffer()))
+  const sheet = workbook.worksheets[source.sheetIndex ?? 0]
+  if (!sheet) throw new Error("シートが無い")
+  const rows = []
+  sheet.eachRow((row) => {
+    const cells = []
+    row.eachCell({ includeEmpty: true }, (cell) => cells.push(String(cell.text ?? "").trim()))
+    rows.push(cells)
+  })
+  return rows
+}
+
+/**
+ * 住所から市区町村名を取り出す。県単位のファイルを市町村ごとに分けるため。
+ * 「三重県三重郡菰野町」「三重郡菰野町」「桑名市」のどれでも菰野町・桑名市になる。
+ */
+function extractCity(address, prefecture) {
+  let value = String(address ?? "").trim()
+  if (!value) return null
+  if (prefecture && value.startsWith(prefecture)) value = value.slice(prefecture.length)
+  value = value.replace(/^.+?郡/, "")
+  const match = /^(.+?[市区町村])/.exec(value)
+  return match ? match[1] : null
+}
+
 async function fetchCsv(source) {
   const response = await fetch(source.csvUrl, { signal: AbortSignal.timeout(45000), redirect: "follow" })
   if (!response.ok) throw new Error(`HTTP ${response.status}`)
@@ -116,7 +147,11 @@ let totalOperators = 0
 for (const source of sources) {
   let rows
   try {
-    rows = source.format === "html" ? await fetchHtmlRows(source) : parseCsv(await fetchCsv(source))
+    rows = source.format === "html"
+      ? await fetchHtmlRows(source)
+      : source.format === "xlsx"
+        ? await fetchXlsxRows(source)
+        : parseCsv(await fetchCsv(source))
   } catch (error) {
     console.log(`${source.city}: 取得失敗 ${String(error.message).slice(0, 60)}`)
     continue
@@ -149,7 +184,11 @@ for (const source of sources) {
     const expiryNote = expiry ? null : (cell(row, "expiryYear") || null)
 
     // 前橋市の区分は「01販売」のように連番が前置される。表示用に数字を落とす。
-    const kind = cell(row, "kind").replace(/^\d+/, "").trim() || null
+    // 区分は「01販売」のように連番が前置される場合と、
+    // 「第一種動物取扱業(保管)」のように括弧に入る場合がある。
+    const rawKind = cell(row, "kind")
+    const parenthesised = /[(（]([^)）]+)[)）]/.exec(rawKind)
+    const kind = (parenthesised ? parenthesised[1] : rawKind.replace(/^\d+/, "")).trim() || null
 
     // 取り扱う動物は「犬(40)」のような自由記述。列ごとにまとめて持つ。
     const animals = {}
@@ -193,21 +232,42 @@ for (const source of sources) {
     continue
   }
 
-  totalOperators += operators.length
-  municipalities.push({
+  const common = {
     category: source.category ?? "waste",
-    muniCode: source.muniCode,
     prefecture: source.prefecture,
-    city: source.city,
     // 収集運搬か処分かで意味が違う。不用品の持ち出しに必要なのは収集運搬の許可。
     permitType: source.permitType ?? "収集運搬",
     license: source.license,
     attribution: source.attribution,
     sourcePage: source.sourcePage,
     csvUrl: source.csvUrl,
-    operatorCount: operators.length,
-    operators,
-  })
+  }
+
+  // 県が県内全域をまとめて公開している場合は、住所から市町村ごとに分ける。
+  // 利用者は「自分の市町村」で探すため、県単位のまま出すと使いづらい。
+  if (source.splitByCity) {
+    const groups = new Map()
+    for (const operator of operators) {
+      const city = extractCity(operator.address, source.prefecture)
+      if (!city) continue
+      if (!groups.has(city)) groups.set(city, [])
+      groups.get(city).push(operator)
+    }
+    // 1件しかない市町村まで選択肢に出すと選びにくいので、下限を設ける
+    const minimum = source.minOperatorsPerCity ?? 3
+    let added = 0
+    for (const [city, list] of [...groups].sort((a, b) => b[1].length - a[1].length)) {
+      if (list.length < minimum) continue
+      municipalities.push({ ...common, muniCode: `${source.muniCode}-${city}`, city, operatorCount: list.length, operators: list })
+      totalOperators += list.length
+      added += list.length
+    }
+    console.log(`${source.prefecture}（県公開）: ${added}件 / ${municipalities.filter((m) => m.sourcePage === source.sourcePage).length}市町村`)
+    continue
+  }
+
+  totalOperators += operators.length
+  municipalities.push({ ...common, muniCode: source.muniCode, city: source.city, operatorCount: operators.length, operators })
   console.log(`${source.prefecture}${source.city}: ${operators.length}業者（期限切れ ${operators.filter((o) => o.expired).length}件）`)
 }
 
