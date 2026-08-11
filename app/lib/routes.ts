@@ -40,7 +40,16 @@ export function isKnownHost(host: string) {
   return normalized === PORTAL_HOST || verticalForHost(normalized) !== null
 }
 
-/** 市区町村ページ。muniCode は全国地方公共団体コード。 */
-export function areaPath(muniCode: string) {
-  return `/area/${muniCode}`
+/**
+ * 市区町村ページ。
+ *
+ * muniCode は原則として全国地方公共団体コードだが、
+ * 県が一括公開しているものを市町村へ割り振った分は「24000-津市」の形になる。
+ * そのままURLに置けないので必ずエンコードする。
+ *
+ * 1ページ目に /p/1 を付けないのは、同じ中身が2つのURLで出ないようにするため。
+ */
+export function areaPath(muniCode: string, page = 1) {
+  const base = `/area/${encodeURIComponent(muniCode)}`
+  return page > 1 ? `${base}/p/${page}` : base
 }
