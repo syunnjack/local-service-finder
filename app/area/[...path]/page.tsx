@@ -4,6 +4,7 @@ import { VERTICAL_PERMITS, findMunicipality, operatorsIn } from "../../lib/permi
 import { buildPermitData, MAX_RESULTS } from "../../lib/permit-page"
 import { currentVertical } from "../../lib/site"
 import { areaPath } from "../../lib/routes"
+import { areaStructuredData } from "../../lib/structured-data"
 import VerticalPage from "../../compare/[slug]/vertical-page"
 
 /**
@@ -95,11 +96,27 @@ export default async function AreaPage({
   if (!resolved) notFound()
 
   const { q } = await searchParams
+  const keyword = (q ?? "").trim()
   const permitData = buildPermitData(resolved.vertical, {
     muniCode: resolved.municipality.muniCode,
-    keyword: (q ?? "").trim(),
+    keyword,
     page: resolved.page,
   })
 
-  return <VerticalPage vertical={resolved.vertical} permitData={permitData} />
+  // 絞り込み中は画面に出ている件数と一覧全体がずれるため構造化データは出さない
+  const structured = keyword || !permitData
+    ? null
+    : areaStructuredData(resolved.vertical, resolved.municipality.muniCode, permitData)
+
+  return (
+    <>
+      {structured && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structured) }}
+        />
+      )}
+      <VerticalPage vertical={resolved.vertical} permitData={permitData} />
+    </>
+  )
 }
