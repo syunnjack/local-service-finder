@@ -507,10 +507,31 @@ for (const source of sources) {
   console.log(`${source.prefecture}${source.city}: ${operators.length}業者（期限切れ ${operators.filter((o) => o.expired).length}件）`)
 }
 
+/**
+ * 値の無い項目は書き出さない。
+ *
+ * 全項目を null で持たせると、87,487件のうち nameKana が入っているのは149件、
+ * expiry は348件しかないのに、1件ごとに17項目ぶんの器を書くことになる。
+ * 整形をやめて空の項目を落とすと 44.5MB → 9.4MB になり、
+ * この JSON はまるごと Worker に載るので起動と使用メモリに直に効く。
+ */
+function withoutEmpty(operator) {
+  const kept = {}
+  for (const [key, value] of Object.entries(operator)) {
+    if (value === null || value === undefined || value === "" || value === false) continue
+    if (typeof value === "object" && !Array.isArray(value) && Object.keys(value).length === 0) continue
+    kept[key] = value
+  }
+  return kept
+}
+
 await mkdir(join(root, "app/data"), { recursive: true })
 await writeFile(
   join(root, "app/data/permits.json"),
-  `${JSON.stringify({ generatedAt: today, municipalities }, null, 1)}\n`,
+  `${JSON.stringify({
+    generatedAt: today,
+    municipalities: municipalities.map((m) => ({ ...m, operators: m.operators.map(withoutEmpty) })),
+  })}\n`,
   "utf8",
 )
 
