@@ -18,12 +18,19 @@ export function permitConfigFor(vertical: Vertical) {
 
 export function buildPermitData(
   vertical: Vertical,
-  { muniCode, keyword = "", page = 1 }: { muniCode?: string; keyword?: string; page?: number },
+  { muniCode, keyword = "", page = 1, areaOrigin = "" }:
+    { muniCode?: string; keyword?: string; page?: number; areaOrigin?: string },
 ) {
   const config = permitConfigFor(vertical)
   if (!config) return null
 
-  const municipality = findMunicipality(config.category, muniCode, config.nameFilter)
+  /*
+   * 自治体の指定が無いとき（ジャンルのトップ）に先頭の自治体を出してしまうと、
+   * トップの見出しが「三重県四日市市の美容室」になり、
+   * /area/242021 とまったく同じ中身が2つのURLで出ることになる。
+   * 指定が無いときは一覧の入口として扱い、事業者は出さない。
+   */
+  const municipality = muniCode ? findMunicipality(config.category, muniCode, config.nameFilter) : null
   const operators = municipality ? operatorsIn(municipality, config.nameFilter) : []
   const matched = operators.filter((operator) =>
     !keyword ||
@@ -65,5 +72,11 @@ export function buildPermitData(
     limit: MAX_RESULTS,
     page: current,
     totalPages,
+    /*
+     * 市区町村ページへのリンクをどのドメインへ向けるか。
+     * ポータル（machiselect.jp/compare/hair-salon）から出すときは
+     * /area/... がそのドメインに存在しないため、専用ドメインを付ける。
+     */
+    areaOrigin,
   }
 }

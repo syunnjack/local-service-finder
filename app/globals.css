@@ -47,3 +47,10 @@
 .permit-pages a:hover{border-color:var(--green);color:var(--green)}
 .permit-pages a[aria-current=page]{background:var(--green);border-color:var(--green);color:#fff;font-weight:700}
 .permit-pages span{padding:0 4px;color:#8a968f}
+
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 24px 0;font-size:13px;color:#5c6863}
+.crumbs a{color:inherit;text-decoration:none;border-bottom:1px solid #d6e0da}
+.crumbs a:hover{color:var(--green);border-color:var(--green)}
+.crumbs b{color:#25352e}
+.permit-areas>div{margin-top:12px}
+.permit-areas h3{margin:0 0 6px;font-size:12px;font-weight:700;color:var(--green)}
