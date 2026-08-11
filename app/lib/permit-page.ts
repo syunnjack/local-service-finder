@@ -44,10 +44,10 @@ export function buildPermitData(
   // nameFilter は正規表現でクライアントへ渡せない。何を渡すかを明示しておく。
   const clientConfig = {
     category: config.category,
-    defaultKind: config.defaultKind,
     headline: config.headline,
     description: config.description,
-    sourceNote: config.sourceNote,
+    ...(config.defaultKind ? { defaultKind: config.defaultKind } : {}),
+    ...(config.sourceNote ? { sourceNote: config.sourceNote } : {}),
   }
 
   return {

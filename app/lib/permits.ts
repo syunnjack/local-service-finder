@@ -1,26 +1,32 @@
 import permitData from "../data/permits.json"
 
+/*
+ * 値の無い項目は書き出していない。
+ * 87,487件のうち例えば nameKana が入っているのは149件しかなく、
+ * すべての項目を null で持つと1件あたりの大半が空の値になる。
+ * 全件で44.5MBあったものが9.4MBになり、Workerの読み込みが軽くなる。
+ */
 export type PermitOperator = {
-  permitNo: string | null
   name: string
-  nameKana: string | null
-  phone: string | null
-  address: string | null
-  area: string | null
-  vehicles: string | null
-  note: string | null
-  itemsText: string | null
-  issuedDate: string | null
-  applicant: string | null
-  manager: string | null
+  permitNo?: string
+  nameKana?: string
+  phone?: string
+  address?: string
+  area?: string
+  vehicles?: string
+  note?: string
+  itemsText?: string
+  issuedDate?: string
+  applicant?: string
+  manager?: string
   /** 動物取扱業の区分（販売・保管・貸出・訓練・展示など） */
-  kind: string | null
+  kind?: string
   /** 取り扱う動物。「犬(40)」のような自由記述 */
-  animals: Record<string, string>
-  expiry: string | null
-  expiryNote: string | null
-  expired: boolean
-  items: Record<string, boolean>
+  animals?: Record<string, string>
+  expiry?: string
+  expiryNote?: string
+  expired?: boolean
+  items?: Record<string, boolean>
 }
 
 export type PermitMunicipality = {
@@ -175,7 +181,7 @@ export function municipalityLabel(municipality: PermitMunicipality) {
 export function availableItems(municipality: PermitMunicipality) {
   const keys = new Set<string>()
   for (const operator of municipality.operators) {
-    for (const [key, value] of Object.entries(operator.items)) {
+    for (const [key, value] of Object.entries(operator.items ?? {})) {
       if (value) keys.add(key)
     }
   }
