@@ -24,6 +24,7 @@ export type PermitData = {
   limit: number
   page: number
   totalPages: number
+  areaOrigin: string
 }
 
 /**
@@ -80,6 +81,20 @@ export function PermitResults({
     [operators],
   )
 
+  // 91自治体を一列に並べると探しにくいので都道府県でまとめる
+  const byPrefecture = useMemo(() => {
+    const groups = new Map<string, MunicipalitySummary[]>()
+    for (const summary of summaries) {
+      const list = groups.get(summary.prefecture) ?? []
+      list.push(summary)
+      groups.set(summary.prefecture, list)
+    }
+    return [...groups].map(([prefecture, list]) => [
+      prefecture,
+      [...list].sort((a, b) => b.operatorCount - a.operatorCount),
+    ] as [string, MunicipalitySummary[]])
+  }, [summaries])
+
   const shown = useMemo(
     () => operators
       .filter((operator) => item === "all" || operator.items[item])
@@ -88,7 +103,50 @@ export function PermitResults({
     [operators, item, kind],
   )
 
-  if (!municipality) return <p className="empty">許可業者データを準備しています。</p>
+  if (!summaries.length) return <p className="empty">許可業者データを準備しています。</p>
+
+  /*
+    市区町村の切り替えは選択肢ではなくリンクにしている。
+    select だと検索エンジンが各市区町村のページへ辿り着けず、
+    225自治体分の中身が1ページ分としてしか扱われない。
+  */
+  const areaNav = (
+    <nav className="permit-areas" aria-label="市区町村を選ぶ">
+      <b>市区町村から探す</b>
+      {byPrefecture.map(([prefecture, list]) => (
+        <div key={prefecture}>
+          <h3>{prefecture}</h3>
+          <ul>
+            {list.map((s) => (
+              <li key={s.muniCode}>
+                <a
+                  href={`${data.areaOrigin}${areaPath(s.muniCode)}`}
+                  aria-current={s.muniCode === municipality?.muniCode ? "page" : undefined}
+                >
+                  {s.city}
+                  <span>{s.operatorCount.toLocaleString("ja-JP")}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+  )
+
+  // ジャンルのトップは市区町村の入口。ここで特定の市の事業者は出さない。
+  if (!municipality) {
+    const total = summaries.reduce((sum, s) => sum + s.operatorCount, 0)
+    return (
+      <>
+        <p className="permit-count">
+          {summaries.length}自治体の <b>{total.toLocaleString("ja-JP")}</b> 件を掲載しています。
+          <span>市区町村を選ぶと、その地域の事業者を確認できます。</span>
+        </p>
+        {areaNav}
+      </>
+    )
+  }
 
   return (
     <>
@@ -101,27 +159,7 @@ export function PermitResults({
         <button type="submit">この条件で探す</button>
       </form>
 
-      {/*
-        市区町村の切り替えは選択肢ではなくリンクにしている。
-        select だと検索エンジンが各市区町村のページへ辿り着けず、
-        220自治体分の中身が1ページ分としてしか扱われない。
-      */}
-      <nav className="permit-areas" aria-label="市区町村を選ぶ">
-        <b>市区町村から探す</b>
-        <ul>
-          {summaries.map((s) => (
-            <li key={s.muniCode}>
-              <a
-                href={areaPath(s.muniCode)}
-                aria-current={s.muniCode === municipality.muniCode ? "page" : undefined}
-              >
-                {s.prefecture}{s.city}
-                <span>{s.operatorCount.toLocaleString("ja-JP")}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      {areaNav}
 
       {(items.length > 0 || kinds.length > 0) && (
         <div className="permit-filters">
@@ -205,7 +243,7 @@ export function PermitResults({
       {data.totalPages > 1 && (
         <nav className="permit-pages" aria-label="ページ送り">
           {data.page > 1 && (
-            <a rel="prev" href={areaPath(municipality.muniCode, data.page - 1)}>← 前へ</a>
+            <a rel="prev" href={`${data.areaOrigin}${areaPath(municipality.muniCode, data.page - 1)}`}>← 前へ</a>
           )}
           {pageNumbers(data.page, data.totalPages).map((item, index) =>
             item === "gap"
@@ -213,14 +251,14 @@ export function PermitResults({
               : (
                 <a
                   key={item}
-                  href={areaPath(municipality.muniCode, item)}
+                  href={`${data.areaOrigin}${areaPath(municipality.muniCode, item)}`}
                   aria-current={item === data.page ? "page" : undefined}
                 >
                   {item}
                 </a>
               ))}
           {data.page < data.totalPages && (
-            <a rel="next" href={areaPath(municipality.muniCode, data.page + 1)}>次へ →</a>
+            <a rel="next" href={`${data.areaOrigin}${areaPath(municipality.muniCode, data.page + 1)}`}>次へ →</a>
           )}
         </nav>
       )}
