@@ -22,6 +22,26 @@ export type PermitData = {
   matchedCount: number
   operators: PermitOperator[]
   limit: number
+  page: number
+  totalPages: number
+}
+
+/**
+ * ページ送りに出す番号。全部並べると大阪市で53個になるので、
+ * 端と現在地の周りだけを出し、間は省略する。
+ */
+function pageNumbers(current: number, total: number) {
+  const shown = new Set([1, total, current, current - 1, current + 1])
+  if (current <= 3) [2, 3, 4].forEach((n) => shown.add(n))
+  if (current >= total - 2) [total - 3, total - 2, total - 1].forEach((n) => shown.add(n))
+
+  const sorted = [...shown].filter((n) => n >= 1 && n <= total).sort((a, b) => a - b)
+  const items: (number | "gap")[] = []
+  for (const [index, value] of sorted.entries()) {
+    if (index > 0 && value - sorted[index - 1] > 1) items.push("gap")
+    items.push(value)
+  }
+  return items
 }
 
 /**
@@ -129,7 +149,13 @@ export function PermitResults({
       <p className="permit-count">
         {municipality.prefecture}{municipality.city}の{municipality.permitType}
         {" "}<b>{matchedCount.toLocaleString("ja-JP")}</b> 件
-        {matchedCount > limit && <span>（うち{limit}件を表示。絞り込むと残りも確認できます）</span>}
+        {data.totalPages > 1 && (
+          <span>
+            （{((data.page - 1) * limit + 1).toLocaleString("ja-JP")}〜
+            {Math.min(data.page * limit, matchedCount).toLocaleString("ja-JP")}件目を表示・
+            {data.page}/{data.totalPages}ページ）
+          </span>
+        )}
       </p>
 
       {shown.length === 0 ? (
@@ -174,6 +200,29 @@ export function PermitResults({
             </article>
           ))}
         </div>
+      )}
+
+      {data.totalPages > 1 && (
+        <nav className="permit-pages" aria-label="ページ送り">
+          {data.page > 1 && (
+            <a rel="prev" href={areaPath(municipality.muniCode, data.page - 1)}>← 前へ</a>
+          )}
+          {pageNumbers(data.page, data.totalPages).map((item, index) =>
+            item === "gap"
+              ? <span key={`gap-${index}`} aria-hidden="true">…</span>
+              : (
+                <a
+                  key={item}
+                  href={areaPath(municipality.muniCode, item)}
+                  aria-current={item === data.page ? "page" : undefined}
+                >
+                  {item}
+                </a>
+              ))}
+          {data.page < data.totalPages && (
+            <a rel="next" href={areaPath(municipality.muniCode, data.page + 1)}>次へ →</a>
+          )}
+        </nav>
       )}
 
       <p className="permit-source">

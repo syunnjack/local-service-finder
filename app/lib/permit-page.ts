@@ -16,7 +16,10 @@ export function permitConfigFor(vertical: Vertical) {
   return VERTICAL_PERMITS[vertical.slug] ?? null
 }
 
-export function buildPermitData(vertical: Vertical, { muniCode, keyword = "" }: { muniCode?: string; keyword?: string }) {
+export function buildPermitData(
+  vertical: Vertical,
+  { muniCode, keyword = "", page = 1 }: { muniCode?: string; keyword?: string; page?: number },
+) {
   const config = permitConfigFor(vertical)
   if (!config) return null
 
@@ -26,6 +29,10 @@ export function buildPermitData(vertical: Vertical, { muniCode, keyword = "" }: 
     !keyword ||
     operator.name.includes(keyword) ||
     (operator.address ?? "").includes(keyword))
+
+  // 大阪市の美容所は10,598件ある。1ページに全部は出せないので分割する。
+  const totalPages = Math.max(1, Math.ceil(matched.length / MAX_RESULTS))
+  const current = Math.min(Math.max(1, Math.trunc(page) || 1), totalPages)
 
   // nameFilter は正規表現でクライアントへ渡せない。何を渡すかを明示しておく。
   const clientConfig = {
@@ -54,7 +61,9 @@ export function buildPermitData(vertical: Vertical, { muniCode, keyword = "" }: 
       : null,
     keyword,
     matchedCount: matched.length,
-    operators: matched.slice(0, MAX_RESULTS),
+    operators: matched.slice((current - 1) * MAX_RESULTS, current * MAX_RESULTS),
     limit: MAX_RESULTS,
+    page: current,
+    totalPages,
   }
 }
