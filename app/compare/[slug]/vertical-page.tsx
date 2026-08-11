@@ -83,11 +83,27 @@ export default function VerticalPage({ vertical: v, permitData }: { vertical: Ve
         <nav><a href="#results">比較</a><a href="#reviews">口コミ</a><a href="#request">{v.cta}</a></nav>
       </header>
 
+      {/*
+        市区町村ページでは見出しに地名を入れる。
+        「目黒区 美容室」で探している人に対して、
+        見出しが「美容室は保健所の確認を受けた店だけ。」では地域が示せない。
+      */}
+      {municipality && (
+        <nav className="crumbs" aria-label="現在地">
+          <a href="/">{v.name}</a>
+          <span aria-hidden="true">›</span>
+          <b>{city}{permitData!.page > 1 ? `（${permitData!.page}ページ目）` : ""}</b>
+        </nav>
+      )}
+
       <section className="hero">
         <p>{v.category.toUpperCase()} · LOCAL COMPARISON</p>
         {hasPermits ? (
           <>
-            <h1>{v.name}は<br /><em>{permitConfig!.headline}</em></h1>
+            <h1>
+              {city ? `${city}の${v.name}` : v.name}
+              <br /><em>{permitConfig!.headline}</em>
+            </h1>
             <span>{permitConfig!.description}</span>
             <a href="#results" onClick={() => track("compare")}>一覧を見る →</a>
             <small>掲載データは自治体の公開情報にもとづく実データです。</small>
@@ -105,7 +121,7 @@ export default function VerticalPage({ vertical: v, permitData }: { vertical: Ve
         <div className="head">
           <div>
             <p>LOCAL RESULTS</p>
-            <h2>{hasPermits ? `${v.name}の許可・登録事業者` : v.name}</h2>
+            <h2>{hasPermits ? `${city ? `${city}の` : ""}${v.name}の許可・登録事業者` : v.name}</h2>
           </div>
           {hasPermits && <span>自治体の公開情報より</span>}
         </div>

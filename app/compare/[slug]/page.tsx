@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getVertical, verticals } from "../../lib/verticals"
 import { buildPermitData } from "../../lib/permit-page"
+import { currentHost } from "../../lib/site"
+import { verticalForHost } from "../../lib/routes"
 import VerticalPage from "./vertical-page"
 
 export function generateStaticParams() {
@@ -32,7 +34,11 @@ export default async function Page({
   if (!vertical) notFound()
 
   const { muni, q } = await searchParams
-  const permitData = buildPermitData(vertical, { muniCode: muni, keyword: (q ?? "").trim() })
+  // ポータルから見ているときは /area/... がこのドメインに無いので、専用ドメインへ向ける
+  const host = await currentHost()
+  const areaOrigin = verticalForHost(host)?.slug === vertical.slug ? "" : `https://${vertical.domain}`
+
+  const permitData = buildPermitData(vertical, { muniCode: muni, keyword: (q ?? "").trim(), areaOrigin })
 
   return <VerticalPage vertical={vertical} permitData={permitData} />
 }
