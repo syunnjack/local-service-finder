@@ -71,7 +71,7 @@ export function PermitResults({
   const items = useMemo(() => {
     const keys = new Set<string>()
     for (const operator of operators) {
-      for (const [key, value] of Object.entries(operator.items)) if (value) keys.add(key)
+      for (const [key, value] of Object.entries(operator.items ?? {})) if (value) keys.add(key)
     }
     return [...keys].filter((key) => ITEM_LABELS[key])
   }, [operators])
@@ -97,9 +97,9 @@ export function PermitResults({
 
   const shown = useMemo(
     () => operators
-      .filter((operator) => item === "all" || operator.items[item])
+      .filter((operator) => item === "all" || operator.items?.[item])
       .filter((operator) => kind === "all" || operator.kind === kind)
-      .sort((a, b) => Number(a.expired) - Number(b.expired) || a.name.localeCompare(b.name, "ja")),
+      .sort((a, b) => (a.expired ? 1 : 0) - (b.expired ? 1 : 0) || a.name.localeCompare(b.name, "ja")),
     [operators, item, kind],
   )
 
@@ -226,7 +226,7 @@ export function PermitResults({
                 ))}
               </dl>
               <ul className="permit-items">
-                {Object.entries(operator.items)
+                {Object.entries(operator.items ?? {})
                   .filter(([key, value]) => value && ITEM_LABELS[key])
                   .map(([key]) => <li key={key}>{ITEM_LABELS[key]}</li>)}
               </ul>
