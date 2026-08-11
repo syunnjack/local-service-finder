@@ -12,3 +12,14 @@ export async function resolve(specifier, context, next) {
   }
   return next(specifier, context)
 }
+
+/**
+ * アプリ側は JSON を属性なしで import している（バンドラがそれを許すため）。
+ * Node は属性を要求するので、ここで補う。
+ */
+export async function load(url, context, next) {
+  if (url.endsWith(".json")) {
+    return next(url, { ...context, importAttributes: { type: "json" } })
+  }
+  return next(url, context)
+}
