@@ -49,4 +49,14 @@ test("想定外のホストは既知として扱わない", () => {
 
 test("市区町村ページのURLの形", () => {
   assert.equal(areaPath("131105"), "/area/131105")
+  // 1ページ目に /p/1 は付けない。同じ中身が2つのURLで出てしまう。
+  assert.equal(areaPath("131105", 1), "/area/131105")
+  assert.equal(areaPath("131105", 2), "/area/131105/p/2")
+})
+
+test("県が一括公開している分のコードをURLに置ける", () => {
+  // 「24000-津市」のように日本語を含むコードがある
+  assert.equal(areaPath("24000-津市"), "/area/24000-%E6%B4%A5%E5%B8%82")
+  assert.equal(areaPath("24000-津市", 3), "/area/24000-%E6%B4%A5%E5%B8%82/p/3")
+  assert.ok(!/[^\x00-\x7F]/.test(areaPath("24000-津市")), "URLに生の日本語を残さない")
 })
